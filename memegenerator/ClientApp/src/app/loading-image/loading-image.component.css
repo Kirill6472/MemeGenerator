@@ -1,0 +1,19 @@
+main {
+  margin: 20px 0;
+}
+
+.uploadImg {
+  margin: 0 auto;
+  width: 500px;
+  text-align: center;
+}
+
+header {
+  background-color: mediumpurple;
+}
+
+.inputfile {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

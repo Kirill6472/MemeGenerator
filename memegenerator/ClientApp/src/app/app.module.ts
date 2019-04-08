@@ -5,10 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { LoadingImageComponent } from './loading-image/loading-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoadingImageComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
