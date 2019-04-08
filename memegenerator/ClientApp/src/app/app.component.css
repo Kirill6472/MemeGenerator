@@ -1,6 +1,23 @@
-@media (max-width: 767px) {
-  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-  .body-content {
-    padding-top: 50px;
-  }
+main {
+  margin: 20px 0;
+}
+
+.uploadImg {
+  margin: 0 auto;
+  width: 500px;
+  text-align: center;
+}
+
+header {
+  background-color: mediumpurple;  
+}
+
+h1 {
+  color: papayawhip;
+}
+
+.inputfile {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
