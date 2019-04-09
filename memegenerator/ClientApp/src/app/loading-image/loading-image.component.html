@@ -1,2 +1,7 @@
-<input type='file' (change)="loadImg($event)">
-<img [src]="url" width="700px">
+<header class="head">
+  <h2>Upload your own image</h2>
+</header>
+<main>
+  <input class="center" type='file' (change)="onLoadImg($event)">
+  <img class="center" [src]="url" width="700">
+</main>

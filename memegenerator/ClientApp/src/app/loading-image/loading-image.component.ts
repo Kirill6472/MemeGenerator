@@ -14,13 +14,13 @@ export class LoadingImageComponent implements OnInit {
 
   url = '';
 
-  loadImg(event) {
+  onLoadImg(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]);
 
-      reader.onload = (event) => { 
+      reader.onload = (event: any) => { 
         this.url = event.target.result;
       }
     }
