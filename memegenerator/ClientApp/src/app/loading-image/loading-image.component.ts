@@ -9,18 +9,15 @@ export class LoadingImageComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
   url = '';
 
-  onLoadImg(event: any) {
+  onImageIsLoaded(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]);
 
-      reader.onload = (event: any) => { 
+      reader.onload = (event: any) => {
         this.url = event.target.result;
       }
     }

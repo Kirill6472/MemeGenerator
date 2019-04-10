@@ -8,9 +8,10 @@ describe('LoadingImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoadingImageComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        LoadingImageComponent
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,5 +22,19 @@ describe('LoadingImageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render input tag with type file', () => {
+    fixture = TestBed.createComponent(LoadingImageComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('input'));
+  });
+
+  it('should load image', () => {
+    fixture = TestBed.createComponent(LoadingImageComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('img').src).toContain(component.url);
   });
 });
