@@ -9,7 +9,7 @@ export class LoadingImageComponent implements OnInit {
 
   constructor() { }
 
-  url = '';
+  uploadedImageUrl = '';
 
   onImageIsLoaded(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -18,7 +18,7 @@ export class LoadingImageComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
 
       reader.onload = (event: any) => {
-        this.url = event.target.result;
+        this.uploadedImageUrl = event.target.result;
       }
     }
   }

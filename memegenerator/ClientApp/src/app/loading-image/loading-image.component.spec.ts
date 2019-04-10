@@ -35,6 +35,6 @@ describe('LoadingImageComponent', () => {
     fixture = TestBed.createComponent(LoadingImageComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('img').src).toContain(component.url);
+    expect(compiled.querySelector('img').src).toContain(component.uploadedImageUrl);
   });
 });
