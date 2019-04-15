@@ -4,6 +4,7 @@
 <div class="canvas-container">
   <div class="upload-image">
     <input class="center" type='file' (change)="onImageIsLoaded($event)">
+    <input type="button" (click)="onCreateCanvas()" />
     <canvas id="canvas" width="700" height="700"></canvas>
     <img class="center" id="image" [src]="uploadedImageUrl" width="700">
   </div>

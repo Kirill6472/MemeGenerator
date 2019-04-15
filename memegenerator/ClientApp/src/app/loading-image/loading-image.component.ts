@@ -11,9 +11,7 @@ export class LoadingImageComponent implements OnInit {
 
   private canvas;
   private text;
-  private imgElement;
-  private imgInstance;
-  private img;
+  private imageInstance;
   uploadedImageUrl = '';
 
   constructor() { }
@@ -28,15 +26,15 @@ export class LoadingImageComponent implements OnInit {
 
       reader.readAsDataURL(event.target.files[0]);
     }
-    this.onCreateCanvas();
   }
 
   onCreateCanvas() {
     this.canvas = new fabric.Canvas('canvas');
 
-    this.imgElement = document.getElementById('image');
-    this.imgInstance = new fabric.Image(this.imgElement, {
-    });
+    var myImage = new Image();
+    myImage.src = this.uploadedImageUrl;
+
+    this.imageInstance = new fabric.Image(myImage);
 
     this.text = new fabric.Text('Sample text', {
       fontFamily: 'Impact',
@@ -46,7 +44,11 @@ export class LoadingImageComponent implements OnInit {
       fill: '#ffffff'
     });
 
-    this.canvas.add(this.imgInstance);
     this.canvas.add(this.text);
+    this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
+        scaleY: this.canvas.height / this.imageInstance.width,
+        scaleX: this.canvas.width / this.imageInstance.width,
+        selectable: false
+    });
   }
 }
