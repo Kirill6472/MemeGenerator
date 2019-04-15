@@ -12,3 +12,14 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+canvas {
+  border: 1px dashed black;
+}
+
+.canvas-container {
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 700px;
+}

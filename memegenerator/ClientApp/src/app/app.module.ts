@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoadingImageComponent } from './loading-image/loading-image.component';
+import { EditImageComponent } from './edit-image/edit-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     LoadingImageComponent,
+    EditImageComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
