@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import "fabric"
+
+import fabric = require('fabric/fabric-impl');
 
 @Component({
   selector: 'app-edit-image',
