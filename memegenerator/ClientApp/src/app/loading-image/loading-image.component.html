@@ -1,11 +1,28 @@
 <header class="head">
   <h3>Upload your own image</h3>
 </header>
-<div class="canvas-container">
+<div class="canvas-container" *ngIf="!setMemePreview">
   <div class="upload-image">
-    <input class="center" type='file' (change)="onImageIsLoaded($event)">
-    <!--<input type="button" (click)="onCreateCanvas()" />-->
-    <canvas id="canvas" width="700" height="700"></canvas>
+    <input class="center" type='file' (change)="onImageIsLoaded($event)" *ngIf="!condition">
   </div>
+  <div class="btn-toolbar" role="toolbar" *ngIf="condition">
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-primary" (click)="onAddText()">Add text</button>
+      <button type="button" class="btn btn-outline-danger" (click)="onDeleteText()">Delete text</button>
+    </div>
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-primary" (click)="onGenerateMeme()">Generate Meme</button>
+    </div>
+  </div>
+  <canvas id="canvas" width="700" height="500"></canvas>
 </div>
+<div class="meme-preview" *ngIf="setMemePreview">
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-primary" (click)="onCreateNewMeme()">Create a new Meme</button>
+    </div>
+  </div>
+  <img id="image" [src]=memePreview />
+</div>
+
 <!--<app-edit-image></app-edit-image>-->
