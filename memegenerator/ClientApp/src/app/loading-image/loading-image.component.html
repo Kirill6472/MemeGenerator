@@ -7,7 +7,7 @@
   </div>
   <div class="btn-toolbar" role="toolbar" *ngIf="condition">
     <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="onAddText()">Add text</button>
+      <button type="button" class="btn btn-outline-primary" (click)="text.addTextToCanvas()">Add text</button>
       <button type="button" class="btn btn-outline-danger" (click)="onDeleteText()">Delete text</button>
     </div>
     <div class="btn-group mr-2" role="group">
@@ -25,4 +25,4 @@
   <img id="image" [src]=memePreview />
 </div>
 
-<!--<app-edit-image></app-edit-image>-->
+<app-edit-image #text></app-edit-image>

@@ -9,26 +9,34 @@ import fabric = require('fabric/fabric-impl');
 })
 export class EditImageComponent {
 
-  private canvas: fabric.Canvas;
+  private _canvas: fabric.Canvas;
+
+  @Input()
+  set canvas(canvas: fabric.Canvas) {
+    this._canvas = canvas;
+  }
+
+  get canvas(): fabric.Canvas { return this._canvas; }
+
   private text: fabric.Text;
 
   constructor() { }
 
-  onAddTextToCanvas() {
-    this.canvas = new fabric.Canvas('canvas');
+  addTextToCanvas() { this.addText(); }
 
+  private addText() {
     var sampleText = 'Sample\ntext';
-    this.text = new fabric.Text(sampleText, {
+    this.text = new fabric.IText(sampleText, {
       fontFamily: 'Impact',
       fontSize: 50,
       stroke: '#000000',
       strokeWidth: 3,
       fill: '#ffffff',
       textAlign: 'center',
-      left: this.canvas.getWidth() / 2,
+      left: this._canvas.getWidth() / 2,
       originX: 'center'
     });
 
-    this.canvas.add(this.text);
+    this._canvas.add(this.text);
   }
 }

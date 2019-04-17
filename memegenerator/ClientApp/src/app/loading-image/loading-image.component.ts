@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { EditImageComponent } from '../edit-image/edit-image.component';
 
 import "fabric"
 import fabric = require('fabric/fabric-impl');
@@ -10,14 +11,14 @@ import fabric = require('fabric/fabric-impl');
 })
 export class LoadingImageComponent {
 
-  private canvas: fabric.Canvas;
+  canvas: fabric.Canvas;
   private text: fabric.Text;
   private imageInstance: any;
   uploadedImageUrl: string = '';
   condition: boolean = false;
   setMemePreview: boolean = false;
   memePreview: string = '';
-
+  
   constructor() { }
 
   onImageIsLoaded(event: any) {
@@ -48,21 +49,21 @@ export class LoadingImageComponent {
     image.src = this.uploadedImageUrl;
   }
   
-  onAddText() {
-    var sampleText = 'Sample\ntext';
-    this.text = new fabric.IText(sampleText, {
-      fontFamily: 'Impact',
-      fontSize: 50,
-      stroke: '#000000',
-      strokeWidth: 3,
-      fill: '#ffffff',
-      textAlign: 'center',
-      left: this.canvas.getWidth() / 2,
-      originX: 'center'
-    });
+  //onAddText() {
+  //  var sampleText = 'Sample\ntext';
+  //  this.text = new fabric.IText(sampleText, {
+  //    fontFamily: 'Impact',
+  //    fontSize: 50,
+  //    stroke: '#000000',
+  //    strokeWidth: 3,
+  //    fill: '#ffffff',
+  //    textAlign: 'center',
+  //    left: this.canvas.getWidth() / 2,
+  //    originX: 'center'
+  //  });
 
-    this.canvas.add(this.text);
-  }
+  //  this.canvas.add(this.text);
+  //}
 
   onDeleteText() {
     this.canvas.remove(this.canvas.getActiveObject());
