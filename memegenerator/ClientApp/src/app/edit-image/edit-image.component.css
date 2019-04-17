@@ -1,5 +1,7 @@
 canvas {
-  border: 1px dashed black;
+  /*border: 1px dashed black;*/
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .canvas-container {
@@ -7,4 +9,15 @@ canvas {
   margin: auto;
   display: block;
   width: 700px;
+}
+
+.meme-preview {
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 700px;
+}
+
+img {
+  margin: 20px 0;
 }
