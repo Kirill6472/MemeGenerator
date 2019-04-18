@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import "fabric";
-import fabric = require('fabric/fabric-impl');
+declare const fabric: any;
 
 @Component({
   selector: 'app-edit-image',
@@ -12,7 +12,7 @@ export class EditImageComponent {
 
   canvas: fabric.Canvas;
   private text: fabric.Text;
-  private imageInstance: any;
+  imageInstance: any;
   uploadedImageUrl: string = '';
   imageUploaded: boolean = false;
   setMemePreview: boolean = false;

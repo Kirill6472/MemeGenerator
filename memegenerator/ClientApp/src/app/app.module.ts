@@ -14,7 +14,7 @@ import { EditImageComponent } from './edit-image/edit-image.component';
     AppComponent,
     NavMenuComponent,
     LoadingImageComponent,
-    EditImageComponent,
+    EditImageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

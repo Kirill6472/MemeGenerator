@@ -1,6 +1,9 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { LoadingImageComponent } from './loading-image.component';
+
+@Component({ selector: 'app-edit-image', template: '' })
+class EditImageComponent { }
 
 describe('LoadingImageComponent', () => {
   let component: LoadingImageComponent;
@@ -9,8 +12,10 @@ describe('LoadingImageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        LoadingImageComponent
-      ]
+        LoadingImageComponent,
+        EditImageComponent
+      ],
+      providers: [{ provide: EditImageComponent, useValue: editImageComponentStub }]
     }).compileComponents();
   }));
 
@@ -20,21 +25,33 @@ describe('LoadingImageComponent', () => {
     fixture.detectChanges();
   });
 
+  const editImageComponentStub = {
+    addImageToCanvas: () => { },
+    hideImageLoading: () => { }
+  };
+
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should render input tag with type file', () => {
-    fixture = TestBed.createComponent(LoadingImageComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('input'));
   });
 
-  it('should load image', () => {
-    fixture = TestBed.createComponent(LoadingImageComponent);
+  it('should load image and add to canvas', () => {
+    spyOn(editImageComponentStub, 'addImageToCanvas');
+    editImageComponentStub.addImageToCanvas();
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('img').src).toContain(component.uploadedImageUrl);
+    expect(editImageComponentStub.addImageToCanvas).toHaveBeenCalled();
+  });
+
+  it('should hide image loading element', () => {
+    spyOn(editImageComponentStub, 'hideImageLoading');
+    editImageComponentStub.hideImageLoading();
+    fixture.detectChanges();
+    expect(editImageComponentStub.hideImageLoading).toHaveBeenCalled();
   });
 });

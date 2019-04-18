@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { EditImageComponent } from '../edit-image/edit-image.component';
 
-import fabric = require('fabric/fabric-impl');
-
 @Component({
   selector: 'app-loading-image',
   templateUrl: './loading-image.component.html',
