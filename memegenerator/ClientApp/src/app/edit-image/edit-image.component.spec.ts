@@ -2,13 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditImageComponent } from './edit-image.component';
 import "fabric";
-declare const fabric: any;
+
+declare var fabric: any;
+
+var fakeCanvas = {
+  setBackgroundImage: () => { }
+};
 
 describe('EditImageComponent', () => {
   let component: EditImageComponent;
   let fixture: ComponentFixture<EditImageComponent>;
-  var yFabricService;
-  var fakeFabric;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,9 +26,12 @@ describe('EditImageComponent', () => {
   });
 
   beforeEach(() => {
-    fakeFabric = {
-      canvas: fabric.Canvas
+    fabric = {
+      Canvas: fabric.Canvas = fakeCanvas
     };
+
+    spyOn(fabric.Canvas, "setBackgroundImage");
+    fabric.Canvas.setBackgroundImage();
   });
 
   it('should create', () => {
@@ -38,16 +44,6 @@ describe('EditImageComponent', () => {
   });
 
   it('should load image', () => {
-    var image = new Image();
-    image.onload = () => {
-      fakeFabric.canvas.setBackgroundImage(component.imageInstance, fakeFabric.canvas.renderAll.bind(fakeFabric.canvas), {
-        scaleY: fakeFabric.canvas.getHeight() / component.imageInstance.height,
-        scaleX: fakeFabric.canvas.getWidth() / component.imageInstance.width,
-        selectable: false
-      });
-    }
-    image.src = component.uploadedImageUrl;
-
-    expect(fakeFabric.canvas.setBackgroundImage).toContain(component.canvas.setBackgroundImage);
+    expect(fabric.Canvas.setBackgroundImage).toHaveBeenCalledWith();
   });
 });

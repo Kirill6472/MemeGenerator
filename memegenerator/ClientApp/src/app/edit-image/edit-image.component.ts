@@ -12,11 +12,11 @@ export class EditImageComponent {
 
   canvas: fabric.Canvas;
   private text: fabric.Text;
-  imageInstance: any;
-  uploadedImageUrl: string = '';
-  imageUploaded: boolean = false;
-  setMemePreview: boolean = false;
-  memePreview: string = '';
+  private imageInstance: any;
+  private uploadedImageUrl: string = '';
+  private imageUploaded: boolean = false;
+  private setMemePreview: boolean = false;
+  private memePreview: string = '';
   
   constructor() { }
 
