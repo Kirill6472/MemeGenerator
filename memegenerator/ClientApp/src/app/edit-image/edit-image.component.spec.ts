@@ -43,7 +43,13 @@ describe('EditImageComponent', () => {
     expect(compiled.querySelector('canvas'));
   });
 
-  it('should load image', () => {
-    expect(fabric.Canvas.setBackgroundImage).toHaveBeenCalledWith();
+  it('should add background image', () => {
+    //let obj = jasmine.createSpyObj('fakeCanvas', ['setBackgroundImage', 'renderAll', 'getWidth', 'getHeight']);
+    //obj.renderAll.and.return();
+
+    let promise = component.addImageToCanvas();
+    promise.then(() => {
+      expect(fabric.Canvas.setBackgroundImage).toHaveBeenCalled();
+    });
   });
 });

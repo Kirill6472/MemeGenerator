@@ -13,7 +13,7 @@ export class EditImageComponent {
   canvas: fabric.Canvas;
   private text: fabric.Text;
   private imageInstance: any;
-  private uploadedImageUrl: string = '';
+  uploadedImageUrl: string = '';
   private imageUploaded: boolean = false;
   private setMemePreview: boolean = false;
   private memePreview: string = '';
@@ -24,15 +24,19 @@ export class EditImageComponent {
     this.canvas = new fabric.Canvas('canvas');
 
     var image = new Image();
-    image.onload = () => {
-      this.imageInstance = new fabric.Image(image);
-      this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
-        scaleY: this.canvas.getHeight() / this.imageInstance.height,
-        scaleX: this.canvas.getWidth() / this.imageInstance.width,
-        selectable: false
-      });
-    };
-    image.src = this.uploadedImageUrl;
+    
+    return new Promise((resolve) => {
+      image.onload = () => {
+        this.imageInstance = new fabric.Image(image);
+        this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
+          scaleY: this.canvas.getHeight() / this.imageInstance.height,
+          scaleX: this.canvas.getWidth() / this.imageInstance.width,
+          selectable: false
+        });
+        resolve();
+      };
+      image.src = this.uploadedImageUrl;
+    });
   }
 
   onAddText() {

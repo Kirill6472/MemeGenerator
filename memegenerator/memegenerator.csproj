@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.component.spec.ts" />
-    <None Remove="ClientApp\src\app\ICanvasFactory.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
   </ItemGroup>
 
@@ -36,7 +35,6 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.spec.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\ICanvasFactory.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
   </ItemGroup>
 
