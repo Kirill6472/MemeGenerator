@@ -6,6 +6,7 @@ import { FabricFactoryService } from '../fabric-factory.service';
 let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
 let fakeCanvas: jasmine.SpyObj<fabric.Canvas>;
 let fakeImage: jasmine.SpyObj<fabric.Image>;
+let imageInstance: any;
 
 describe('EditImageComponent', () => {
   let component: EditImageComponent;
@@ -41,7 +42,12 @@ describe('EditImageComponent', () => {
   it('should set background image', () => {
     let promise = component.addImageToCanvas();
     promise.then(() => {
-      expect(fakeCanvas.setBackgroundImage).toHaveBeenCalled();
+      imageInstance = fakeImage;
+      expect(fakeCanvas.setBackgroundImage).toHaveBeenCalledWith(imageInstance, fakeCanvas.renderAll.bind(fakeCanvas), {
+        scaleY: fakeCanvas.getHeight() / imageInstance.height,
+        scaleX: fakeCanvas.getWidth() / imageInstance.width,
+        selectable: false
+      });
     });
   });
 });

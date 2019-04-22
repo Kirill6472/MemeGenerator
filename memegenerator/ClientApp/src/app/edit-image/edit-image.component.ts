@@ -12,8 +12,7 @@ declare const fabric: any;
 export class EditImageComponent {
 
   private canvas: fabric.Canvas;
-  private image: HTMLImageElement;
-  private imageInstance: HTMLImageElement;
+  private imageInstance: any;
   private text: fabric.Text;
   uploadedImageUrl: string = '';
   private imageUploaded: boolean = false;
@@ -24,11 +23,12 @@ export class EditImageComponent {
 
   addImageToCanvas() {
     this.canvas = this.fabricFactory.createCanvas('canvas');
-    this.image = this.fabricFactory.createImage();
+
+    var image = new Image();
     
     return new Promise((resolve) => {
-      this.image.onload = () => {
-        this.imageInstance = new fabric.Image(this.image);
+      image.onload = () => {
+        this.imageInstance = this.fabricFactory.createImage(image);
         this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
           scaleY: this.canvas.getHeight() / this.imageInstance.height,
           scaleX: this.canvas.getWidth() / this.imageInstance.width,
@@ -36,7 +36,7 @@ export class EditImageComponent {
         });
         resolve();
       };
-      this.image.src = this.uploadedImageUrl;
+      image.src = this.uploadedImageUrl;
     });
   }
 

@@ -8,6 +8,7 @@ declare const fabric: any;
 export class FabricFactoryService {
 
   private canvas: fabric.Canvas;
+  private image: fabric.Image;
 
   constructor() { }
 
@@ -15,7 +16,7 @@ export class FabricFactoryService {
     return this.canvas = new fabric.Canvas(canvas);
   }
 
-  createImage() {
-    return new Image();
+  createImage(image: HTMLImageElement) {
+    return this.image = new fabric.Image(image);
   }
 }
