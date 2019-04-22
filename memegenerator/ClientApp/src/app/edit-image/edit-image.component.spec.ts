@@ -5,8 +5,7 @@ import { FabricFactoryService } from '../fabric-factory.service';
 
 let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
 let fakeCanvas: jasmine.SpyObj<fabric.Canvas>;
-let fakeImage: jasmine.SpyObj<fabric.Image>;
-let imageInstance: any;
+let fakeImage: fabric.Image;
 
 describe('EditImageComponent', () => {
   let component: EditImageComponent;
@@ -15,8 +14,6 @@ describe('EditImageComponent', () => {
   beforeEach(async(() => {
     fakeCanvas = jasmine.createSpyObj('fakeCanvas', ['setBackgroundImage', 'renderAll', 'getWidth', 'getHeight']);
     fabricFactoryMock = jasmine.createSpyObj('factoryMock', ['createCanvas', 'createImage']);
-    fabricFactoryMock.createCanvas.and.returnValue(fakeCanvas);
-    fabricFactoryMock.createImage.and.returnValue(fakeImage);
 
     TestBed.configureTestingModule({
       declarations: [EditImageComponent],
@@ -39,15 +36,26 @@ describe('EditImageComponent', () => {
     expect(compiled.querySelector('canvas'));
   });
 
-  it('should set background image', () => {
+  it('should set background image', (done) => {
+    component.uploadedImageUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==';
+
+    let imageWidth = 400;
+    let imageHeight = 500;
+    let canvasWidth = 500;
+    let canvasHeight = 600;
+
+    fakeImage = <fabric.Image>{ width: imageWidth, height: imageHeight }
+    fabricFactoryMock.createImage.and.returnValue(fakeImage);
+
+    fakeCanvas.getWidth.and.returnValue(canvasWidth);
+    fakeCanvas.getHeight.and.returnValue(canvasHeight);
+
+    fabricFactoryMock.createCanvas.and.returnValue(fakeCanvas);
+    
     let promise = component.addImageToCanvas();
     promise.then(() => {
-      imageInstance = fakeImage;
-      expect(fakeCanvas.setBackgroundImage).toHaveBeenCalledWith(imageInstance, fakeCanvas.renderAll.bind(fakeCanvas), {
-        scaleY: fakeCanvas.getHeight() / imageInstance.height,
-        scaleX: fakeCanvas.getWidth() / imageInstance.width,
-        selectable: false
-      });
+      expect(fakeCanvas.setBackgroundImage).toHaveBeenCalled();
+      done();
     });
   });
 });
