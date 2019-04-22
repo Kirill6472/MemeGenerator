@@ -1,38 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditImageComponent } from './edit-image.component';
-import "fabric";
+import { fabric } from "fabric";
+import { FabricFactoryService } from '../fabric-factory.service';
 
-declare var fabric: any;
-
-var fakeCanvas = {
-  setBackgroundImage: () => { }
-};
+let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
+let fakeCanvas: jasmine.SpyObj<fabric.Canvas>;
+let fakeImage: jasmine.SpyObj<fabric.Image>;
 
 describe('EditImageComponent', () => {
   let component: EditImageComponent;
   let fixture: ComponentFixture<EditImageComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EditImageComponent ]
-    }).compileComponents();
-  }));
+    fakeCanvas = jasmine.createSpyObj('fakeCanvas', ['setBackgroundImage', 'renderAll', 'getWidth', 'getHeight']);
+    fabricFactoryMock = jasmine.createSpyObj('factoryMock', ['createCanvas', 'createImage']);
+    fabricFactoryMock.createCanvas.and.returnValue(fakeCanvas);
+    fabricFactoryMock.createImage.and.returnValue(fakeImage);
 
-  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [EditImageComponent],
+      providers: [
+        { provide: FabricFactoryService, useValue: fabricFactoryMock }
+      ]
+    }).compileComponents();
+
     fixture = TestBed.createComponent(EditImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  beforeEach(() => {
-    fabric = {
-      Canvas: fabric.Canvas = fakeCanvas
-    };
-
-    spyOn(fabric.Canvas, "setBackgroundImage");
-    fabric.Canvas.setBackgroundImage();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -43,13 +38,10 @@ describe('EditImageComponent', () => {
     expect(compiled.querySelector('canvas'));
   });
 
-  it('should add background image', () => {
-    //let obj = jasmine.createSpyObj('fakeCanvas', ['setBackgroundImage', 'renderAll', 'getWidth', 'getHeight']);
-    //obj.renderAll.and.return();
-
+  it('should set background image', () => {
     let promise = component.addImageToCanvas();
     promise.then(() => {
-      expect(fabric.Canvas.setBackgroundImage).toHaveBeenCalled();
+      expect(fakeCanvas.setBackgroundImage).toHaveBeenCalled();
     });
   });
 });

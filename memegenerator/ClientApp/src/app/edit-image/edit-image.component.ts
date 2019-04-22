@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FabricFactoryService } from '../fabric-factory.service';
 
 import "fabric";
 declare const fabric: any;
@@ -10,24 +11,24 @@ declare const fabric: any;
 })
 export class EditImageComponent {
 
-  canvas: fabric.Canvas;
+  private canvas: fabric.Canvas;
+  private image: HTMLImageElement;
+  private imageInstance: HTMLImageElement;
   private text: fabric.Text;
-  private imageInstance: any;
   uploadedImageUrl: string = '';
   private imageUploaded: boolean = false;
   private setMemePreview: boolean = false;
   private memePreview: string = '';
   
-  constructor() { }
+  constructor(private fabricFactory: FabricFactoryService) { }
 
   addImageToCanvas() {
-    this.canvas = new fabric.Canvas('canvas');
-
-    var image = new Image();
+    this.canvas = this.fabricFactory.createCanvas('canvas');
+    this.image = this.fabricFactory.createImage();
     
     return new Promise((resolve) => {
-      image.onload = () => {
-        this.imageInstance = new fabric.Image(image);
+      this.image.onload = () => {
+        this.imageInstance = new fabric.Image(this.image);
         this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
           scaleY: this.canvas.getHeight() / this.imageInstance.height,
           scaleX: this.canvas.getWidth() / this.imageInstance.width,
@@ -35,7 +36,7 @@ export class EditImageComponent {
         });
         resolve();
       };
-      image.src = this.uploadedImageUrl;
+      this.image.src = this.uploadedImageUrl;
     });
   }
 
