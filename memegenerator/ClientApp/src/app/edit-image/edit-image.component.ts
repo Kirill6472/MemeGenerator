@@ -41,18 +41,9 @@ export class EditImageComponent {
   }
 
   onAddText() {
-    var sampleText = 'Sample\ntext';
-    this.text = new fabric.IText(sampleText, {
-      fontFamily: 'Impact',
-      fontSize: 50,
-      stroke: '#000000',
-      strokeWidth: 3,
-      fill: '#ffffff',
-      textAlign: 'center',
-      left: this.canvas.getWidth() / 2,
-      originX: 'center'
-    });
+    let sampleText = 'Sample\ntext';
 
+    this.text = this.fabricFactory.createText(sampleText);
     this.canvas.add(this.text);
   }
 

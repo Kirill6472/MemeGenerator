@@ -6,14 +6,15 @@ import { FabricFactoryService } from '../fabric-factory.service';
 let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
 let fakeCanvas: jasmine.SpyObj<fabric.Canvas>;
 let fakeImage: fabric.Image;
+let fakeText: fabric.Text;
 
 describe('EditImageComponent', () => {
   let component: EditImageComponent;
   let fixture: ComponentFixture<EditImageComponent>;
 
   beforeEach(async(() => {
-    fakeCanvas = jasmine.createSpyObj('fakeCanvas', ['setBackgroundImage', 'renderAll', 'getWidth', 'getHeight']);
-    fabricFactoryMock = jasmine.createSpyObj('factoryMock', ['createCanvas', 'createImage']);
+    fakeCanvas = jasmine.createSpyObj('fakeCanvas', ['setBackgroundImage', 'renderAll', 'getWidth', 'getHeight', 'add']);
+    fabricFactoryMock = jasmine.createSpyObj('fabricFactoryMock', ['createCanvas', 'createImage', 'createText']);
 
     TestBed.configureTestingModule({
       declarations: [EditImageComponent],
@@ -44,7 +45,7 @@ describe('EditImageComponent', () => {
     let canvasWidth = 500;
     let canvasHeight = 600;
 
-    fakeImage = <fabric.Image>{ width: imageWidth, height: imageHeight }
+    fakeImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
     fabricFactoryMock.createImage.and.returnValue(fakeImage);
 
     fakeCanvas.getWidth.and.returnValue(canvasWidth);
@@ -57,5 +58,10 @@ describe('EditImageComponent', () => {
       expect(fakeCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
     });
+  });
+
+  it('should add text to image', () => {
+    component.onAddText();
+    expect(component.onAddText).toHaveBeenCalled();
   });
 });
