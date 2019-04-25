@@ -11,8 +11,6 @@ export class LoadingImageComponent {
   @ViewChild(EditImageComponent)
   private editImage: EditImageComponent;
 
-  constructor() { }
-
   onImageIsLoaded(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();

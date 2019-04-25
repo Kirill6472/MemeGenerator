@@ -3,7 +3,7 @@
 </header>
 
 <div class="upload-image">
-  <input class="center" type='file' (change)="onImageIsLoaded($event)" *ngIf="!text.imageUploaded">
+  <input class="center" type='file' (change)="onImageIsLoaded($event)" *ngIf="!image.showUploadedImage">
 </div>
 
-<app-edit-image #text></app-edit-image>
+<app-edit-image #image></app-edit-image>

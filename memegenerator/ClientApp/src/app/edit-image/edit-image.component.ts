@@ -11,18 +11,21 @@ declare const fabric: any;
 })
 export class EditImageComponent {
 
-  private canvas: fabric.Canvas;
-  private imageInstance: any;
-  private text: fabric.Text;
+  canvas: fabric.Canvas;
+  imageInstance: any;
+  text: fabric.Text;
   uploadedImageUrl: string = '';
-  private imageUploaded: boolean = false;
-  private setMemePreview: boolean = false;
-  private memePreview: string = '';
+  showUploadedImage: boolean = false;
+  displayMemePreview: boolean = false;
   
   constructor(private fabricFactory: FabricFactoryService) { }
 
-  addImageToCanvas() {
+  getCanvas() {
     this.canvas = this.fabricFactory.createCanvas('canvas');
+  }
+
+  addImageToCanvas() {
+    this.getCanvas();
 
     var image = new Image();
     
@@ -33,7 +36,7 @@ export class EditImageComponent {
           scaleY: this.canvas.getHeight() / this.imageInstance.height,
           scaleX: this.canvas.getWidth() / this.imageInstance.width,
           selectable: false
-        });
+        }); 
         resolve();
       };
       image.src = this.uploadedImageUrl;
@@ -41,9 +44,7 @@ export class EditImageComponent {
   }
 
   onAddText() {
-    let sampleText = 'Sample\ntext';
-
-    this.text = this.fabricFactory.createText(sampleText);
+    this.text = this.fabricFactory.createText('Sample\ntext');
     this.canvas.add(this.text);
   }
 
@@ -51,22 +52,25 @@ export class EditImageComponent {
     this.canvas.remove(this.canvas.getActiveObject());
   }
 
-  onClearCanvas() {
-    this.canvas.clear();
-    this.imageUploaded = false;
-  }
-
   hideImageLoading() {
-    this.imageUploaded = true;
+    this.showUploadedImage = true;
   }
 
-  onGenerateMeme() {
-    this.setMemePreview = true;
-    this.memePreview = this.canvas.toDataURL();
+  showMemePreview() {
+    this.displayMemePreview = true;
+  }
+
+  generateMeme() {
+    return this.canvas.toDataURL();
+  }
+
+  onGenerateAndDisplayMeme() {
+    this.showMemePreview();
+    this.generateMeme();
   }
 
   onCreateNewMeme() {
-    this.setMemePreview = false;
-    this.imageUploaded = false;
+    this.displayMemePreview = false;
+    this.showUploadedImage = false;
   }
 }
