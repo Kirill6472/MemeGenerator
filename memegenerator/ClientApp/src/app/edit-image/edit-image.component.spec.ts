@@ -42,10 +42,10 @@ describe("EditImageComponent", () => {
   it("should set background image", (done) => {
     component.uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
 
-    let imageWidth = 400;
-    let imageHeight = 500;
-    let canvasWidth = 500;
-    let canvasHeight = 600;
+    const imageWidth = 400;
+    const imageHeight = 500;
+    const canvasWidth = 500;
+    const canvasHeight = 600;
 
     fakeImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
     fabricFactoryMock.createImage.and.returnValue(fakeImage);
@@ -53,7 +53,7 @@ describe("EditImageComponent", () => {
     fakeCanvas.getWidth.and.returnValue(canvasWidth);
     fakeCanvas.getHeight.and.returnValue(canvasHeight);
 
-    let promise = component.addImageToCanvas();
+    const promise = component.addImageToCanvas();
     promise.then(() => {
       expect(fakeCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
@@ -105,5 +105,5 @@ describe("EditImageComponent", () => {
     component.onCreateNewMeme();
     expect(component.displayMemePreview).toBe(false);
     expect(component.showUploadedImage).toBe(false);
-  })
+  });
 });

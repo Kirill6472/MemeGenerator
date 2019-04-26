@@ -1,27 +1,27 @@
-import { Component } from '@angular/core';
-import { FabricFactoryService } from '../fabric-factory.service';
+import { Component } from "@angular/core";
+import { FabricFactoryService } from "../fabric-factory.service";
 
 import "fabric";
 declare const fabric: any;
 
 @Component({
-  selector: 'app-edit-image',
-  templateUrl: './edit-image.component.html',
-  styleUrls: ['./edit-image.component.css']
+  selector: "app-edit-image",
+  templateUrl: "./edit-image.component.html",
+  styleUrls: ["./edit-image.component.css"]
 })
 export class EditImageComponent {
 
   canvas: fabric.Canvas;
   imageInstance: any;
   text: fabric.Text;
-  uploadedImageUrl: string = '';
-  showUploadedImage: boolean = false;
-  displayMemePreview: boolean = false;
+  uploadedImageUrl = "";
+  showUploadedImage = false;
+  displayMemePreview = false;
   
   constructor(private fabricFactory: FabricFactoryService) { }
 
   getCanvas() {
-    this.canvas = this.fabricFactory.createCanvas('canvas');
+    this.canvas = this.fabricFactory.createCanvas("canvas");
   }
 
   addImageToCanvas() {
@@ -44,7 +44,7 @@ export class EditImageComponent {
   }
 
   onAddText() {
-    this.text = this.fabricFactory.createText('Sample\ntext');
+    this.text = this.fabricFactory.createText("Sample\ntext");
     this.canvas.add(this.text);
   }
 

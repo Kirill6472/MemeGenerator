@@ -1,14 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoadingImageComponent } from './loading-image.component';
-import { EditImageComponent } from '../edit-image/edit-image.component';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { LoadingImageComponent } from "./loading-image.component";
+import { EditImageComponent } from "../edit-image/edit-image.component";
+import { LoadingImageFactoryService } from "../loading-image-factory.service";
 
-describe('LoadingImageComponent', () => {
+describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
   let editImageComponentMock: jasmine.SpyObj<EditImageComponent>;
+  let fakeEvent: jasmine.SpyObj<any>;
+  let loadingImageFactoryMock: jasmine.SpyObj<LoadingImageFactoryService>;
 
   beforeEach(async(() => {
-    editImageComponentMock = jasmine.createSpyObj('editImageComponentMock', ['addImageToCanvas', 'hideImageLoading']);
+    editImageComponentMock = jasmine.createSpyObj("editImageComponentMock", ["addImageToCanvas", "hideImageLoading"]);
+    fakeEvent = jasmine.createSpyObj("fakeEvent", ["target"]);
+    loadingImageFactoryMock = jasmine.createSpyObj("loadingImageFactoryMock", ["createFileReader"]);
+
+    let mockReader = loadingImageFactoryMock.createFileReader();
 
     TestBed.configureTestingModule({
       declarations: [
@@ -25,26 +32,25 @@ describe('LoadingImageComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render input tag with type file', () => {
+  it("should render input tag with type file", () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('input'));
+    expect(compiled.querySelector("input"));
   });
 
-  it('should load image and add to canvas', () => {
-    //component.onImageIsLoaded();
-    
-    //expect(editImageComponentMock.addImageToCanvas).toHaveBeenCalled();
-  });
+  it("should load image and add to canvas", () => {
+    const mockFile = new File([""], "filename", { type: "image/jpg" });
 
-  it('should hide image loading element', () => {
-    //spyOn(editImageComponentStub, 'hideImageLoading');
-    //editImageComponentStub.hideImageLoading();
-    //fixture.detectChanges();
-    //expect(editImageComponentStub.hideImageLoading).toHaveBeenCalled();
+    spyOn(this.mockReader, "onload");
+    spyOn(this.mockReader, "readAsDataURL");
+
+    component.onImageIsLoaded(fakeEvent);
+
+    expect(this.mockReader.onload).toHaveBeenCalled();
+    expect(this.mockReader.readAsDataURL).toHaveBeenCalledWith(mockFile);
   });
 });
