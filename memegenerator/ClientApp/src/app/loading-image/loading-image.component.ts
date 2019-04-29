@@ -5,7 +5,7 @@ import { LoadingImageFactoryService } from "../loading-image-factory.service";
 @Component({
   selector: "app-loading-image",
   templateUrl: "./loading-image.component.html",
-  styleUrls: ['./loading-image.component.css']
+  styleUrls: ["./loading-image.component.css"]
 })
 export class LoadingImageComponent {
   constructor(private loadingImageFactory: LoadingImageFactoryService) { }
@@ -14,7 +14,7 @@ export class LoadingImageComponent {
   private editImage: EditImageComponent;
 
   onImageIsLoaded(event: any) {
-    if (event.target.files && event.target.files[0]) {
+    if (event.target.files[0]) {
       const reader = this.loadingImageFactory.createFileReader();
 
       reader.onload = (event: any) => {

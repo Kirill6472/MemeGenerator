@@ -14,7 +14,7 @@ export class EditImageComponent {
   canvas: fabric.Canvas;
   imageInstance: any;
   text: fabric.Text;
-  uploadedImageUrl = "";
+  uploadedImageUrl: string = "";
   showUploadedImage = false;
   displayMemePreview = false;
   
