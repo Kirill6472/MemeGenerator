@@ -11,7 +11,7 @@ export class LoadingImageComponent {
   constructor(private loadingImageFactory: LoadingImageFactoryService) { }
 
   @ViewChild(EditImageComponent)
-  private editImage: EditImageComponent;
+  editImage: EditImageComponent;
 
   onImageIsLoaded(event: any) {
     if (event.target.files[0]) {
