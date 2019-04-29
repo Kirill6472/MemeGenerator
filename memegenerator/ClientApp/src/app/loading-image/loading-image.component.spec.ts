@@ -4,6 +4,19 @@ import { LoadingImageComponent } from "./loading-image.component";
 import { EditImageComponent } from "../edit-image/edit-image.component";
 import { LoadingImageFactoryService } from "../loading-image-factory.service";
 
+@Component({
+  selector: "app-edit-image",
+  template: "",
+  providers: [{
+    provide: EditImageComponent,
+    useClass: MockEditImageComponent
+  }]
+})
+class MockEditImageComponent {
+  addImageToCanvas() { };
+  hideImageLoading() { };
+}
+
 describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
@@ -16,16 +29,6 @@ describe("LoadingImageComponent", () => {
     readAsDataURL() { }
   }
 
-  @Component({
-    selector: "edit-image",
-    template: "<p>Mock Edit Image Component</p>"
-  })
-  class MockEditImageComponent {
-    uploadedImageUrl: "";
-    addImageToCanvas() { };
-    hideImageLoading() { };
-  }
-
   beforeEach(async(() => {
     loadingImageFactoryMock = jasmine.createSpyObj("loadingImageFactoryMock", ["createFileReader"]);
 
@@ -34,7 +37,6 @@ describe("LoadingImageComponent", () => {
     TestBed.configureTestingModule({
       declarations: [
         LoadingImageComponent,
-        EditImageComponent,
         MockEditImageComponent
       ],
       providers: [
