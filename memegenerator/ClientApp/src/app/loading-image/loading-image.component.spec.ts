@@ -20,19 +20,16 @@ class MockEditImageComponent {
 describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
-  let mockReader: FileReader;
   let loadingImageFactoryMock: jasmine.SpyObj<LoadingImageFactoryService>;
 
   class FakeFileReader {
-    public onload: any;
+    public onload: Event;
 
     readAsDataURL() { }
   }
 
   beforeEach(async(() => {
     loadingImageFactoryMock = jasmine.createSpyObj("loadingImageFactoryMock", ["createFileReader"]);
-
-    mockReader = loadingImageFactoryMock.createFileReader();
 
     TestBed.configureTestingModule({
       declarations: [
@@ -66,6 +63,7 @@ describe("LoadingImageComponent", () => {
       }
     };
 
+    loadingImageFactoryMock.createFileReader();
     component.onImageIsLoaded(fakeEvent);
 
     expect(loadingImageFactoryMock.createFileReader).toHaveBeenCalled();
