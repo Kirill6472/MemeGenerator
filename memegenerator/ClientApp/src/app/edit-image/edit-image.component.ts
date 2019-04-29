@@ -14,7 +14,7 @@ export class EditImageComponent {
   canvas: fabric.Canvas;
   imageInstance: any;
   text: fabric.Text;
-  uploadedImageUrl: string = "";
+  uploadedImageUrl = "";
   showUploadedImage = false;
   displayMemePreview = false;
   
@@ -27,7 +27,7 @@ export class EditImageComponent {
   addImageToCanvas() {
     this.getCanvas();
 
-    var image = new Image();
+    const image = new Image();
     
     return new Promise((resolve) => {
       image.onload = () => {

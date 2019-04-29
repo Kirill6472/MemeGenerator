@@ -23,7 +23,7 @@ describe("LoadingImageComponent", () => {
   let loadingImageFactoryMock: jasmine.SpyObj<LoadingImageFactoryService>;
 
   class FakeFileReader {
-    public onload: Event;
+    onload: Function;
 
     readAsDataURL() { }
   }
