@@ -103,9 +103,11 @@ describe("LoadingImageComponent", () => {
     const image = "";
     const imageIsLoadedEvent = { target: { result: image } };
 
-    fakeFileReader.onload(imageIsLoadedEvent);
-
     let mockEditImageComponent = new MockEditImageComponent();
+    spyOn(mockEditImageComponent, "addImageToCanvas");
+    spyOn(mockEditImageComponent, "hideImageLoading");
+
+    fakeFileReader.onload(imageIsLoadedEvent);
 
     //expect(mockEditImageComponent.uploadedImageUrl).toBe(image);
     expect(mockEditImageComponent.addImageToCanvas).toHaveBeenCalled();
