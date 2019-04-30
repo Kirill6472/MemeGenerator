@@ -11,8 +11,22 @@ describe("EditImageComponent", () => {
   let mockImage: fabric.Image;
 
   beforeEach(async(() => {
-    mockCanvas = jasmine.createSpyObj("fakeCanvas", ["setBackgroundImage", "renderAll", "getWidth", "getHeight", "add", "remove", "getActiveObject", "toDataURL"]);
-    fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", ["createCanvas", "createImage", "createText"]);
+    mockCanvas = jasmine.createSpyObj("fakeCanvas", [
+      "setBackgroundImage",
+      "renderAll",
+      "getWidth",
+      "getHeight",
+      "add",
+      "remove",
+      "getActiveObject",
+      "toDataURL"
+    ]);
+
+    fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [
+      "createCanvas",
+      "createImage",
+      "createText"
+    ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);
 

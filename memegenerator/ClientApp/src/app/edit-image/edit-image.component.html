@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <canvas id="canvas" width="700" height="500"></canvas>
+  <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
 </div>
 
 <div class="meme-preview" *ngIf="displayMemePreview">
@@ -20,5 +20,5 @@
     </div>
   </div>
 
-  <img id="image" [src]="generateMeme()" />
+  <img id="image" class="image" [src]="generateMeme()" />
 </div>
