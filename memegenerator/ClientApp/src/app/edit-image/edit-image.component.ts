@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { FabricFactoryService } from "../fabric-factory.service";
 
 import "fabric";
@@ -10,12 +10,13 @@ declare const fabric: any;
   styleUrls: ["./edit-image.component.css"]
 })
 export class EditImageComponent {
+  @Output() imageLoading = new EventEmitter<boolean>();
+  showUploadImage: true;
 
   canvas: fabric.Canvas;
   imageInstance: any;
   text: fabric.Text;
-  uploadedImageUrl = "";
-  showUploadedImage = false;
+  showToolbar = false;
   displayMemePreview = false;
   
   constructor(private fabricFactory: FabricFactoryService) { }
@@ -24,8 +25,9 @@ export class EditImageComponent {
     this.canvas = this.fabricFactory.createCanvas("canvas");
   }
 
-  addImageToCanvas() {
+  addImageToCanvas(uploadedImageUrl: string) {
     this.getCanvas();
+    this.showToolbarAndImage();
 
     const image = new Image();
     
@@ -39,7 +41,7 @@ export class EditImageComponent {
         }); 
         resolve();
       };
-      image.src = this.uploadedImageUrl;
+      image.src = uploadedImageUrl;
     });
   }
 
@@ -52,8 +54,8 @@ export class EditImageComponent {
     this.canvas.remove(this.canvas.getActiveObject());
   }
 
-  hideImageLoading() {
-    this.showUploadedImage = true;
+  showToolbarAndImage() {
+    this.showToolbar = true;
   }
 
   showMemePreview() {
@@ -71,6 +73,7 @@ export class EditImageComponent {
 
   onCreateNewMeme() {
     this.displayMemePreview = false;
-    this.showUploadedImage = false;
+    this.showToolbar = false;
+    this.imageLoading.emit(false);
   }
 }

@@ -1,5 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
-import { EditImageComponent } from "../edit-image/edit-image.component";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { LoadingImageFactoryService } from "../loading-image-factory.service";
 
 @Component({
@@ -8,19 +7,18 @@ import { LoadingImageFactoryService } from "../loading-image-factory.service";
   styleUrls: ["./loading-image.component.css"]
 })
 export class LoadingImageComponent {
-  constructor(private loadingImageFactory: LoadingImageFactoryService) { }
+  @Output() imageUrl = new EventEmitter<string>();
+  uploadedImageUrl = "";
 
-  @ViewChild(EditImageComponent)
-  editImage: EditImageComponent;
+  constructor(private loadingImageFactory: LoadingImageFactoryService) { }
 
   onImageIsLoaded(event: any) {
     if (event.target.files[0]) {
       const reader = this.loadingImageFactory.createFileReader();
 
       reader.onload = (event: any) => {
-        this.editImage.uploadedImageUrl = event.target.result;
-        this.editImage.addImageToCanvas();
-        this.editImage.hideImageLoading();
+        this.uploadedImageUrl = event.target.result;
+        this.imageUrl.emit(this.uploadedImageUrl);
       }
       reader.readAsDataURL(event.target.files[0]);
     }

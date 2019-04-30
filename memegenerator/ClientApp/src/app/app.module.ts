@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoadingImageComponent } from './loading-image/loading-image.component';
 import { EditImageComponent } from './edit-image/edit-image.component';
+import { LoadingAndEditImageComponent } from './loading-and-edit-image/loading-and-edit-image.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     LoadingImageComponent,
-    EditImageComponent
+    EditImageComponent,
+    LoadingAndEditImageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

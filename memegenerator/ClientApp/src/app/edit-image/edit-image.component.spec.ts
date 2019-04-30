@@ -54,7 +54,7 @@ describe("EditImageComponent", () => {
   });
 
   it("should set background image", (done) => {
-    component.uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
+    const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
 
     const imageWidth = 400;
     const imageHeight = 500;
@@ -67,7 +67,7 @@ describe("EditImageComponent", () => {
     mockCanvas.getWidth.and.returnValue(canvasWidth);
     mockCanvas.getHeight.and.returnValue(canvasHeight);
 
-    const promise = component.addImageToCanvas();
+    const promise = component.addImageToCanvas(uploadedImageUrl);
     promise.then(() => {
       expect(mockCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
@@ -86,11 +86,6 @@ describe("EditImageComponent", () => {
 
     component.onDeleteText();
     expect(mockCanvas.remove).toHaveBeenCalledWith(mockCanvas.getActiveObject());
-  });
-
-  it("should hide image loading", () => {
-    component.hideImageLoading();
-    expect(component.showUploadedImage).toBe(true);
   });
 
   it("should show meme preview", () => {
@@ -116,8 +111,11 @@ describe("EditImageComponent", () => {
   });
 
   it("should display meme creation", () => {
+    spyOn(component.imageLoading, "emit");
+
     component.onCreateNewMeme();
+
     expect(component.displayMemePreview).toBe(false);
-    expect(component.showUploadedImage).toBe(false);
+    expect(component.imageLoading.emit).toHaveBeenCalledWith(false);
   });
 });

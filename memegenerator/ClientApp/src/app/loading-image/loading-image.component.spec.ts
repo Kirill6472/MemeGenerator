@@ -97,19 +97,16 @@ describe("LoadingImageComponent", () => {
     const fakeFileReader = new FakeFileReader();
     const readAsDataURLspy = spyOn(fakeFileReader, "readAsDataURL");
     loadingImageFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    spyOn(component.imageUrl, "emit");
 
     component.onImageIsLoaded(fakeEvent);
 
     const image = "";
     const imageIsLoadedEvent = { target: { result: image } };
 
-    spyOn(component.editImage, "addImageToCanvas");
-    spyOn(component.editImage, "hideImageLoading");
-
     fakeFileReader.onload(imageIsLoadedEvent);
 
-    expect(component.editImage.uploadedImageUrl).toBe(image);
-    expect(component.editImage.addImageToCanvas).toHaveBeenCalled();
-    expect(component.editImage.hideImageLoading).toHaveBeenCalled();
+    expect(component.uploadedImageUrl).toBe(image);
+    expect(component.imageUrl.emit).toHaveBeenCalledWith(component.uploadedImageUrl);
   });
 });
