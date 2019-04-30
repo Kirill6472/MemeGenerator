@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoadingAndEditImageComponent } from './loading-and-edit-image.component';
+import { ImageEditorComponent } from "./image-editor.component";
 import { Component } from '@angular/core';
 import { EditImageComponent } from "../edit-image/edit-image.component";
 
@@ -20,13 +20,13 @@ class MockEditImageComponent {
 }
 
 describe('LoadingAndEditImageComponent', () => {
-  let component: LoadingAndEditImageComponent;
-  let fixture: ComponentFixture<LoadingAndEditImageComponent>;
+  let component: ImageEditorComponent;
+  let fixture: ComponentFixture<ImageEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        LoadingAndEditImageComponent,
+        ImageEditorComponent,
         LoadingImageComponent,
         MockEditImageComponent
       ]
@@ -35,7 +35,7 @@ describe('LoadingAndEditImageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoadingAndEditImageComponent);
+    fixture = TestBed.createComponent(ImageEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

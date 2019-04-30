@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { EditImageComponent } from "../edit-image/edit-image.component";
 
 @Component({
-  selector: 'app-loading-and-edit-image',
-  templateUrl: './loading-and-edit-image.component.html',
-  styleUrls: ['./loading-and-edit-image.component.css']
+  selector: 'app-image-editor',
+  templateUrl: './image-editor.component.html',
+  styleUrls: ['./image-editor.component.css']
 })
-export class LoadingAndEditImageComponent {
+export class ImageEditorComponent {
   showUploadedImage = false;
 
   @ViewChild(EditImageComponent)

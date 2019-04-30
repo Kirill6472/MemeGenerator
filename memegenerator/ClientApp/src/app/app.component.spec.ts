@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 @Component({ selector: 'app-nav-menu', template: '' })
 class NavMenuStubComponent { }
 
-@Component({ selector: 'app-loading-and-edit-image', template: '' })
-class LoadingAndEditImageComponent { }
+@Component({ selector: 'app-image-editor', template: '' })
+class ImageEditor { }
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -17,7 +17,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         NavMenuStubComponent,
-        LoadingAndEditImageComponent
+        ImageEditor
       ],
     }).compileComponents();
 
