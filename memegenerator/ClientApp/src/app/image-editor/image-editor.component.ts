@@ -12,18 +12,18 @@ export class ImageEditorComponent {
   @ViewChild(EditImageComponent)
   editImage: EditImageComponent;
 
-  onDisplayImage(uploadedImageUrl: string) {
+  public onDisplayImage(uploadedImageUrl: string) {
     if (uploadedImageUrl !== "") {
       this.editImage.addImageToCanvas(uploadedImageUrl);
       this.hideImageLoading();
     }
   }
 
-  hideImageLoading() {
+  public hideImageLoading() {
     this.showUploadedImage = true;
   }
 
-  onShowImageLoading(showUploadImage: boolean) {
-    this.showUploadedImage = showUploadImage;
+  public onShowImageLoading(isUploadedImageShown: boolean) {
+    this.showUploadedImage = isUploadedImageShown;
   }
 }

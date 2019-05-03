@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
 import { FabricFactoryService } from "../fabric-factory.service";
 
 import "fabric";
@@ -9,28 +9,26 @@ declare const fabric: any;
   templateUrl: "./edit-image.component.html",
   styleUrls: ["./edit-image.component.css"]
 })
-export class EditImageComponent {
-  @Output() imageLoading = new EventEmitter<boolean>();
-  showUploadImage: true;
+export class EditImageComponent implements AfterViewInit {
+  @Output() imageLoaded = new EventEmitter<boolean>();
 
   canvas: fabric.Canvas;
   imageInstance: any;
   text: fabric.Text;
   showToolbar = false;
   displayMemePreview = false;
+  ctx = null;
   
   constructor(private fabricFactory: FabricFactoryService) { }
 
-  getCanvas() {
+  ngAfterViewInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
   }
 
-  addImageToCanvas(uploadedImageUrl: string) {
-    this.getCanvas();
+  public addImageToCanvas(uploadedImageUrl: string) { 
     this.showToolbarAndImage();
 
     const image = new Image();
-    
     return new Promise((resolve) => {
       image.onload = () => {
         this.imageInstance = this.fabricFactory.createImage(image);
@@ -45,35 +43,36 @@ export class EditImageComponent {
     });
   }
 
-  onAddText() {
+  public onAddText() {
     this.text = this.fabricFactory.createText("Sample\ntext");
     this.canvas.add(this.text);
   }
 
-  onDeleteText() {
+  public onDeleteText() {
     this.canvas.remove(this.canvas.getActiveObject());
   }
 
-  showToolbarAndImage() {
+  public showToolbarAndImage() {
     this.showToolbar = true;
   }
 
-  showMemePreview() {
+  public showMemePreview() {
     this.displayMemePreview = true;
   }
 
-  generateMeme() {
+  public generateMeme() {
     return this.canvas.toDataURL();
   }
 
-  onGenerateAndDisplayMeme() {
+  public onGenerateAndDisplayMeme() {
     this.showMemePreview();
     this.generateMeme();
   }
 
-  onCreateNewMeme() {
+  public onCreateNewMeme() {
+    this.canvas.clear();
     this.displayMemePreview = false;
     this.showToolbar = false;
-    this.imageLoading.emit(false);
+    this.imageLoaded.emit(false);
   }
 }

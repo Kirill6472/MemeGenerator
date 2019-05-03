@@ -12,7 +12,7 @@ export class LoadingImageComponent {
 
   constructor(private loadingImageFactory: LoadingImageFactoryService) { }
 
-  onImageIsLoaded(event: any) {
+  public onImageIsLoaded(event: any) {
     if (event.target.files[0]) {
       const reader = this.loadingImageFactory.createFileReader();
 

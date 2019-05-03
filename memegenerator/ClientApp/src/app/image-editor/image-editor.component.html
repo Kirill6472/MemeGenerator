@@ -3,4 +3,4 @@
 </header>
 
 <app-loading-image (imageUrl)="onDisplayImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
-<app-edit-image (imageLoading)="onShowImageLoading($event)"></app-edit-image>
+<app-edit-image (imageLoaded)="onShowImageLoading($event)"></app-edit-image>

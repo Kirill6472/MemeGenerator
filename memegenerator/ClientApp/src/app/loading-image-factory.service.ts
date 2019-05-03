@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 })
 export class LoadingImageFactoryService {
 
-  createFileReader() {
+  public createFileReader() {
     return new FileReader();
   }
 }
