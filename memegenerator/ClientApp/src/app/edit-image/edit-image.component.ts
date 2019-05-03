@@ -15,10 +15,9 @@ export class EditImageComponent implements AfterViewInit {
   canvas: fabric.Canvas;
   imageInstance: any;
   text: fabric.Text;
-  showToolbar = false;
-  displayMemePreview = false;
-  ctx = null;
-  
+  isToolbarShown = false;
+  isMemePreview = false;
+
   constructor(private fabricFactory: FabricFactoryService) { }
 
   ngAfterViewInit() {
@@ -26,7 +25,7 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   public addImageToCanvas(uploadedImageUrl: string) { 
-    this.showToolbarAndImage();
+    this.showToolbar();
 
     const image = new Image();
     return new Promise((resolve) => {
@@ -43,36 +42,38 @@ export class EditImageComponent implements AfterViewInit {
     });
   }
 
-  public onAddText() {
+  public addText() {
     this.text = this.fabricFactory.createText("Sample\ntext");
     this.canvas.add(this.text);
   }
 
-  public onDeleteText() {
+  public deleteSelectedText() {
     this.canvas.remove(this.canvas.getActiveObject());
   }
 
-  public showToolbarAndImage() {
-    this.showToolbar = true;
+  public showToolbar() {
+    this.isToolbarShown = true;
   }
 
   public showMemePreview() {
-    this.displayMemePreview = true;
+    this.isMemePreview = true;
   }
 
   public generateMeme() {
     return this.canvas.toDataURL();
   }
 
-  public onGenerateAndDisplayMeme() {
-    this.showMemePreview();
+  public generateAndDisplayMeme() {
     this.generateMeme();
+    this.showMemePreview();
   }
 
-  public onCreateNewMeme() {
+  public createNewMeme() {
     this.canvas.clear();
-    this.displayMemePreview = false;
-    this.showToolbar = false;
+
+    this.isMemePreview = false;
+    this.isToolbarShown = false;
+
     this.imageLoaded.emit(false);
   }
 }

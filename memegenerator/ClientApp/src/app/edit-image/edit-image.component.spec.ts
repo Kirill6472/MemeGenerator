@@ -77,20 +77,20 @@ describe("EditImageComponent", () => {
   it("should add text to image", () => {
     component.getCanvas();
 
-    component.onAddText();   
+    component.addText();   
     expect(mockCanvas.add).toHaveBeenCalled();
   });
 
   it("should remove text from image", () => {
     component.getCanvas();
 
-    component.onDeleteText();
+    component.deleteSelectedText();
     expect(mockCanvas.remove).toHaveBeenCalledWith(mockCanvas.getActiveObject());
   });
 
   it("should show meme preview", () => {
     component.showMemePreview();
-    expect(component.displayMemePreview).toBe(true);
+    expect(component.isMemePreview).toBe(true);
   });
 
   it("should generate meme", () => {
@@ -104,7 +104,7 @@ describe("EditImageComponent", () => {
     spyOn(component, "showMemePreview");
     spyOn(component, "generateMeme");
 
-    component.onGenerateAndDisplayMeme();
+    component.generateAndDisplayMeme();
 
     expect(component.showMemePreview).toHaveBeenCalled();
     expect(component.generateMeme).toHaveBeenCalled();
@@ -113,9 +113,9 @@ describe("EditImageComponent", () => {
   it("should display meme creation", () => {
     spyOn(component.imageLoading, "emit");
 
-    component.onCreateNewMeme();
+    component.createNewMeme();
 
-    expect(component.displayMemePreview).toBe(false);
+    expect(component.isMemePreview).toBe(false);
     expect(component.imageLoading.emit).toHaveBeenCalledWith(false);
   });
 });

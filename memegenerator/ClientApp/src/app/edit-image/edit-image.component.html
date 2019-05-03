@@ -1,22 +1,22 @@
-<div class="canvas-container" *ngIf="!displayMemePreview">
-  <div class="btn-toolbar" role="toolbar" *ngIf="showToolbar">
+<div class="canvas-container" [hidden]="isMemePreview">
+  <div class="btn-toolbar" role="toolbar" *ngIf="isToolbarShown">
     <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="onAddText()">Add text</button>
-      <button type="button" class="btn btn-outline-danger" (click)="onDeleteText()">Delete text</button>
+      <button type="button" class="btn btn-outline-primary" (click)="addText()">Add text</button>
+      <button type="button" class="btn btn-outline-danger" (click)="deleteSelectedText()">Delete text</button>
     </div>
 
     <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="onGenerateAndDisplayMeme()">Generate Meme</button>
+      <button type="button" class="btn btn-outline-primary" (click)="generateAndDisplayMeme()">Generate Meme</button>
     </div>
   </div>
 
   <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
 </div>
 
-<div class="meme-preview" *ngIf="displayMemePreview">
+<div class="meme-preview" *ngIf="isMemePreview">
   <div class="btn-toolbar" role="toolbar">
     <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="onCreateNewMeme()">Create a new Meme</button>
+      <button type="button" class="btn btn-outline-primary" (click)="createNewMeme()">Create a new Meme</button>
     </div>
   </div>
 
