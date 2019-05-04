@@ -16,13 +16,13 @@ describe('FabricFactoryService', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return new fabric.Image', () => {
+  it('should return new image', () => {
     const fakeImage = new Image();
 
     expect(fabricFactoryService.createImage(fakeImage)).not.toBe(null);
   });
 
-  it('should return new fabric.IText', () => {
+  it('should return new text', () => {
     const fakeText = "Sample text";
     const fakeCanvasWidth = 600;
 

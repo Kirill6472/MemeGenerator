@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
 import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
-
-import "fabric";
-declare const fabric: any;
+import { fabric } from "fabric";
 
 @Component({
   selector: "app-edit-image",
@@ -30,16 +28,20 @@ export class EditImageComponent implements AfterViewInit {
     const image = new Image();
     return new Promise((resolve) => {
       image.onload = () => {
-        this.imageInstance = this.fabricFactory.createImage(image);
-        this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
-          scaleY: this.canvas.getHeight() / this.imageInstance.height,
-          scaleX: this.canvas.getWidth() / this.imageInstance.width,
-          selectable: false
-        }); 
+        this.setBackgroundImage(image);
         resolve();
       };
       image.src = uploadedImageUrl;
     });
+  }
+
+  private setBackgroundImage(image: HTMLImageElement) {
+    this.imageInstance = this.fabricFactory.createImage(image);
+    this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
+      scaleY: this.canvas.getHeight() / this.imageInstance.height,
+      scaleX: this.canvas.getWidth() / this.imageInstance.width,
+      selectable: false
+    }); 
   }
 
   public addText() {

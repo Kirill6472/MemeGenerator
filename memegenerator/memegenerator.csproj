@@ -26,10 +26,10 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.component.spec.ts" />
-    <None Remove="ClientApp\src\app\edit-image\MockEditImageComponent.ts" />
-    <None Remove="ClientApp\src\app\image-editor\MockImageEditorComponent.ts" />
-    <None Remove="ClientApp\src\app\loading-image\MockLoadingImageComponent.ts" />
-    <None Remove="ClientApp\src\app\nav-menu\MockNavMenuComponent.ts" />
+    <None Remove="ClientApp\src\app\edit-image\edit-image-mock.component.ts" />
+    <None Remove="ClientApp\src\app\image-editor\image-editor-mock.component.ts" />
+    <None Remove="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
+    <None Remove="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
   </ItemGroup>
 
@@ -39,10 +39,10 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.spec.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\edit-image\MockEditImageComponent.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\image-editor\MockImageEditorComponent.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\loading-image\MockLoadingImageComponent.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\nav-menu\MockNavMenuComponent.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\edit-image\edit-image-mock.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\image-editor\image-editor-mock.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
   </ItemGroup>
 

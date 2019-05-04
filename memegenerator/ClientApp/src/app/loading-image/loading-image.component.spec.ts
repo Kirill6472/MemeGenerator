@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { LoadingImageComponent } from "./loading-image.component";
-import { LoadingImageFactoryService } from "../loading-image-factory/loading-image-factory.service";
-import { MockEditImageComponent } from "../edit-image/MockEditImageComponent";
+import { FileReaderFactoryService } from "../file-reader-factory/file-reader-factory.service";
+import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
 
 describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
-  let loadingImageFactoryMock: jasmine.SpyObj<LoadingImageFactoryService>;
+  let fileReaderFactoryMock: jasmine.SpyObj<FileReaderFactoryService>;
   const file = {};
   let fakeEvent;
 
@@ -17,7 +17,7 @@ describe("LoadingImageComponent", () => {
   }
 
   beforeEach(async(() => {
-    loadingImageFactoryMock = jasmine.createSpyObj("loadingImageFactoryMock", ["createFileReader"]);
+    fileReaderFactoryMock = jasmine.createSpyObj("loadingImageFactoryMock", ["createFileReader"]);
     fakeEvent = {
       target: {
         files: [file]
@@ -30,7 +30,7 @@ describe("LoadingImageComponent", () => {
         MockEditImageComponent
       ],
       providers: [
-        { provide: LoadingImageFactoryService, useValue: loadingImageFactoryMock }
+        { provide: FileReaderFactoryService, useValue: fileReaderFactoryMock }
       ]
     }).compileComponents();
 
@@ -56,16 +56,16 @@ describe("LoadingImageComponent", () => {
       }
     };
 
-    loadingImageFactoryMock.createFileReader();
+    fileReaderFactoryMock.createFileReader();
     component.onImageIsLoaded(fakeEvent);
 
-    expect(loadingImageFactoryMock.createFileReader).toHaveBeenCalled();
+    expect(fileReaderFactoryMock.createFileReader).toHaveBeenCalled();
   });
 
   it("should read file on file event", () => {
     const fakeFileReader = new FakeFileReader();
 
-    loadingImageFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
     component.onImageIsLoaded(fakeEvent);
 
     expect(fakeFileReader.onload).not.toBe(undefined);
@@ -78,7 +78,7 @@ describe("LoadingImageComponent", () => {
 
     spyOn(component.imageIsUploaded, "emit");
 
-    loadingImageFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
     component.onImageIsLoaded(fakeEvent);
     fakeFileReader.onload(imageIsLoadedEvent);
 

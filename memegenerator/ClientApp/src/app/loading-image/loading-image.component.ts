@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
-import { LoadingImageFactoryService } from "../loading-image-factory/loading-image-factory.service";
+import { FileReaderFactoryService } from "../file-reader-factory/file-reader-factory.service";
 
 @Component({
   selector: "app-loading-image",
@@ -9,7 +9,7 @@ import { LoadingImageFactoryService } from "../loading-image-factory/loading-ima
 export class LoadingImageComponent {
   @Output() imageIsUploaded = new EventEmitter<string>();
 
-  constructor(private loadingImageFactory: LoadingImageFactoryService) { }
+  constructor(private loadingImageFactory: FileReaderFactoryService) { }
 
   public onImageIsLoaded(event: any) {
     if (event.target.files[0]) {

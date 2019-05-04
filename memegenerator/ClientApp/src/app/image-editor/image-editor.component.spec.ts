@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImageEditorComponent } from "./image-editor.component";
-import { MockLoadingImageComponent } from "../loading-image/MockLoadingImageComponent";
-import { MockEditImageComponent } from "../edit-image/MockEditImageComponent";
+import { MockLoadingImageComponent } from "../loading-image/loading-image-mock.component";
+import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
 
 describe('ImageEditorComponent', () => {
   let component: ImageEditorComponent;

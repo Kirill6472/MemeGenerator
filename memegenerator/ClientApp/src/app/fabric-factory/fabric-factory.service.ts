@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import "fabric"
-
-declare const fabric: any;
+import { fabric } from "fabric";
 
 @Injectable({
   providedIn: "root"
