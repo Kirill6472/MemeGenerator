@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { EditImageComponent } from "./edit-image.component";
 import { fabric } from "fabric";
-import { FabricFactoryService } from "../fabric-factory.service";
+import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
 
 describe("EditImageComponent", () => {
   let component: EditImageComponent;
@@ -19,7 +19,8 @@ describe("EditImageComponent", () => {
       "add",
       "remove",
       "getActiveObject",
-      "toDataURL"
+      "toDataURL",
+      "clear"
     ]);
 
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [
@@ -50,12 +51,12 @@ describe("EditImageComponent", () => {
 
   it("should render canvas", () => {
     const compiled = fixture.debugElement.nativeElement;
+
     expect(compiled.querySelector("canvas"));
   });
 
   it("should set background image", (done) => {
     const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
-
     const imageWidth = 400;
     const imageHeight = 500;
     const canvasWidth = 500;
@@ -63,7 +64,6 @@ describe("EditImageComponent", () => {
 
     mockImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
     fabricFactoryMock.createImage.and.returnValue(mockImage);
-
     mockCanvas.getWidth.and.returnValue(canvasWidth);
     mockCanvas.getHeight.and.returnValue(canvasHeight);
 
@@ -72,50 +72,35 @@ describe("EditImageComponent", () => {
       expect(mockCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
     });
+    expect(component.isToolbarShown).toBe(true);
   });
 
   it("should add text to image", () => {
-    component.getCanvas();
+    component.addText();
 
-    component.addText();   
     expect(mockCanvas.add).toHaveBeenCalled();
   });
 
   it("should remove text from image", () => {
-    component.getCanvas();
-
     component.deleteSelectedText();
+
     expect(mockCanvas.remove).toHaveBeenCalledWith(mockCanvas.getActiveObject());
   });
 
-  it("should show meme preview", () => {
-    component.showMemePreview();
+  it("should generate and preview meme", () => {
+    component.generateAndPreviewMeme();
+
+    expect(mockCanvas.toDataURL).toHaveBeenCalled();
     expect(component.isMemePreview).toBe(true);
   });
 
-  it("should generate meme", () => {
-    component.getCanvas();
-
-    component.generateMeme();
-    expect(mockCanvas.toDataURL).toHaveBeenCalled();
-  });
-
-  it("should generate and display meme", () => {
-    spyOn(component, "showMemePreview");
-    spyOn(component, "generateMeme");
-
-    component.generateAndDisplayMeme();
-
-    expect(component.showMemePreview).toHaveBeenCalled();
-    expect(component.generateMeme).toHaveBeenCalled();
-  });
-
   it("should display meme creation", () => {
-    spyOn(component.imageLoading, "emit");
+    spyOn(component.isImageLoaded, "emit");
 
     component.createNewMeme();
 
+    expect(mockCanvas.clear).toHaveBeenCalled();
     expect(component.isMemePreview).toBe(false);
-    expect(component.imageLoading.emit).toHaveBeenCalledWith(false);
+    expect(component.isImageLoaded.emit).toHaveBeenCalledWith(false);
   });
 });

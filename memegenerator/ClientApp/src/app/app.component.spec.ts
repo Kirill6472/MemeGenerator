@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-
-@Component({ selector: 'app-nav-menu', template: '' })
-class NavMenuStubComponent { }
-
-@Component({ selector: 'app-image-editor', template: '' })
-class ImageEditor { }
+import { MockNavMenuComponent } from "./nav-menu/MockNavMenuComponent";
+import { MockImageEditorComponent } from "./image-editor/MockImageEditorComponent";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -16,8 +11,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        NavMenuStubComponent,
-        ImageEditor
+        MockNavMenuComponent,
+        MockImageEditorComponent
       ],
     }).compileComponents();
 

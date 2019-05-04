@@ -2,5 +2,5 @@
   <h3>Upload your own image</h3>
 </header>
 
-<app-loading-image (imageUrl)="onDisplayImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
-<app-edit-image (imageLoaded)="onShowImageLoading($event)"></app-edit-image>
+<app-loading-image (imageIsUploaded)="displayImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
+<app-edit-image (isImageLoaded)="showImageLoading($event)"></app-edit-image>
