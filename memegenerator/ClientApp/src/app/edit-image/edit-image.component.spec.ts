@@ -9,6 +9,7 @@ describe("EditImageComponent", () => {
   let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
   let mockCanvas: jasmine.SpyObj<fabric.Canvas>;
   let mockImage: fabric.Image;
+  let fakeEvent;
 
   beforeEach(async(() => {
     mockCanvas = jasmine.createSpyObj("fakeCanvas", [
@@ -30,6 +31,12 @@ describe("EditImageComponent", () => {
     ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);
+
+    fakeEvent = {
+      target: {
+        value: "#000000"
+      }
+    }
 
     TestBed.configureTestingModule({
       declarations: [
@@ -102,5 +109,15 @@ describe("EditImageComponent", () => {
     expect(mockCanvas.clear).toHaveBeenCalled();
     expect(component.isMemePreview).toBe(false);
     expect(component.isImageLoaded.emit).toHaveBeenCalledWith(false);
+  });
+
+  it("should change text color", () => {
+    let activeText = new fabric.IText("SampleText");
+    spyOn(activeText, "setColor");
+    
+    component.onChangeTextColorEditing(fakeEvent);
+
+    expect(activeText.setColor).toHaveBeenCalledWith(fakeEvent.target.value);
+    expect(mockCanvas.renderAll).toHaveBeenCalled();
   });
 });

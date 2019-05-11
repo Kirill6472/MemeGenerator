@@ -82,4 +82,10 @@ export class EditImageComponent implements AfterViewInit {
   private clearCanvas() {
     this.canvas.clear();
   }
+
+  public onChangeTextColorEditing($event) {
+    this.canvas.getActiveObject().setColor($event.target.value);
+    
+    this.canvas.renderAll();
+  }
 }
