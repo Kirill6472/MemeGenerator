@@ -19,9 +19,11 @@ describe("EditImageComponent", () => {
       "getHeight",
       "add",
       "remove",
+      "setActiveObject",
       "getActiveObject",
       "toDataURL",
-      "clear"
+      "clear",
+      "item"
     ]);
 
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [
@@ -111,13 +113,13 @@ describe("EditImageComponent", () => {
     expect(component.isImageLoaded.emit).toHaveBeenCalledWith(false);
   });
 
-  it("should change text color", () => {
-    let activeText = new fabric.IText("SampleText");
-    spyOn(activeText, "setColor");
+  it("should change text color", () => {  
+    let activeTextSpy = jasmine.createSpyObj(["setColor"]);
+    mockCanvas.getActiveObject.and.returnValue(activeTextSpy);
     
     component.onChangeTextColorEditing(fakeEvent);
 
-    expect(activeText.setColor).toHaveBeenCalledWith(fakeEvent.target.value);
+    expect(activeTextSpy.setColor).toHaveBeenCalledWith(fakeEvent.target.value);
     expect(mockCanvas.renderAll).toHaveBeenCalled();
   });
 });
