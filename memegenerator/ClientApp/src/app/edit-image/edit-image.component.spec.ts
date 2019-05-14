@@ -122,4 +122,14 @@ describe("EditImageComponent", () => {
     expect(activeTextSpy.setColor).toHaveBeenCalledWith(fakeEvent.target.value);
     expect(mockCanvas.renderAll).toHaveBeenCalled();
   });
+
+  it("should change outline color", () => {
+    let activeTextSpy = jasmine.createSpyObj(["set"]);
+    mockCanvas.getActiveObject.and.returnValue(activeTextSpy);
+
+    component.onChangeOutlineColor(fakeEvent);
+
+    expect(activeTextSpy.set).toHaveBeenCalledWith("stroke", fakeEvent.target.value);
+    expect(mockCanvas.renderAll).toHaveBeenCalled();
+  });
 });

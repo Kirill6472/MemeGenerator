@@ -90,11 +90,8 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   public onChangeOutlineColor($event) {
-    let activeTextClone = fabric.util.object.clone(this.canvas.getActiveObject());
-    this.canvas.remove(this.canvas.getActiveObject());
+    this.canvas.getActiveObject().set("stroke", $event.target.value);
 
-    activeTextClone.set("stroke", $event.target.value);
-
-    this.canvas.add(activeTextClone);
+    this.canvas.renderAll();
   }
 }
