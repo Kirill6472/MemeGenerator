@@ -5,9 +5,9 @@
       <button type="button" class="btn btn-outline-danger" (click)="deleteSelectedText()">Delete text</button>
     </div>
 
-    <div class="btn-group text-editing" role="group">
-      <label class="label-color-picker" for="colorText">Font color</label>
-      <input class="color-picker" type="color" id="fontColor" list="primaryColors" value="#ffffff" (change)="onChangeTextColorEditing($event)"/>
+    <div class="btn-group mr-2" role="group">
+      <label class="label-color-picker" for="fontColor">Font color</label>
+      <input class="color-picker" type="color" id="fontColor" list="primaryColors" value="#ffffff" (change)="onChangeTextColor($event)" />
     </div>
   </div>
 

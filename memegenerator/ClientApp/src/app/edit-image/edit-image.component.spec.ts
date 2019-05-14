@@ -117,7 +117,7 @@ describe("EditImageComponent", () => {
     let activeTextSpy = jasmine.createSpyObj(["setColor"]);
     mockCanvas.getActiveObject.and.returnValue(activeTextSpy);
     
-    component.onChangeTextColorEditing(fakeEvent);
+    component.onChangeTextColor(fakeEvent);
 
     expect(activeTextSpy.setColor).toHaveBeenCalledWith(fakeEvent.target.value);
     expect(mockCanvas.renderAll).toHaveBeenCalled();
