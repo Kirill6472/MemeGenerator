@@ -10,9 +10,9 @@ import { fabric } from "fabric";
 export class EditImageComponent implements AfterViewInit {
   @Output() isImageLoaded = new EventEmitter<boolean>();
 
-  canvas: fabric.Canvas;
-  imageInstance: any;
-  text: fabric.Text;
+  private canvas: fabric.Canvas;
+  private imageInstance: any;
+  private text: fabric.Text;
   isToolbarShown = false;
   isMemePreview = false;
 
@@ -22,7 +22,7 @@ export class EditImageComponent implements AfterViewInit {
     this.canvas = this.fabricFactory.createCanvas("canvas");
   }
 
-  public addImageToCanvas(uploadedImageUrl: string) { 
+  public setImage(uploadedImageUrl: string) { 
     this.showToolbar();
 
     const image = new Image();

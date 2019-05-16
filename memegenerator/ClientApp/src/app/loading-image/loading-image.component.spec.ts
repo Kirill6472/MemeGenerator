@@ -43,20 +43,10 @@ describe("LoadingImageComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should render input tag with type file", () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("input"));
-  });
+  it("should create file reader", () => {
+    const fakeFileReader = new FakeFileReader();
 
-  it("should read file if event is file uploading", () => {
-    const fakeEvent = {
-      target: {
-        files: 0
-      }
-    };
-
-    fileReaderFactoryMock.createFileReader();
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
     component.onImageIsLoaded(fakeEvent);
 
     expect(fileReaderFactoryMock.createFileReader).toHaveBeenCalled();
@@ -83,5 +73,16 @@ describe("LoadingImageComponent", () => {
     fakeFileReader.onload(imageIsLoadedEvent);
 
     expect(component.imageIsUploaded.emit).toHaveBeenCalledWith(image);
+  });
+
+  it("should read file", () => {
+    const fakeFileReader = new FakeFileReader();
+    spyOn(fakeFileReader, "readAsDataURL");
+
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    component.onImageIsLoaded(fakeEvent);
+
+    expect(fakeFileReader.readAsDataURL).toHaveBeenCalledWith(fakeEvent.target.files[0]);
+    expect(fakeFileReader.readAsDataURL).not.toBe(undefined);
   });
 });

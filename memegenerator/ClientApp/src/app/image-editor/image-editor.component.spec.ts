@@ -28,18 +28,18 @@ describe('ImageEditorComponent', () => {
   it('should display image', () => {
     const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
 
-    spyOn(component.editImage, "addImageToCanvas");
+    spyOn(component.editImageComponent, "setImage");
 
-    component.displayImage(uploadedImageUrl);
+    component.updateImage(uploadedImageUrl);
 
-    expect(component.editImage.addImageToCanvas).toHaveBeenCalledWith(uploadedImageUrl);
+    expect(component.editImageComponent.setImage).toHaveBeenCalledWith(uploadedImageUrl);
     expect(component.showUploadedImage).toBe(true);
   });
 
   it('should show image loading', () => {
     const showUploadedImage = false;
 
-    component.showImageLoading(showUploadedImage);
+    component.isDisplayImageInput(showUploadedImage);
 
     expect(component.showUploadedImage).toBe(false);
   });
