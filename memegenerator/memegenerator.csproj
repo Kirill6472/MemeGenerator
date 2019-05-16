@@ -15,6 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +32,6 @@
     <None Remove="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
