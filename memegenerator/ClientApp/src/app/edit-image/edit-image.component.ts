@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
+import { Component, EventEmitter, Output, AfterViewInit, Pipe, PipeTransform } from "@angular/core";
 import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
 import { fabric } from "fabric";
 import { PrimaryColors } from "./primary-colors";
@@ -9,7 +9,8 @@ import { PrimaryColors } from "./primary-colors";
   styleUrls: ["./edit-image.component.css"]
 })
 export class EditImageComponent implements AfterViewInit {
-  colors = PrimaryColors;
+  keys = Object.keys;
+  primaryColors = PrimaryColors;
 
   @Output() isImageLoaded = new EventEmitter<boolean>();
 

@@ -31,6 +31,6 @@
   <img id="image" class="preview-generated-meme" [src]="generateMeme()" />
 </div>
 
-<datalist id="primaryColors" >
-  <option *ngFor="let color of colors">{{color}}</option>
+<datalist id="primaryColors">
+  <option *ngFor="let color of keys(primaryColors)">{{primaryColors[color]}}</option>
 </datalist>
