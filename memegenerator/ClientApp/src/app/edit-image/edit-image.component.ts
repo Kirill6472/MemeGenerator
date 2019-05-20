@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
 import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
 import { fabric } from "fabric";
+import { PrimaryColors } from "./primary-colors";
 
 @Component({
   selector: "app-edit-image",
@@ -8,6 +9,8 @@ import { fabric } from "fabric";
   styleUrls: ["./edit-image.component.css"]
 })
 export class EditImageComponent implements AfterViewInit {
+  colors = PrimaryColors;
+
   @Output() isImageLoaded = new EventEmitter<boolean>();
 
   canvas: fabric.Canvas;
@@ -83,14 +86,14 @@ export class EditImageComponent implements AfterViewInit {
     this.canvas.clear();
   }
 
-  public onChangeTextColor($event) {
-    this.canvas.getActiveObject().setColor($event.target.value);
+  public onChangeTextColor(event) {
+    this.canvas.getActiveObject().setColor(event.target.value);
     
     this.canvas.renderAll();
   }
 
-  public onChangeOutlineColor($event) {
-    this.canvas.getActiveObject().set("stroke", $event.target.value);
+  public onChangeOutlineColor(event) {
+    this.canvas.getActiveObject().set("stroke", event.target.value);
 
     this.canvas.renderAll();
   }

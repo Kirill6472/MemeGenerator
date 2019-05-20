@@ -4,7 +4,7 @@
       <button type="button" class="btn btn-outline-primary" (click)="addText()">Add text</button>
       <button type="button" class="btn btn-outline-danger" (click)="deleteSelectedText()">Delete text</button>
     </div>
-
+    
     <div class="btn-group mr-2" role="group">
       <label class="label-color-picker" for="fontColor">Font color</label>
       <input class="color-picker" type="color" id="fontColor" list="primaryColors" value="#ffffff" (change)="onChangeTextColor($event)" />
@@ -31,25 +31,6 @@
   <img id="image" class="preview-generated-meme" [src]="generateMeme()" />
 </div>
 
-<datalist id="primaryColors">
-  <option>#000000</option>
-  <option>#00FFFF</option>
-  <option>#0000FF</option>
-  <option>#FF00FF</option>
-  <option>#808080</option>
-  <option>#008000</option>
-  <option>#00FF00</option>
-  <option>#800000</option>
-  <option>#000080</option>
-  <option>#808000</option>
-  <option>#800080</option>
-  <option>#FF0000</option>
-  <option>#C0C0C0</option>
-  <option>#008080</option>
-  <option>#FFFFFF</option>
-  <option>#FFFF00</option>
-  <option>#FFCBDB</option>
-  <option>#545454</option>
-  <option>#911eb4</option>
-  <option>#f58231</option>
+<datalist id="primaryColors" >
+  <option *ngFor="let color of colors">{{color}}</option>
 </datalist>
