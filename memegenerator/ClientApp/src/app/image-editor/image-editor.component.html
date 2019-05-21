@@ -5,5 +5,5 @@
   <h3>Meme editing</h3>
 </header>
 
-<app-loading-image (imageIsUploaded)="displayImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
-<app-edit-image (isImageLoaded)="showImageLoading($event)"></app-edit-image>
+<app-loading-image (imageIsUploaded)="updateImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
+<app-edit-image (isImageLoaded)="showImageInput($event)"></app-edit-image>

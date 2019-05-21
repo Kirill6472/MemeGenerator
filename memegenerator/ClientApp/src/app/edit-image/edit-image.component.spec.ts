@@ -8,7 +8,6 @@ describe("EditImageComponent", () => {
   let fixture: ComponentFixture<EditImageComponent>;
   let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
   let mockCanvas: jasmine.SpyObj<fabric.Canvas>;
-  let mockImage: fabric.Image;
   let fakeEvent;
 
   beforeEach(async(() => {
@@ -58,25 +57,19 @@ describe("EditImageComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should render canvas", () => {
-    const compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector("canvas"));
-  });
-
   it("should set background image", (done) => {
     const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
     const imageWidth = 400;
     const imageHeight = 500;
     const canvasWidth = 500;
     const canvasHeight = 600;
+    const mockImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
 
-    mockImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
     fabricFactoryMock.createImage.and.returnValue(mockImage);
     mockCanvas.getWidth.and.returnValue(canvasWidth);
     mockCanvas.getHeight.and.returnValue(canvasHeight);
 
-    const promise = component.addImageToCanvas(uploadedImageUrl);
+    const promise = component.setImage(uploadedImageUrl);
     promise.then(() => {
       expect(mockCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
@@ -85,12 +78,18 @@ describe("EditImageComponent", () => {
   });
 
   it("should add text to image", () => {
+    let mockText = fabric.IText;
+    fabricFactoryMock.createText.and.returnValue(mockText);
+
     component.addText();
 
-    expect(mockCanvas.add).toHaveBeenCalled();
+    expect(mockCanvas.add).toHaveBeenCalledWith(mockText);
   });
 
   it("should remove text from image", () => {
+    let activeTextSpy = jasmine.createSpy();
+    mockCanvas.getActiveObject.and.returnValue(activeTextSpy);
+
     component.deleteSelectedText();
 
     expect(mockCanvas.remove).toHaveBeenCalledWith(mockCanvas.getActiveObject());
@@ -110,6 +109,7 @@ describe("EditImageComponent", () => {
 
     expect(mockCanvas.clear).toHaveBeenCalled();
     expect(component.isMemePreview).toBe(false);
+    expect(component.isToolbarShown).toBe(false);
     expect(component.isImageLoaded.emit).toHaveBeenCalledWith(false);
   });
 
