@@ -1,0 +1,24 @@
+<div class="canvas-container" [hidden]="isMemePreview">
+  <div class="btn-toolbar" role="toolbar" *ngIf="isToolbarShown">
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-primary" (click)="addText()">Add text</button>
+      <button type="button" class="btn btn-outline-danger" (click)="deleteSelectedText()">Delete text</button>
+    </div>
+
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-primary" (click)="generateAndPreviewMeme()">Generate Meme</button>
+    </div>
+  </div>
+
+  <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
+</div>
+
+<div class="meme-preview" *ngIf="isMemePreview">
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-primary" (click)="createNewMeme()">Create a new Meme</button>
+    </div>
+  </div>
+
+  <img id="image" class="preview-generated-meme" [src]="generateMeme()" />
+</div>

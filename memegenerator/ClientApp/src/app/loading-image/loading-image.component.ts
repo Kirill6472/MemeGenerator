@@ -1,25 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from "@angular/core";
+import { FileReaderFactoryService } from "../file-reader-factory/file-reader-factory.service";
 
 @Component({
-  selector: 'app-loading-image',
-  templateUrl: './loading-image.component.html',
-  styleUrls: ['./loading-image.component.css']
+  selector: "app-loading-image",
+  templateUrl: "./loading-image.component.html",
+  styleUrls: ["./loading-image.component.css"]
 })
-export class LoadingImageComponent implements OnInit {
+export class LoadingImageComponent {
+  @Output() imageIsUploaded = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private loadingImageFactory: FileReaderFactoryService) { }
 
-  uploadedImageUrl = '';
-
-  onImageIsLoaded(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]);
+  public onImageIsLoaded(event: any) {
+    if (event.target.files.length && event.target.files[0]) {
+      const reader = this.loadingImageFactory.createFileReader();
 
       reader.onload = (event: any) => {
-        this.uploadedImageUrl = event.target.result;
+        this.imageIsUploaded.emit(event.target.result);
       }
+      reader.readAsDataURL(event.target.files[0]);
     }
   }
 }

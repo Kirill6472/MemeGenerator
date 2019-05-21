@@ -1,7 +1,3 @@
-<header class="head">
-  <h3>Upload your own image</h3>
-</header>
-<main>
-  <input class="center" type='file' (change)="onImageIsLoaded($event)">
-  <img class="center" [src]="uploadedImageUrl" width="700">
-</main>
+<div class="upload-image">
+  <input class="center" type='file' (change)="onImageIsLoaded($event)" accept="image/*">
+</div>

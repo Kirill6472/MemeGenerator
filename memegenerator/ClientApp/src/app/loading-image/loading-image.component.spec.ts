@@ -1,40 +1,88 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { LoadingImageComponent } from "./loading-image.component";
+import { FileReaderFactoryService } from "../file-reader-factory/file-reader-factory.service";
+import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
 
-import { LoadingImageComponent } from './loading-image.component';
-
-describe('LoadingImageComponent', () => {
+describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
+  let fileReaderFactoryMock: jasmine.SpyObj<FileReaderFactoryService>;
+  const file = {};
+  let fakeEvent;
+
+  class FakeFileReader {
+    onload: Function;
+
+    readAsDataURL() { }
+  }
 
   beforeEach(async(() => {
+    fileReaderFactoryMock = jasmine.createSpyObj("loadingImageFactoryMock", ["createFileReader"]);
+    fakeEvent = {
+      target: {
+        files: [file]
+      }
+    };
+
     TestBed.configureTestingModule({
       declarations: [
-        LoadingImageComponent
+        LoadingImageComponent,
+        MockEditImageComponent
+      ],
+      providers: [
+        { provide: FileReaderFactoryService, useValue: fileReaderFactoryMock }
       ]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(LoadingImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render input tag with type file', () => {
-    fixture = TestBed.createComponent(LoadingImageComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('input'));
+  it("should create file reader", () => {
+    const fakeFileReader = new FakeFileReader();
+
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    component.onImageIsLoaded(fakeEvent);
+
+    expect(fileReaderFactoryMock.createFileReader).toHaveBeenCalled();
   });
 
-  it('should load image', () => {
-    fixture = TestBed.createComponent(LoadingImageComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('img').src).toContain(component.uploadedImageUrl);
+  it("should read file on file event", () => {
+    const fakeFileReader = new FakeFileReader();
+
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    component.onImageIsLoaded(fakeEvent);
+
+    expect(fakeFileReader.onload).not.toBe(undefined);
+  });
+
+  it("should call EditImageComponent on image is loaded", () => {
+    const fakeFileReader = new FakeFileReader();
+    const image = "";
+    const imageIsLoadedEvent = { target: { result: image } };
+
+    spyOn(component.imageIsUploaded, "emit");
+
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    component.onImageIsLoaded(fakeEvent);
+    fakeFileReader.onload(imageIsLoadedEvent);
+
+    expect(component.imageIsUploaded.emit).toHaveBeenCalledWith(image);
+  });
+
+  it("should read file", () => {
+    const fakeFileReader = new FakeFileReader();
+    spyOn(fakeFileReader, "readAsDataURL");
+
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    component.onImageIsLoaded(fakeEvent);
+
+    expect(fakeFileReader.readAsDataURL).toHaveBeenCalledWith(fakeEvent.target.files[0]);
+    expect(fakeFileReader.readAsDataURL).not.toBe(undefined);
   });
 });

@@ -13,6 +13,7 @@ describe('NavMenuComponent', () => {
   it('should create the nav-menu', () => {
     const fixture = TestBed.createComponent(NavMenuComponent);
     const navMenu = fixture.debugElement.componentInstance;
+
     expect(navMenu).toBeTruthy();
   });
 });

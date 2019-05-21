@@ -1,33 +1,31 @@
-import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-
-@Component({ selector: 'app-nav-menu', template: '' })
-class NavMenuStubComponent { }
-
-@Component({ selector: 'app-loading-image', template: '' })
-class LoadingImageComponent { }
+import { MockNavMenuComponent } from "./nav-menu/nav-menu-mock.component";
+import { MockImageEditorComponent } from "./image-editor/image-editor-mock.component";
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        NavMenuStubComponent,
-        LoadingImageComponent
+        MockNavMenuComponent,
+        MockImageEditorComponent
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it(`should have as title 'Meme Generator'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Meme Generator');
+    expect(component.title).toEqual('Meme Generator');
   });
 });
