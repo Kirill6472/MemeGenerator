@@ -132,4 +132,8 @@ describe("EditImageComponent", () => {
     expect(activeTextSpy.set).toHaveBeenCalledWith("stroke", fakeEvent.target.value);
     expect(mockCanvas.renderAll).toHaveBeenCalled();
   });
+
+  it("should return color list", () => {
+    expect(component.getTextColors()).not.toBe(null);
+  });
 });
