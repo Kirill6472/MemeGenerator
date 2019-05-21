@@ -49,14 +49,13 @@ describe("EditImageComponent", () => {
   });
 
   it("should set background image", (done) => {
-    let mockImage: fabric.Image;
     const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
     const imageWidth = 400;
     const imageHeight = 500;
     const canvasWidth = 500;
     const canvasHeight = 600;
+    const mockImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
 
-    mockImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
     fabricFactoryMock.createImage.and.returnValue(mockImage);
     mockCanvas.getWidth.and.returnValue(canvasWidth);
     mockCanvas.getHeight.and.returnValue(canvasHeight);
