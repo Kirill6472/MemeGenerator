@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { LoadingImageComponent } from "./loading-image.component";
-import { FileReaderFactoryService } from "../file-reader-factory/file-reader-factory.service";
+import { FileReaderFactory } from "../file-reader-factory/file-reader-factory";
 import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
 
 describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
-  let fileReaderFactoryMock: jasmine.SpyObj<FileReaderFactoryService>;
+  let fileReaderFactoryMock: jasmine.SpyObj<FileReaderFactory>;
   const file = {};
   let fakeEvent;
 
@@ -30,7 +30,7 @@ describe("LoadingImageComponent", () => {
         MockEditImageComponent
       ],
       providers: [
-        { provide: FileReaderFactoryService, useValue: fileReaderFactoryMock }
+        { provide: FileReaderFactory, useValue: fileReaderFactoryMock }
       ]
     }).compileComponents();
 

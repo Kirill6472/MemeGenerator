@@ -4,7 +4,7 @@ import { fabric } from "fabric";
 @Injectable({
   providedIn: "root"
 })
-export class FabricFactoryService {
+export class FabricFactory {
   public createCanvas(canvas: string) {
     return new fabric.Canvas(canvas);
   }

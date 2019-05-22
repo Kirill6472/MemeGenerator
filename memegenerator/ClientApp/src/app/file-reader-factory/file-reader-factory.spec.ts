@@ -1,21 +1,21 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { FileReaderFactoryService } from "./file-reader-factory.service";
+import { FileReaderFactory } from "./file-reader-factory";
 
 describe('LoadingImageFactoryService', () => {
-  let loadingImageFactoryService: FileReaderFactoryService;
+  let loadingImageFactoryService: FileReaderFactory;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FileReaderFactoryService]
+      providers: [FileReaderFactory]
     });
   });
 
-  it('should be created', inject([FileReaderFactoryService], (service: FileReaderFactoryService) => {
+  it('should be created', inject([FileReaderFactory], (service: FileReaderFactory) => {
     expect(service).toBeTruthy();
   }));
 
   it('should create file reader', () => {
-    loadingImageFactoryService = new FileReaderFactoryService();
+    loadingImageFactoryService = new FileReaderFactory();
 
     expect(loadingImageFactoryService.createFileReader()).not.toBe(null);
   });

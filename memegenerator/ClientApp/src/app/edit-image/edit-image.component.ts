@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
-import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
+import { FabricFactory } from "../fabric-factory/fabric-factory";
+import { TextCommandFactory } from "../text-command/text-command-factory";
 import { fabric } from "fabric";
 import { PrimaryColors } from "./primary-colors";
 
@@ -10,19 +11,21 @@ import { PrimaryColors } from "./primary-colors";
 })
 export class EditImageComponent implements AfterViewInit {
 
+  constructor(private fabricFactory: FabricFactory, private textCommandFactory: TextCommandFactory) { }
+
   @Output() isImageLoaded = new EventEmitter<boolean>();
 
-  private canvas: fabric.Canvas;
+  canvas: fabric.Canvas;
   private imageInstance: any;
-  private text: fabric.Text;
+  private text: fabric.IText;
   isToolbarShown = false;
   isMemePreview = false;
   primaryColors = PrimaryColors;
-
-  constructor(private fabricFactory: FabricFactoryService) { }
+  textCommand: ICommand;
 
   ngAfterViewInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
+    this.textCommand = this.textCommandFactory.createTextCommand(this);
   }
 
   public setImage(uploadedImageUrl: string) { 
@@ -48,8 +51,7 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   public addText() {
-    this.text = this.fabricFactory.createText("Sample\ntext", this.canvas.getWidth());
-    this.canvas.add(this.text);
+    this.textCommand.execute();
   }
 
   public deleteSelectedText() {

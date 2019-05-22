@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { EditImageComponent } from "./edit-image.component";
 import { fabric } from "fabric";
-import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
+import { FabricFactory } from "../fabric-factory/fabric-factory";
 
 describe("EditImageComponent", () => {
   let component: EditImageComponent;
   let fixture: ComponentFixture<EditImageComponent>;
-  let fabricFactoryMock: jasmine.SpyObj<FabricFactoryService>;
+  let fabricFactoryMock: jasmine.SpyObj<FabricFactory>;
   let mockCanvas: jasmine.SpyObj<fabric.Canvas>;
   let fakeEvent;
 
@@ -44,7 +44,7 @@ describe("EditImageComponent", () => {
         EditImageComponent
       ],
       providers: [
-        { provide: FabricFactoryService, useValue: fabricFactoryMock }
+        { provide: FabricFactory, useValue: fabricFactoryMock }
       ]
     }).compileComponents();
 
