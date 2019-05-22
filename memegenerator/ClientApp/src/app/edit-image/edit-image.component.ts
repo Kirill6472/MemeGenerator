@@ -17,11 +17,13 @@ export class EditImageComponent implements AfterViewInit {
 
   canvas: fabric.Canvas;
   private imageInstance: any;
-  private text: fabric.IText;
   isToolbarShown = false;
   isMemePreview = false;
   primaryColors = PrimaryColors;
   textCommand: ICommand;
+  textFillColor = '#ffffff';
+  textOutlineColor = "#000000";
+
 
   ngAfterViewInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
@@ -89,14 +91,21 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   public onChangeTextColor(event) {
-    this.canvas.getActiveObject().setColor(event.target.value);
-    
+    this.textFillColor = event.target.value;
+
+    if (this.canvas.getActiveObject()) {
+      this.canvas.getActiveObject().setColor(event.target.value);
+    }
+
     this.canvas.renderAll();
   }
 
   public onChangeOutlineColor(event) {
-    this.canvas.getActiveObject().set("stroke", event.target.value);
+    this.textOutlineColor = event.target.value;
 
+    if (this.canvas.getActiveObject()) {
+      this.canvas.getActiveObject().set("stroke", event.target.value);
+    }
     this.canvas.renderAll();
   }
 

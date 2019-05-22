@@ -6,6 +6,11 @@ export class AddTextCommand implements ICommand {
   constructor(private component: EditImageComponent, private fabricFactory: FabricFactory) { }
 
   public execute(): void {
-    this.component.canvas.add(this.fabricFactory.createText("Sample\ntext", this.component.canvas.getWidth()));
+    this.component.canvas.add(this.fabricFactory.createText(
+      "Sample\ntext",
+      this.component.canvas.getWidth(),
+      this.component.textFillColor,
+      this.component.textOutlineColor
+    ));
   } 
 }

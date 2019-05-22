@@ -6,4 +6,4 @@
 </header>
 
 <app-loading-image (imageIsUploaded)="updateImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
-<app-edit-image (isImageLoaded)="showImageInput($event)"></app-edit-image>
+<app-edit-image (isImageLoaded)="isDisplayImageInput($event)"></app-edit-image>
