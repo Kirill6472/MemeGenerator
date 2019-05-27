@@ -9,7 +9,7 @@ export class AddTextCommand implements ICommand {
     this.component.canvas.add(this.fabricFactory.createText(
       "Sample\ntext",
       this.component.canvas.getWidth(),
-      this.component.textFillColor,
+      this.component.textColor,
       this.component.textOutlineColor
     ));
   } 

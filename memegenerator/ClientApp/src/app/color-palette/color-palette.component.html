@@ -1,0 +1,9 @@
+<label class="label-color-picker" for="fontColor">Font color</label>
+<input class="color-picker" type="color" id="fontColor" list="primaryColors" value="#FFFFFF" (change)="onChangeTextColor($event)" />
+
+<label class="label-color-picker" for="outlineColor">Outline color</label>
+<input class="color-picker" type="color" id="outlineColor" list="primaryColors" value="#000000" (change)="onChangeOutlineColor($event)" />
+
+<datalist id="primaryColors">
+  <option *ngFor="let color of getTextColors()">{{primaryColors[color]}}</option>
+</datalist>

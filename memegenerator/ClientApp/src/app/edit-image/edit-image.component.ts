@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
 import { TextCommandFactory } from "../text-command/text-command-factory";
 import { fabric } from "fabric";
-import { PrimaryColors } from "./primary-colors";
+import { TextColorService } from "../text-color-service/text-color.service";
 
 @Component({
   selector: "app-edit-image",
@@ -11,7 +11,7 @@ import { PrimaryColors } from "./primary-colors";
 })
 export class EditImageComponent implements AfterViewInit {
 
-  constructor(private fabricFactory: FabricFactory, private textCommandFactory: TextCommandFactory) { }
+  constructor(private fabricFactory: FabricFactory, private textCommandFactory: TextCommandFactory, private textColorService: TextColorService) { }
 
   @Output() isImageLoaded = new EventEmitter<boolean>();
 
@@ -19,11 +19,7 @@ export class EditImageComponent implements AfterViewInit {
   private imageInstance: any;
   isToolbarShown = false;
   isMemePreview = false;
-  primaryColors = PrimaryColors;
   textCommand: ICommand;
-  textFillColor = '#ffffff';
-  textOutlineColor = "#000000";
-
 
   ngAfterViewInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
@@ -90,26 +86,26 @@ export class EditImageComponent implements AfterViewInit {
     this.canvas.clear();
   }
 
-  public onChangeTextColor(event) {
-    this.textFillColor = event.target.value;
+  get textColor(): string {
+    return this.textColorService.textColor;
+  }
 
+  get textOutlineColor(): string {
+    return this.textColorService.textOutlineColor;
+  }
+
+  public changeTextColor() {
     if (this.canvas.getActiveObject()) {
-      this.canvas.getActiveObject().setColor(event.target.value);
+      this.canvas.getActiveObject().setColor(this.textColor);
     }
 
     this.canvas.renderAll();
   }
 
-  public onChangeOutlineColor(event) {
-    this.textOutlineColor = event.target.value;
-
+  public changeTextOutlineColor() {
     if (this.canvas.getActiveObject()) {
-      this.canvas.getActiveObject().set("stroke", event.target.value);
+      this.canvas.getActiveObject().set("stroke", this.textOutlineColor);
     }
     this.canvas.renderAll();
-  }
-
-  public getTextColors() {
-    return Object.keys(this.primaryColors);
   }
 }
