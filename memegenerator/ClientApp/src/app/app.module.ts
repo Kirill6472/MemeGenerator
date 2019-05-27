@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoadingImageComponent } from './loading-image/loading-image.component';
 import { EditImageComponent } from './edit-image/edit-image.component';
-import { ImageEditorComponent } from "./image-editor/image-editor.component";
 import { ColorPaletteComponent } from './color-palette/color-palette.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { ColorPaletteComponent } from './color-palette/color-palette.component';
     NavMenuComponent,
     LoadingImageComponent,
     EditImageComponent,
-    ImageEditorComponent,
     ColorPaletteComponent
   ],
   imports: [

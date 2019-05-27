@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
 import { TextCommandFactory } from "../text-command/text-command-factory";
 import { fabric } from "fabric";
-import { TextColorService } from "../text-color-service/text-color.service";
 
 @Component({
   selector: "app-edit-image",
@@ -11,7 +10,7 @@ import { TextColorService } from "../text-color-service/text-color.service";
 })
 export class EditImageComponent implements AfterViewInit {
 
-  constructor(private fabricFactory: FabricFactory, private textCommandFactory: TextCommandFactory, private textColorService: TextColorService) { }
+  constructor(private fabricFactory: FabricFactory, private textCommandFactory: TextCommandFactory) { }
 
   @Output() isImageLoaded = new EventEmitter<boolean>();
 
@@ -87,11 +86,9 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   get textColor(): string {
-    return this.textColorService.textColor;
   }
 
   get textOutlineColor(): string {
-    return this.textColorService.textOutlineColor;
   }
 
   public changeTextColor() {
