@@ -9,6 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoadingImageComponent } from './loading-image/loading-image.component';
 import { EditImageComponent } from './edit-image/edit-image.component';
 import { ColorPaletteComponent } from './color-palette/color-palette.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ColorPaletteComponent } from './color-palette/color-palette.component';
     NavMenuComponent,
     LoadingImageComponent,
     EditImageComponent,
-    ColorPaletteComponent
+    ColorPaletteComponent,
+    TextEditorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

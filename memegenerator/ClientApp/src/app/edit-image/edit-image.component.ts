@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
-import { TextCommandFactory } from "../text-command/text-command-factory";
 import { fabric } from "fabric";
 
 @Component({
@@ -10,7 +9,7 @@ import { fabric } from "fabric";
 })
 export class EditImageComponent implements AfterViewInit {
 
-  constructor(private fabricFactory: FabricFactory, private textCommandFactory: TextCommandFactory) { }
+  constructor(private fabricFactory: FabricFactory) { }
 
   @Output() isImageLoaded = new EventEmitter<boolean>();
 
@@ -18,11 +17,9 @@ export class EditImageComponent implements AfterViewInit {
   private imageInstance: any;
   isToolbarShown = false;
   isMemePreview = false;
-  textCommand: ICommand;
 
   ngAfterViewInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
-    this.textCommand = this.textCommandFactory.createTextCommand(this);
   }
 
   public setImage(uploadedImageUrl: string) { 
@@ -45,14 +42,6 @@ export class EditImageComponent implements AfterViewInit {
       scaleX: this.canvas.getWidth() / this.imageInstance.width,
       selectable: false
     }); 
-  }
-
-  public addText() {
-    this.textCommand.execute();
-  }
-
-  public deleteSelectedText() {
-    this.canvas.remove(this.canvas.getActiveObject());
   }
 
   private showToolbar() {
@@ -85,24 +74,24 @@ export class EditImageComponent implements AfterViewInit {
     this.canvas.clear();
   }
 
-  get textColor(): string {
-  }
+  //get textColor(): string {
+  //}
 
-  get textOutlineColor(): string {
-  }
+  //get textOutlineColor(): string {
+  //}
 
-  public changeTextColor() {
-    if (this.canvas.getActiveObject()) {
-      this.canvas.getActiveObject().setColor(this.textColor);
-    }
+  //public changeTextColor() {
+  //  if (this.canvas.getActiveObject()) {
+  //    this.canvas.getActiveObject().setColor(this.textColor);
+  //  }
 
-    this.canvas.renderAll();
-  }
+  //  this.canvas.renderAll();
+  //}
 
-  public changeTextOutlineColor() {
-    if (this.canvas.getActiveObject()) {
-      this.canvas.getActiveObject().set("stroke", this.textOutlineColor);
-    }
-    this.canvas.renderAll();
-  }
+  //public changeTextOutlineColor() {
+  //  if (this.canvas.getActiveObject()) {
+  //    this.canvas.getActiveObject().set("stroke", this.textOutlineColor);
+  //  }
+  //  this.canvas.renderAll();
+  //}
 }
