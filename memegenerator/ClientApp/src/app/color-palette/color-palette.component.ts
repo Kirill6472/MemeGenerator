@@ -8,7 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ColorPaletteComponent {
 
   @Input() defaultColor: string;
-  @Input() availableColors;
+  @Input() availableColors: string[];
   @Output() colorChange = new EventEmitter<string>();
 
   setColor(event) {

@@ -13,13 +13,13 @@ export class FabricFactory {
     return new fabric.Image(image);
   }
 
-  public createText(sampleText: string, canvasWidth: number, fontColor: string, outlineColor: string) {
+  public createText(sampleText: string, canvasWidth: number, textColor: string, outlineColor: string) {
     return new fabric.IText(sampleText, {
       fontFamily: "Impact",
       fontSize: 50,
       stroke: outlineColor,
       strokeWidth: 3,
-      fill: fontColor,
+      fill: textColor,
       textAlign: "center",
       left: canvasWidth / 2,
       originX: "center"

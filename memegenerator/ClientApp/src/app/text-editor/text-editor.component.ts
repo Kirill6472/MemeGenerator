@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import fabric = require('fabric/fabric-impl');
 import { FabricFactory } from '../fabric-factory/fabric-factory';
 import { PrimaryColors } from '../edit-image/primary-colors';
+import { fabric } from "fabric";
 
 @Component({
   selector: 'app-text-editor',
@@ -29,20 +29,18 @@ export class TextEditorComponent {
   public textColorChange(color) {
     this.textColor = color;
 
-    if (this.canvas.getActiveObject()) {
+    if (this.canvas.getActiveObject().type === 'i-text') {
       this.canvas.getActiveObject().setColor(this.textColor);
-    }
-
-    this.canvas.renderAll();
+      this.canvas.renderAll();
+    } 
   }
 
   public outlineColorChange(color) {
     this.outlineColor = color;
 
-    if (this.canvas.getActiveObject()) {
+    if (this.canvas.getActiveObject().type === 'i-text') {
       this.canvas.getActiveObject().set("stroke", this.outlineColor);
+      this.canvas.renderAll();
     }
-
-    this.canvas.renderAll();
   }
 }

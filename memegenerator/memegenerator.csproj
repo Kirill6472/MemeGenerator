@@ -30,11 +30,13 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\app.component.spec.ts" />
+    <None Remove="ClientApp\src\app\color-palette\color-palette-mock.component.ts" />
     <None Remove="ClientApp\src\app\edit-image\edit-image-mock.component.ts" />
     <None Remove="ClientApp\src\app\edit-image\primary-colors.ts" />
     <None Remove="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
+    <None Remove="ClientApp\src\app\text-editor\text-editor-mock.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,11 +45,13 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\color-palette\color-palette-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\edit-image\edit-image-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\edit-image\primary-colors.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\text-editor\text-editor-mock.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -1,7 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { FabricFactory } from './fabric-factory';
+import fabric = require('fabric/fabric-impl');
 
-describe('FabricFactoryService', () => {
+describe('FabricFactory', () => {
   let fabricFactory: FabricFactory;
 
   beforeEach(() => {
@@ -16,6 +17,12 @@ describe('FabricFactoryService', () => {
     expect(service).toBeTruthy();
   }));
 
+  it('should return new canvas', () => {
+    let mockCanvas = "canvas";
+
+    expect(fabricFactory.createCanvas(mockCanvas)).not.toBe(null);
+  });
+
   it('should return new image', () => {
     const fakeImage = new Image();
 
@@ -25,7 +32,9 @@ describe('FabricFactoryService', () => {
   it('should return new text', () => {
     const fakeText = "Sample text";
     const fakeCanvasWidth = 600;
+    const fakeTextColor = "#FFFFFF";
+    const fakeOutlineColor = "#000000";
 
-    expect(fabricFactory.createText(fakeText, fakeCanvasWidth)).not.toBe(null);
+    expect(fabricFactory.createText(fakeText, fakeCanvasWidth, fakeTextColor, fakeOutlineColor)).not.toBe(null);
   });
 });

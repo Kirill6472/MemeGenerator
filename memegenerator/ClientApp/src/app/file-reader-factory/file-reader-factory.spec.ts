@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { FileReaderFactory } from "./file-reader-factory";
 
-describe('LoadingImageFactoryService', () => {
+describe('FileReaderFactory', () => {
   let loadingImageFactoryService: FileReaderFactory;
 
   beforeEach(() => {

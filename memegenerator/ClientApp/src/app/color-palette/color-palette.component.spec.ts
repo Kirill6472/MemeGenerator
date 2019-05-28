@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ColorPaletteComponent } from './color-palette.component';
 
-describe('TextPaletteComponent', () => {
+describe('ColorPaletteComponent', () => {
   let component: ColorPaletteComponent;
   let fixture: ComponentFixture<ColorPaletteComponent>;
 
@@ -21,5 +21,18 @@ describe('TextPaletteComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set selected color', () => {
+    let fakeEvent = {
+      target: {
+        value: "#000000"
+      }
+    }
+    spyOn(component.colorChange, "emit");
+
+    component.setColor(fakeEvent);
+
+    expect(component.colorChange.emit).toHaveBeenCalledWith(fakeEvent.target.value);
   });
 });
