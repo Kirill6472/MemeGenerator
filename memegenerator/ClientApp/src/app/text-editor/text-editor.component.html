@@ -5,6 +5,10 @@
   </div>
 
   <div class="btn-group palette" role="group">
-    <app-color-palette (textColorChange)="textColorChange($event)"></app-color-palette>
+    <label class="label-color-picker">Text color</label>
+    <app-color-palette [defaultColor]="textColor" [availableColors]="primaryColors" (colorChange)="textColorChange($event)"></app-color-palette>
+
+    <label class="label-color-picker">Outline color</label>
+    <app-color-palette [defaultColor]="outlineColor" [availableColors]="primaryColors" (colorChange)="outlineColorChange($event)"></app-color-palette>
   </div>
 </div>

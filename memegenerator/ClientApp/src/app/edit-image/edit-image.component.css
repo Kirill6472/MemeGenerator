@@ -27,18 +27,3 @@
   margin-top: 10px;
   width: 700px;
 }
-
-.label-color-picker {
-  font: 1rem 'Fira Sans', sans-serif;
-  margin: auto;
-}
-
-.color-picker {
-  margin: auto .5rem;
-}
-
-.palette {
-  padding: 0;
-  margin: auto;
-  display: block;
-}

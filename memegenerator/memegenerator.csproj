@@ -35,8 +35,6 @@
     <None Remove="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <None Remove="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
-    <None Remove="ClientApp\src\app\text-command\add-text-command.ts" />
-    <None Remove="ClientApp\src\app\text-command\command-interface.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,8 +48,6 @@
     <TypeScriptCompile Include="ClientApp\src\app\loading-image\loading-image-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\nav-menu\nav-menu.component.spec.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\text-command\add-text-command.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\text-command\command-interface.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

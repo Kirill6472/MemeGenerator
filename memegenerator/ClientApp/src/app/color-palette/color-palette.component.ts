@@ -1,5 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { PrimaryColors } from './primary-colors';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-color-palette',
@@ -8,15 +7,11 @@ import { PrimaryColors } from './primary-colors';
 })
 export class ColorPaletteComponent {
 
-  @Output() textColorChange = new EventEmitter<string>();
+  @Input() defaultColor: string;
+  @Input() availableColors;
+  @Output() colorChange = new EventEmitter<string>();
 
-  setTextColor(event) {
-    this.textColorChange.emit(event.target.value);
-  }
-
-  primaryColors = PrimaryColors;
-
-  public getTextColors() {
-    return Object.keys(this.primaryColors);
+  setColor(event) {
+    this.colorChange.emit(event.target.value);
   }
 }

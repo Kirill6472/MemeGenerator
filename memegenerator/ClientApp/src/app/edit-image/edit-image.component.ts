@@ -73,25 +73,4 @@ export class EditImageComponent implements AfterViewInit {
   private clearCanvas() {
     this.canvas.clear();
   }
-
-  //get textColor(): string {
-  //}
-
-  //get textOutlineColor(): string {
-  //}
-
-  //public changeTextColor() {
-  //  if (this.canvas.getActiveObject()) {
-  //    this.canvas.getActiveObject().setColor(this.textColor);
-  //  }
-
-  //  this.canvas.renderAll();
-  //}
-
-  //public changeTextOutlineColor() {
-  //  if (this.canvas.getActiveObject()) {
-  //    this.canvas.getActiveObject().set("stroke", this.textOutlineColor);
-  //  }
-  //  this.canvas.renderAll();
-  //}
 }

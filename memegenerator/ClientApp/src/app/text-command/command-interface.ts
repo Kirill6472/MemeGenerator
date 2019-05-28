@@ -1,3 +1,0 @@
-interface ICommand {
-  execute(): void;
-}

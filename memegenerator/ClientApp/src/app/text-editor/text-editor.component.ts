@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import fabric = require('fabric/fabric-impl');
 import { FabricFactory } from '../fabric-factory/fabric-factory';
-import { PrimaryColors } from '../color-palette/primary-colors';
+import { PrimaryColors } from '../edit-image/primary-colors';
 
 @Component({
   selector: 'app-text-editor',
@@ -15,9 +15,11 @@ export class TextEditorComponent {
   @Input('canvas') canvas: fabric.Canvas;
 
   textColor = PrimaryColors.white;
+  outlineColor = PrimaryColors.black;
+  primaryColors = Object.keys(PrimaryColors).map(i => PrimaryColors[i]);
 
   public addText() {
-    this.canvas.add(this.fabricFactory.createText("Sample\ntext", this.canvas.getWidth(), this.textColor, "#000000"));
+    this.canvas.add(this.fabricFactory.createText("Sample\ntext", this.canvas.getWidth(), this.textColor, this.outlineColor));
   }
 
   public deleteSelectedText() {
@@ -29,6 +31,16 @@ export class TextEditorComponent {
 
     if (this.canvas.getActiveObject()) {
       this.canvas.getActiveObject().setColor(this.textColor);
+    }
+
+    this.canvas.renderAll();
+  }
+
+  public outlineColorChange(color) {
+    this.outlineColor = color;
+
+    if (this.canvas.getActiveObject()) {
+      this.canvas.getActiveObject().set("stroke", this.outlineColor);
     }
 
     this.canvas.renderAll();
