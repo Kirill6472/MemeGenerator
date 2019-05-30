@@ -11,18 +11,14 @@ describe("EditImageComponent", () => {
   let mockCanvas: jasmine.SpyObj<fabric.Canvas>;
 
   beforeEach(async(() => {
-    mockCanvas = jasmine.createSpyObj("fakeCanvas", [
+    mockCanvas = jasmine.createSpyObj("mockCanvas", [
       "setBackgroundImage",
       "renderAll",
       "getWidth",
       "getHeight",
-      "add",
-      "remove",
-      "setActiveObject",
       "getActiveObject",
       "toDataURL",
       "clear",
-      "item"
     ]);
 
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [
@@ -68,6 +64,14 @@ describe("EditImageComponent", () => {
       expect(mockCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
     });
-    expect(component.isToolbarShown).toBe(true);
+  });
+
+  it("should generate meme", () => {
+    spyOn(component.generatedMemeUrl, "emit");
+
+    component.generateMeme();
+
+    expect(component.generatedMemeUrl.emit).toHaveBeenCalledWith(mockCanvas.getActiveObject());
+    expect(mockCanvas.clear).toHaveBeenCalled();
   });
 });

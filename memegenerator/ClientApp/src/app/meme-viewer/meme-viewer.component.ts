@@ -7,8 +7,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class MemeViewerComponent {
 
-  constructor() { }
-
   @Input() memeUrl: string;
   @Output() onCreateNewMeme = new EventEmitter();
 

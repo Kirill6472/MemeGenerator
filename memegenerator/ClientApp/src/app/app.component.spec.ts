@@ -3,6 +3,7 @@ import { AppComponent } from './app.component';
 import { MockNavMenuComponent } from "./nav-menu/nav-menu-mock.component";
 import { MockLoadingImageComponent } from "./loading-image/loading-image-mock.component";
 import { MockEditImageComponent } from "./edit-image/edit-image-mock.component";
+import { MockMemeViewerComponent } from './meme-viewer/meme-viewer-mock.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -14,7 +15,8 @@ describe('AppComponent', () => {
         AppComponent,
         MockNavMenuComponent,
         MockLoadingImageComponent,
-        MockEditImageComponent
+        MockEditImageComponent,
+        MockMemeViewerComponent
       ],
     }).compileComponents();
 
@@ -32,21 +34,36 @@ describe('AppComponent', () => {
   });
 
   it('should display image', () => {
-    const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
+    const uploadedImageUrl =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
 
     spyOn(component.editImageComponent, "setImage");
 
     component.updateImage(uploadedImageUrl);
 
     expect(component.editImageComponent.setImage).toHaveBeenCalledWith(uploadedImageUrl);
-    expect(component.showUploadedImage).toBe(true);
+    expect(component.isUploadedImageShown).toBe(true);
+    expect(component.isMemeEdited).toBe(true);
   });
 
-  it('should show image loading', () => {
-    const showUploadedImage = false;
+  it('should set meme URL', () => {
+    const mockUrl =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
+    component.isMemeEdited = true;
 
-    component.isDisplayImageInput(showUploadedImage);
+    component.setMemeUrl(mockUrl);
 
-    expect(component.showUploadedImage).toBe(false);
+    expect(component.generatedMemeUrl).toContain(mockUrl);
+    expect(component.isMemeDisplayed).toBe(true);
+    expect(component.isMemeEdited).toBe(false);
+  });
+
+  it('should hide meme viewer and show loading image', () => {
+    component.isMemeDisplayed = true;
+
+    component.onCreateNewMeme();
+
+    expect(component.isMemeDisplayed).toBe(false);
+    expect(component.isUploadedImageShown).toBe(true);
   });
 });

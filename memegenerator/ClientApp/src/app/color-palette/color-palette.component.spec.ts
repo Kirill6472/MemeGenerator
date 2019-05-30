@@ -29,10 +29,10 @@ describe('ColorPaletteComponent', () => {
         value: "#000000"
       }
     }
-    spyOn(component.colorChange, "emit");
+    spyOn(component.selectedColorChange, "emit");
 
     component.setColor(fakeEvent);
 
-    expect(component.colorChange.emit).toHaveBeenCalledWith(fakeEvent.target.value);
+    expect(component.selectedColorChange.emit).toHaveBeenCalledWith(fakeEvent.target.value);
   });
 });

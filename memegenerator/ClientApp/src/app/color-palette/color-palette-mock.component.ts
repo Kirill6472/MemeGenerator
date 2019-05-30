@@ -6,6 +6,6 @@ import { Component, Input } from "@angular/core";
 })
 export class ColorPaletteMockComponent {
 
-  @Input() defaultColor: string;
   @Input() availableColors: string[];
+  @Input() selectedColor: string;
 }

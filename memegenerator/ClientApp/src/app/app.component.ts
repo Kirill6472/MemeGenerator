@@ -8,8 +8,8 @@ import { EditImageComponent } from './edit-image/edit-image.component';
 })
 export class AppComponent {
   public title = 'Meme Generator';
-  public isUploadedImageShown = false;
   public generatedMemeUrl = "";
+  public isUploadedImageShown = false;
   public isMemeDisplayed = false;
   public isMemeEdited = false;
 
@@ -30,6 +30,11 @@ export class AppComponent {
     this.toggleVisualisationEditImage();
   }
 
+  public onCreateNewMeme() {
+    this.toggleVisualisationMemeViewer();
+    this.toggleVisualisationLoadingImage();
+  }
+
   private toggleVisualisationLoadingImage() {
     this.isUploadedImageShown = !this.isUploadedImageShown;
   }
@@ -40,10 +45,5 @@ export class AppComponent {
 
   private toggleVisualisationMemeViewer() {
     this.isMemeDisplayed = !this.isMemeDisplayed;
-  }
-
-  public onCreateNewMeme() {
-    this.toggleVisualisationMemeViewer();
-    this.toggleVisualisationLoadingImage();
   }
 }

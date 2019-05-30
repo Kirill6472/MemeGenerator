@@ -14,8 +14,8 @@ export class TextEditorComponent {
 
   @Input('canvas') canvas: fabric.Canvas;
 
-  private textColor = PrimaryColors.white;
-  private outlineColor = PrimaryColors.black;
+  public textColor = PrimaryColors.white;
+  public outlineColor = PrimaryColors.black;
   public primaryColors = Object.keys(PrimaryColors).map(i => PrimaryColors[i]);
 
   public addText() {
