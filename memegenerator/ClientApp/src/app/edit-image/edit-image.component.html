@@ -1,19 +1,9 @@
-<div class="canvas-container" [hidden]="isMemePreview">
-  <app-text-editor *ngIf="isToolbarShown" [canvas]="canvas"></app-text-editor>
+<div class="canvas-container">
+  <app-text-editor [canvas]="canvas"></app-text-editor>
 
-  <div class="generate-meme-button" *ngIf="isToolbarShown">
-    <button type="button" class="btn btn-outline-primary generate-meme-button" (click)="generateAndPreviewMeme()">Generate Meme</button>
+  <div class="generate-meme-button">
+    <button type="button" class="btn btn-outline-primary generate-meme-button" (click)="generateMeme()">Generate Meme</button>
   </div>
 
   <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
-</div>
-
-<div class="meme-preview" *ngIf="isMemePreview">
-  <div class="btn-toolbar" role="toolbar">
-    <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="createNewMeme()">Create a new Meme</button>
-    </div>
-  </div>
-
-  <img id="image" class="preview-generated-meme" [src]="generateMeme()" />
 </div>

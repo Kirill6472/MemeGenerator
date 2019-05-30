@@ -1,14 +1,17 @@
 <body>
   <app-nav-menu></app-nav-menu>
+
   <div class="container">
-    <div *ngIf="!showUploadedImage">
+    <div *ngIf="!isUploadedImageShown">
       <h3>Upload your own image</h3>
     </div>
-    <div *ngIf="showUploadedImage">
+
+    <div *ngIf="isUploadedImageShown">
       <h3>Meme editing</h3>
     </div>
 
-    <app-loading-image (imageIsUploaded)="updateImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
-    <app-edit-image (isImageLoaded)="isDisplayImageInput($event)"></app-edit-image>
+    <app-loading-image (imageIsUploaded)="updateImage($event)" [hidden]="isUploadedImageShown"></app-loading-image>
+    <app-edit-image (generatedMemeUrl)="setMemeUrl($event)" [hidden]="!isMemeEdited"></app-edit-image>
+    <app-meme-viewer [memeUrl]="generatedMemeUrl" (onCreateNewMeme)="onCreateNewMeme()" [hidden]="!isMemeDisplayed"></app-meme-viewer>
   </div>
 </body>

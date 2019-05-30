@@ -10,6 +10,7 @@ import { LoadingImageComponent } from './loading-image/loading-image.component';
 import { EditImageComponent } from './edit-image/edit-image.component';
 import { ColorPaletteComponent } from './color-palette/color-palette.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
+import { MemeViewerComponent } from './meme-viewer/meme-viewer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
     LoadingImageComponent,
     EditImageComponent,
     ColorPaletteComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    MemeViewerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

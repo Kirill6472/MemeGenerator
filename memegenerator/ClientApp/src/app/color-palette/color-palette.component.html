@@ -1,4 +1,4 @@
-<input class="color-picker" type="color" id="fontColor" list="availableColors" value={{defaultColor}} (change)="setColor($event)" />
+<input class="color-picker" type="color" id="fontColor" list="availableColors" [value]="selectedColor" (change)="setColor($event)" />
 
 <datalist id="availableColors">
   <option *ngFor="let color of availableColors">{{color}}</option>

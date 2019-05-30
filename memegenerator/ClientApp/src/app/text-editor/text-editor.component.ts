@@ -14,31 +14,32 @@ export class TextEditorComponent {
 
   @Input('canvas') canvas: fabric.Canvas;
 
-  textColor = PrimaryColors.white;
-  outlineColor = PrimaryColors.black;
-  primaryColors = Object.keys(PrimaryColors).map(i => PrimaryColors[i]);
+  private textColor = PrimaryColors.white;
+  private outlineColor = PrimaryColors.black;
+  public primaryColors = Object.keys(PrimaryColors).map(i => PrimaryColors[i]);
 
   public addText() {
-    this.canvas.add(this.fabricFactory.createText("Sample\ntext", this.canvas.getWidth(), this.textColor, this.outlineColor));
+    this.canvas.add(this.fabricFactory.createText(
+      "Sample\ntext",
+      this.canvas.getWidth(),
+      this.textColor,
+      this.outlineColor
+    ));
   }
 
   public deleteSelectedText() {
     this.canvas.remove(this.canvas.getActiveObject());
   }
 
-  public textColorChange(color) {
-    this.textColor = color;
-
-    if (this.canvas.getActiveObject().type === 'i-text') {
+  public textColorChange() {
+    if ((this.canvas.getActiveObject() != null) && (this.canvas.getActiveObject().type === 'i-text')) {
       this.canvas.getActiveObject().setColor(this.textColor);
       this.canvas.renderAll();
     } 
   }
 
-  public outlineColorChange(color) {
-    this.outlineColor = color;
-
-    if (this.canvas.getActiveObject().type === 'i-text') {
+  public outlineColorChange() {
+    if ((this.canvas.getActiveObject() != null) && (this.canvas.getActiveObject().type === 'i-text')) {
       this.canvas.getActiveObject().set("stroke", this.outlineColor);
       this.canvas.renderAll();
     }

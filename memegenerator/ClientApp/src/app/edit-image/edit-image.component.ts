@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
 import { fabric } from "fabric";
 
@@ -7,24 +7,20 @@ import { fabric } from "fabric";
   templateUrl: "./edit-image.component.html",
   styleUrls: ["./edit-image.component.css"]
 })
-export class EditImageComponent implements AfterViewInit {
+export class EditImageComponent implements OnInit {
 
   constructor(private fabricFactory: FabricFactory) { }
 
-  @Output() isImageLoaded = new EventEmitter<boolean>();
+  @Output() generatedMemeUrl = new EventEmitter<string>(); 
 
-  canvas: fabric.Canvas;
+  public canvas: fabric.Canvas;
   private imageInstance: any;
-  isToolbarShown = false;
-  isMemePreview = false;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
   }
 
   public setImage(uploadedImageUrl: string) { 
-    this.showToolbar();
-
     const image = new Image();
     return new Promise((resolve) => {
       image.onload = () => {
@@ -44,30 +40,9 @@ export class EditImageComponent implements AfterViewInit {
     }); 
   }
 
-  private showToolbar() {
-    this.isToolbarShown = true;
-  }
-
-  private showMemePreview() {
-    this.isMemePreview = true;
-  }
-
-  private generateMeme() {
-    return this.canvas.toDataURL();
-  }
-
-  public generateAndPreviewMeme() {
-    this.generateMeme();
-    this.showMemePreview();
-  }
-
-  public createNewMeme() {
+  public generateMeme() {
+    this.generatedMemeUrl.emit(this.canvas.toDataURL());
     this.clearCanvas();
-
-    this.isMemePreview = false;
-    this.isToolbarShown = false;
-
-    this.isImageLoaded.emit(false);
   }
 
   private clearCanvas() {
