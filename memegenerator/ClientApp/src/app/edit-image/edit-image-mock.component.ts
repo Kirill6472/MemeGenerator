@@ -11,5 +11,5 @@ import { EditImageComponent } from "./edit-image.component";
 })
 export class MockEditImageComponent {
   setImage() { };
-  hideImageLoading() { };
+  generateMeme() { };
 }

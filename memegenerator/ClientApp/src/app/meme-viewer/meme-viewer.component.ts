@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-meme-viewer',
@@ -8,9 +8,4 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class MemeViewerComponent {
 
   @Input() memeUrl: string;
-  @Output() onCreateNewMeme = new EventEmitter();
-
-  createNewMeme() {
-    this.onCreateNewMeme.emit();
-  }
 }

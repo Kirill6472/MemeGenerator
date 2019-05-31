@@ -64,6 +64,8 @@ describe("EditImageComponent", () => {
       expect(mockCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
     });
+
+    expect(mockCanvas.clear).toHaveBeenCalled();
   });
 
   it("should generate meme", () => {
@@ -72,6 +74,5 @@ describe("EditImageComponent", () => {
     component.generateMeme();
 
     expect(component.generatedMemeUrl.emit).toHaveBeenCalledWith(mockCanvas.getActiveObject());
-    expect(mockCanvas.clear).toHaveBeenCalled();
   });
 });

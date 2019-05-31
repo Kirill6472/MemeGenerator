@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { EditImageComponent } from './edit-image/edit-image.component';
 
 @Component({
@@ -9,9 +9,9 @@ import { EditImageComponent } from './edit-image/edit-image.component';
 export class AppComponent {
   public title = 'Meme Generator';
   public generatedMemeUrl = "";
-  public isUploadedImageShown = false;
-  public isMemeDisplayed = false;
-  public isMemeEdited = false;
+  public isImageInputVisible = true;
+  public isMemeViewerVisible = false;
+  public isImageEditorVisible = false;
 
   @ViewChild(EditImageComponent)
   editImageComponent: EditImageComponent;
@@ -19,31 +19,24 @@ export class AppComponent {
   public updateImage(uploadedImageUrl: string) {
     if (uploadedImageUrl !== "") {
       this.editImageComponent.setImage(uploadedImageUrl);
-      this.toggleVisualisationLoadingImage();
-      this.toggleVisualisationEditImage();
+      this.isImageInputVisible = false;
+      this.isImageEditorVisible = true;
     }
   }
 
   public setMemeUrl(url) {
     this.generatedMemeUrl = url;
-    this.toggleVisualisationMemeViewer();
-    this.toggleVisualisationEditImage();
   }
 
-  public onCreateNewMeme() {
-    this.toggleVisualisationMemeViewer();
-    this.toggleVisualisationLoadingImage();
+  public createNewMeme() {
+    this.isMemeViewerVisible = false;
+    this.isImageInputVisible = true;
   }
 
-  private toggleVisualisationLoadingImage() {
-    this.isUploadedImageShown = !this.isUploadedImageShown;
-  }
+  public generateMeme() {
+    this.editImageComponent.generateMeme();
 
-  private toggleVisualisationEditImage() {
-    this.isMemeEdited = !this.isMemeEdited;
-  }
-
-  private toggleVisualisationMemeViewer() {
-    this.isMemeDisplayed = !this.isMemeDisplayed;
+    this.isMemeViewerVisible = true;
+    this.isImageEditorVisible = false;
   }
 }

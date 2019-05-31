@@ -22,12 +22,4 @@ describe('MemeViewerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should create new meme', () => {
-    spyOn(component.onCreateNewMeme, "emit");
-
-    component.createNewMeme();
-
-    expect(component.onCreateNewMeme.emit).toHaveBeenCalled();
-  });
 });

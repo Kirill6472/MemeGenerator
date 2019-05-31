@@ -32,16 +32,21 @@ export class TextEditorComponent {
   }
 
   public textColorChange() {
-    if ((this.canvas.getActiveObject() != null) && (this.canvas.getActiveObject().type === 'i-text')) {
+    if (this.isSelectedObjectAText()) {
       this.canvas.getActiveObject().setColor(this.textColor);
       this.canvas.renderAll();
     } 
   }
 
   public outlineColorChange() {
-    if ((this.canvas.getActiveObject() != null) && (this.canvas.getActiveObject().type === 'i-text')) {
+    if (this.isSelectedObjectAText()) {
       this.canvas.getActiveObject().set("stroke", this.outlineColor);
       this.canvas.renderAll();
     }
+  }
+
+  private isSelectedObjectAText(): boolean {
+    return ((this.canvas.getActiveObject() != null) &&
+            (this.canvas.getActiveObject().type === 'i-text'));
   }
 }

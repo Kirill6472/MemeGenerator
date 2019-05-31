@@ -3,3 +3,16 @@
     padding-top: 50px;
   }
 }
+
+.generate-meme-button {
+  margin: auto;
+  margin-top: 40px;
+  display: block;
+  width: 700px;
+}
+
+.create-new-meme-button {
+  margin: auto;
+  display: block;
+  width: 700px;
+}

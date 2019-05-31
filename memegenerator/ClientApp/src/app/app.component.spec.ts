@@ -42,28 +42,33 @@ describe('AppComponent', () => {
     component.updateImage(uploadedImageUrl);
 
     expect(component.editImageComponent.setImage).toHaveBeenCalledWith(uploadedImageUrl);
-    expect(component.isUploadedImageShown).toBe(true);
-    expect(component.isMemeEdited).toBe(true);
+    expect(component.isImageInputVisible).toBe(false);
+    expect(component.isImageEditorVisible).toBe(true);
   });
 
   it('should set meme URL', () => {
     const mockUrl =
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
-    component.isMemeEdited = true;
 
     component.setMemeUrl(mockUrl);
 
     expect(component.generatedMemeUrl).toContain(mockUrl);
-    expect(component.isMemeDisplayed).toBe(true);
-    expect(component.isMemeEdited).toBe(false);
   });
 
   it('should hide meme viewer and show loading image', () => {
-    component.isMemeDisplayed = true;
+    component.createNewMeme();
 
-    component.onCreateNewMeme();
+    expect(component.isMemeViewerVisible).toBe(false);
+    expect(component.isImageInputVisible).toBe(true);
+  });
 
-    expect(component.isMemeDisplayed).toBe(false);
-    expect(component.isUploadedImageShown).toBe(true);
+  it('should generate meme and hide image editor', () => {
+    spyOn(component.editImageComponent, "generateMeme");
+
+    component.generateMeme();
+
+    expect(component.editImageComponent.generateMeme).toHaveBeenCalled();
+    expect(component.isMemeViewerVisible).toBe(true);
+    expect(component.isImageEditorVisible).toBe(false);
   });
 });

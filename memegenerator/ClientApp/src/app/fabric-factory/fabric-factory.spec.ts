@@ -1,6 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { FabricFactory } from './fabric-factory';
-import fabric = require('fabric/fabric-impl');
 
 describe('FabricFactory', () => {
   let fabricFactory: FabricFactory;

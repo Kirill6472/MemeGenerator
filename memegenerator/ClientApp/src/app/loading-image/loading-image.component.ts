@@ -7,8 +7,8 @@ import { FileReaderFactory } from "../file-reader-factory/file-reader-factory";
   styleUrls: ["./loading-image.component.css"]
 })
 export class LoadingImageComponent {
-  @ViewChild('fileInput')
-  fileInputVariable: ElementRef;
+
+  @ViewChild('fileInput') fileInputVariable: ElementRef;
 
   @Output() imageIsUploaded = new EventEmitter<string>();
 
