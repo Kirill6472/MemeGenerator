@@ -19,12 +19,19 @@ export class TextEditorComponent {
   public primaryColors = Object.keys(PrimaryColors).map(i => PrimaryColors[i]);
 
   public addText() {
-    this.canvas.add(this.fabricFactory.createText(
+    let text = this.fabricFactory.createText(
       "Sample\ntext",
       this.canvas.getWidth(),
       this.textColor,
       this.outlineColor
-    ));
+    );
+    this.canvas.add(text);
+    text.on('selected', () => this.setPaletteWithColorsOfActiveText());
+  }
+
+  private setPaletteWithColorsOfActiveText() {
+    this.textColor = <PrimaryColors>this.canvas.getActiveObject().get("fill");
+    this.outlineColor = <PrimaryColors>this.canvas.getActiveObject().get("stroke");
   }
 
   public deleteSelectedText() {

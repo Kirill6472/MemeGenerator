@@ -9,6 +9,7 @@ describe('TextEditorComponent', () => {
   let fixture: ComponentFixture<TextEditorComponent>;
   let fabricFactoryMock: jasmine.SpyObj<FabricFactory>;
   let mockCanvas: jasmine.SpyObj<fabric.Canvas>;
+  let mockText: jasmine.SpyObj<fabric.IText>;
 
   beforeEach(async(() => {
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", ["createText", "createCanvas"]);
@@ -19,7 +20,7 @@ describe('TextEditorComponent', () => {
       "remove",
       "renderAll",
       "getActiveObject",
-      "setActiveObject"
+      "setActiveObject",
     ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);
@@ -50,14 +51,13 @@ describe('TextEditorComponent', () => {
     const canvasWidth = 500;
     mockCanvas.getWidth.and.returnValue(canvasWidth);
 
+    mockText = jasmine.createSpyObj('mockText', ["on"]);
+    fabricFactoryMock.createText.and.returnValue(mockText);
+   
     component.addText();
 
-    expect(mockCanvas.add).toHaveBeenCalledWith(
-      fabricFactoryMock.createText("Sample\ntext",
-      mockCanvas.getWidth(),
-      component.textColor,
-      component.outlineColor
-    ));
+    expect(mockCanvas.add).toHaveBeenCalledWith(mockText);
+    expect(mockText.on).toHaveBeenCalled();
   });
 
   it('should delete selected text', () => {
@@ -69,24 +69,43 @@ describe('TextEditorComponent', () => {
   });
 
   it('should change the text color if the text was selected', () => {
-    let activeTextSpy = new fabric.IText("active text");
-    spyOn(activeTextSpy, "setColor");
-    mockCanvas.getActiveObject.and.returnValue(activeTextSpy);
+    let activeText = new fabric.IText("active text");
+    spyOn(activeText, "setColor");
+    mockCanvas.getActiveObject.and.returnValue(activeText);
 
     component.textColorChange();
 
-    expect(activeTextSpy.setColor).toHaveBeenCalledWith(component.textColor);
+    expect(activeText.setColor).toHaveBeenCalledWith(component.textColor);
     expect(mockCanvas.renderAll).toHaveBeenCalled();
   });
 
   it('should change the outline color if the text was selected', () => {
-    let activeTextSpy = new fabric.IText("active text");
-    spyOn(activeTextSpy, "set");
-    mockCanvas.getActiveObject.and.returnValue(activeTextSpy);
+    let activeText = new fabric.IText("active text");
+    spyOn(activeText, "set");
+    mockCanvas.getActiveObject.and.returnValue(activeText);
 
     component.outlineColorChange();
 
-    expect(activeTextSpy.set).toHaveBeenCalledWith("stroke", component.outlineColor);
+    expect(activeText.set).toHaveBeenCalledWith("stroke", component.outlineColor);
     expect(mockCanvas.renderAll).toHaveBeenCalled();
+  });
+
+  it('should set palette with colors of active text', () => {
+    let activeText = new fabric.IText("active text");
+    let onSpy = spyOn(activeText, "on");
+    fabricFactoryMock.createText.and.returnValue(activeText);
+
+    const fakeColor = "#000000";
+    activeText.setColor(fakeColor);
+    activeText.set("stroke", fakeColor);
+    mockCanvas.getActiveObject.and.returnValue(activeText);
+
+    component.addText();
+
+    let setPaletteWithColorsOfActiveText = onSpy.calls.argsFor(0)[1];
+    setPaletteWithColorsOfActiveText();
+
+    expect(component.textColor).toContain(fakeColor);
+    expect(component.outlineColor).toContain(fakeColor);
   });
 });
