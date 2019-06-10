@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { LoadingImageComponent } from './loading-image/loading-image.component';
 import { EditImageComponent } from './edit-image/edit-image.component';
-import { ImageEditorComponent } from "./image-editor/image-editor.component";
+import { ColorPaletteComponent } from './color-palette/color-palette.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
+import { MemeViewerComponent } from './meme-viewer/meme-viewer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ImageEditorComponent } from "./image-editor/image-editor.component";
     NavMenuComponent,
     LoadingImageComponent,
     EditImageComponent,
-    ImageEditorComponent
+    ColorPaletteComponent,
+    TextEditorComponent,
+    MemeViewerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
