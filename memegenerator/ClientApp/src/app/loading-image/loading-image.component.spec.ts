@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { LoadingImageComponent } from "./loading-image.component";
-import { FileReaderFactoryService } from "../file-reader-factory/file-reader-factory.service";
+import { FileReaderFactory } from "../file-reader-factory/file-reader-factory";
 import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
 
 describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
   let fixture: ComponentFixture<LoadingImageComponent>;
-  let fileReaderFactoryMock: jasmine.SpyObj<FileReaderFactoryService>;
+  let fileReaderFactoryMock: jasmine.SpyObj<FileReaderFactory>;
   const file = {};
   let fakeEvent;
 
@@ -30,7 +30,7 @@ describe("LoadingImageComponent", () => {
         MockEditImageComponent
       ],
       providers: [
-        { provide: FileReaderFactoryService, useValue: fileReaderFactoryMock }
+        { provide: FileReaderFactory, useValue: fileReaderFactoryMock }
       ]
     }).compileComponents();
 
@@ -43,20 +43,10 @@ describe("LoadingImageComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  it("should render input tag with type file", () => {
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("input"));
-  });
+  it("should create file reader", () => {
+    const fakeFileReader = new FakeFileReader();
 
-  it("should read file if event is file uploading", () => {
-    const fakeEvent = {
-      target: {
-        files: 0
-      }
-    };
-
-    fileReaderFactoryMock.createFileReader();
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
     component.onImageIsLoaded(fakeEvent);
 
     expect(fileReaderFactoryMock.createFileReader).toHaveBeenCalled();
@@ -83,5 +73,16 @@ describe("LoadingImageComponent", () => {
     fakeFileReader.onload(imageIsLoadedEvent);
 
     expect(component.imageIsUploaded.emit).toHaveBeenCalledWith(image);
+  });
+
+  it("should read file", () => {
+    const fakeFileReader = new FakeFileReader();
+    spyOn(fakeFileReader, "readAsDataURL");
+
+    fileReaderFactoryMock.createFileReader.and.returnValue(fakeFileReader);
+    component.onImageIsLoaded(fakeEvent);
+
+    expect(fakeFileReader.readAsDataURL).toHaveBeenCalledWith(fakeEvent.target.files[0]);
+    expect(fakeFileReader.readAsDataURL).not.toBe(undefined);
   });
 });

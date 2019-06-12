@@ -1,0 +1,10 @@
+.label-color-picker {
+  font: 1rem 'Fira Sans', sans-serif;
+  margin: auto;
+}
+
+.palette {
+  padding: 0;
+  margin: auto;
+  display: block;
+}

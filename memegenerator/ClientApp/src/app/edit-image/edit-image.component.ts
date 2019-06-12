@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, AfterViewInit } from "@angular/core";
-import { FabricFactoryService } from "../fabric-factory/fabric-factory.service";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { FabricFactory } from "../fabric-factory/fabric-factory";
 import { fabric } from "fabric";
 
 @Component({
@@ -7,23 +7,20 @@ import { fabric } from "fabric";
   templateUrl: "./edit-image.component.html",
   styleUrls: ["./edit-image.component.css"]
 })
-export class EditImageComponent implements AfterViewInit {
-  @Output() isImageLoaded = new EventEmitter<boolean>();
+export class EditImageComponent implements OnInit {
 
-  canvas: fabric.Canvas;
-  imageInstance: any;
-  text: fabric.Text;
-  isToolbarShown = false;
-  isMemePreview = false;
+  constructor(private fabricFactory: FabricFactory) { }
 
-  constructor(private fabricFactory: FabricFactoryService) { }
+  @Output() generatedMemeUrl = new EventEmitter<string>(); 
 
-  ngAfterViewInit() {
+  public canvas: fabric.Canvas;
+
+  ngOnInit() {
     this.canvas = this.fabricFactory.createCanvas("canvas");
   }
 
-  public addImageToCanvas(uploadedImageUrl: string) { 
-    this.showToolbar();
+  public setImage(uploadedImageUrl: string) {
+    this.clearCanvas();
 
     const image = new Image();
     return new Promise((resolve) => {
@@ -36,62 +33,19 @@ export class EditImageComponent implements AfterViewInit {
   }
 
   private setBackgroundImage(image: HTMLImageElement) {
-    this.imageInstance = this.fabricFactory.createImage(image);
-    this.canvas.setBackgroundImage(this.imageInstance, this.canvas.renderAll.bind(this.canvas), {
-      scaleY: this.canvas.getHeight() / this.imageInstance.height,
-      scaleX: this.canvas.getWidth() / this.imageInstance.width,
+    let imageInstance: any = this.fabricFactory.createImage(image);
+    this.canvas.setBackgroundImage(imageInstance, this.canvas.renderAll.bind(this.canvas), {
+      scaleY: this.canvas.getHeight() / imageInstance.height,
+      scaleX: this.canvas.getWidth() / imageInstance.width,
       selectable: false
     }); 
   }
 
-  public addText() {
-    this.text = this.fabricFactory.createText("Sample\ntext", this.canvas.getWidth());
-    this.canvas.add(this.text);
-  }
-
-  public deleteSelectedText() {
-    this.canvas.remove(this.canvas.getActiveObject());
-  }
-
-  private showToolbar() {
-    this.isToolbarShown = true;
-  }
-
-  private showMemePreview() {
-    this.isMemePreview = true;
-  }
-
-  private generateMeme() {
-    return this.canvas.toDataURL();
-  }
-
-  public generateAndPreviewMeme() {
-    this.generateMeme();
-    this.showMemePreview();
-  }
-
-  public createNewMeme() {
-    this.clearCanvas();
-
-    this.isMemePreview = false;
-    this.isToolbarShown = false;
-
-    this.isImageLoaded.emit(false);
+  public generateMeme() {
+    this.generatedMemeUrl.emit(this.canvas.toDataURL());
   }
 
   private clearCanvas() {
     this.canvas.clear();
-  }
-
-  public onChangeTextColor($event) {
-    this.canvas.getActiveObject().setColor($event.target.value);
-    
-    this.canvas.renderAll();
-  }
-
-  public onChangeOutlineColor($event) {
-    this.canvas.getActiveObject().set("stroke", $event.target.value);
-
-    this.canvas.renderAll();
   }
 }

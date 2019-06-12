@@ -1,55 +1,5 @@
-<div class="canvas-container" [hidden]="isMemePreview">
-  <div class="btn-toolbar" role="toolbar" *ngIf="isToolbarShown">
-    <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="addText()">Add text</button>
-      <button type="button" class="btn btn-outline-danger" (click)="deleteSelectedText()">Delete text</button>
-    </div>
-
-    <div class="btn-group mr-2" role="group">
-      <label class="label-color-picker" for="fontColor">Font color</label>
-      <input class="color-picker" type="color" id="fontColor" list="primaryColors" value="#ffffff" (change)="onChangeTextColor($event)" />
-
-      <label class="label-color-picker" for="outlineColor">Outline color</label>
-      <input class="color-picker" type="color" id="outlineColor" list="primaryColors" value="#000000" (change)="onChangeOutlineColor($event)" />
-    </div>
-  </div>
-
-  <div class="generate-meme-button" *ngIf="isToolbarShown">
-    <button type="button" class="btn btn-outline-primary generate-meme-button" (click)="generateAndPreviewMeme()">Generate Meme</button>
-  </div>
+<div class="canvas-container">
+  <app-text-editor [canvas]="canvas"></app-text-editor>
 
   <canvas id="canvas" class="canvas" width="700" height="500"></canvas>
 </div>
-
-<div class="meme-preview" *ngIf="isMemePreview">
-  <div class="btn-toolbar" role="toolbar">
-    <div class="btn-group mr-2" role="group">
-      <button type="button" class="btn btn-outline-primary" (click)="createNewMeme()">Create a new Meme</button>
-    </div>
-  </div>
-
-  <img id="image" class="preview-generated-meme" [src]="generateMeme()" />
-</div>
-
-<datalist id="primaryColors">
-  <option>#000000</option>
-  <option>#00FFFF</option>
-  <option>#0000FF</option>
-  <option>#FF00FF</option>
-  <option>#808080</option>
-  <option>#008000</option>
-  <option>#00FF00</option>
-  <option>#800000</option>
-  <option>#000080</option>
-  <option>#808000</option>
-  <option>#800080</option>
-  <option>#FF0000</option>
-  <option>#C0C0C0</option>
-  <option>#008080</option>
-  <option>#FFFFFF</option>
-  <option>#FFFF00</option>
-  <option>#FFCBDB</option>
-  <option>#545454</option>
-  <option>#911eb4</option>
-  <option>#f58231</option>
-</datalist>

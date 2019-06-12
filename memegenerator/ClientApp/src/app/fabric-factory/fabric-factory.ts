@@ -4,7 +4,7 @@ import { fabric } from "fabric";
 @Injectable({
   providedIn: "root"
 })
-export class FabricFactoryService {
+export class FabricFactory {
   public createCanvas(canvas: string) {
     return new fabric.Canvas(canvas);
   }
@@ -13,13 +13,13 @@ export class FabricFactoryService {
     return new fabric.Image(image);
   }
 
-  public createText(sampleText: string, canvasWidth: number) {
+  public createText(sampleText: string, canvasWidth: number, textColor: string, outlineColor: string) {
     return new fabric.IText(sampleText, {
       fontFamily: "Impact",
       fontSize: 50,
-      stroke: "#000000",
+      stroke: outlineColor,
       strokeWidth: 3,
-      fill: "#ffffff",
+      fill: textColor,
       textAlign: "center",
       left: canvasWidth / 2,
       originX: "center"

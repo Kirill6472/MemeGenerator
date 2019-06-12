@@ -1,0 +1,14 @@
+<div class="btn-toolbar" role="toolbar">
+  <div class="btn-group mr-2" role="group">
+    <button type="button" class="btn btn-outline-primary" (click)="addText()">Add text</button>
+    <button type="button" class="btn btn-outline-danger" (click)="deleteSelectedText()">Delete text</button>
+  </div>
+
+  <div class="btn-group palette" role="group">
+    <label class="label-color-picker">Text color</label>
+    <app-color-palette [availableColors]="primaryColors" [(selectedColor)]="textColor" (selectedColorChange)="textColorChange()"></app-color-palette>
+
+    <label class="label-color-picker">Outline color</label>
+    <app-color-palette [availableColors]="primaryColors" [(selectedColor)]="outlineColor" (selectedColorChange)="outlineColorChange()"></app-color-palette>
+  </div>
+</div>

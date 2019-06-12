@@ -10,6 +10,6 @@ import { EditImageComponent } from "./edit-image.component";
   }]
 })
 export class MockEditImageComponent {
-  addImageToCanvas() { };
-  hideImageLoading() { };
+  setImage() { };
+  generateMeme() { };
 }

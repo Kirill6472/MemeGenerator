@@ -1,9 +1,0 @@
-<header class="head" *ngIf="!showUploadedImage">
-  <h3>Upload your own image</h3>
-</header>
-<header class="head" *ngIf="showUploadedImage">
-  <h3>Meme editing</h3>
-</header>
-
-<app-loading-image (imageIsUploaded)="displayImage($event)" *ngIf="!showUploadedImage"></app-loading-image>
-<app-edit-image (isImageLoaded)="showImageLoading($event)"></app-edit-image>
