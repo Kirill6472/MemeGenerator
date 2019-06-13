@@ -1,6 +1,7 @@
 using MemeGenerator.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -21,8 +22,12 @@ namespace MemeGenerator
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=MemeGeneratorDb;Trusted_Connection=True;";
-            services.AddDbContext<MemeGeneratorDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<MemeGeneratorDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.Configure<ImageTemplate>(Configuration);
+
+            services.AddTransient<DbInitializer>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

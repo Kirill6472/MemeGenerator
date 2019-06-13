@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MemeGenerator.Migrations
@@ -14,7 +13,8 @@ namespace MemeGenerator.Migrations
                 {
                     ImageTemplateId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Image = table.Column<byte[]>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
