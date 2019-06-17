@@ -25,9 +25,9 @@ namespace MemeGenerator
             services.AddDbContext<MemeGeneratorDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.Configure<ImageTemplate>(Configuration);
+            services.Configure<DbInitializerSetting>(Configuration);
 
-            services.AddTransient<DbInitializer>();
+            services.AddTransient<IDbInitializer, DbInitializer>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

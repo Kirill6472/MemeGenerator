@@ -7,10 +7,9 @@ namespace MemeGenerator.Models
 {
     public class ImageTemplate
     {
-        public ImageTemplate() { }
-
         public int ImageTemplateId { get; set; }
+        public string Folder { get; set; }
         public string Name { get; set; }
-        public string Path { get; set; }
+        public string Desctiption { get; set; }
     }
 }

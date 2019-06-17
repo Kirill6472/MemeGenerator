@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MemeGenerator.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Initialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,9 @@ namespace MemeGenerator.Migrations
                 {
                     ImageTemplateId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Folder = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Path = table.Column<string>(nullable: true)
+                    Desctiption = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

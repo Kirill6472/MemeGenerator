@@ -24,9 +24,11 @@ namespace MemeGenerator.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Desctiption");
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Folder");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("ImageTemplateId");
 

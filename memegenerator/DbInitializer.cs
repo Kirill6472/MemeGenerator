@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MemeGenerator.Models;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace MemeGenerator
 {
-    public class DbInitializer
+    public class DbInitializer : IDbInitializer
     {
-        private readonly ImageTemplate imageTemplate;
+        private readonly DbInitializerSetting dbInitializerSetting;
 
-        public DbInitializer(IOptionsMonitor<ImageTemplate> imageTemplateAccessor)
+        public DbInitializer(IOptionsMonitor<DbInitializerSetting> imageTemplateAccessor)
         {
-            imageTemplate = imageTemplateAccessor.CurrentValue;
+            dbInitializerSetting = imageTemplateAccessor.CurrentValue;
+        }
+        
+        public void Initialize()
+        {
+            string dataText = System.IO.File.ReadAllText(dbInitializerSetting.Path);
+
+            List<ImageTemplate> imageTemplates = JsonConvert.DeserializeObject<List<ImageTemplate>>(dataText);
+
+            // TODO: finish tomorrow
         }
     }
 }

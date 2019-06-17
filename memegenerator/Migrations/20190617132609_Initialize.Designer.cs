@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemeGenerator.Migrations
 {
     [DbContext(typeof(MemeGeneratorDbContext))]
-    [Migration("20190612151608_Initial")]
-    partial class Initial
+    [Migration("20190617132609_Initialize")]
+    partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,9 +26,11 @@ namespace MemeGenerator.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Desctiption");
 
-                    b.Property<string>("Path");
+                    b.Property<string>("Folder");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("ImageTemplateId");
 
