@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using MemeGenerator.Models;
+using MemeGenerator.Servises;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace MemeGenerator
 {
@@ -19,20 +17,16 @@ namespace MemeGenerator
 
         public void Initialize(MemeGeneratorDbContext context)
         {
-            List<ImageTemplateList> imageTemplates = JsonConvert.DeserializeObject<List<ImageTemplateList>>
+            ImageTemplateList imageTemplates = JsonConvert.DeserializeObject<ImageTemplateList>
                 (File.ReadAllText(dbInitializerSetting.PathToMemeTemplatesConfig));
 
-            context.AddRange(imageTemplates);
+            foreach (var image in imageTemplates.ImageTemplate)
+            {
+                image.Folder = imageTemplates.Folder;
+                context.AddRange(image);
+            }
 
             context.SaveChanges();
         }
-
     }
-
-    public class ImageTemplateList
-    {
-        public string Folder { get; set; }
-        public List<ImageTemplate> ImageTemplate { get; set; }
-    }
-
 }
