@@ -78,10 +78,9 @@ namespace MemeGenerator
 
                 try
                 {
-                    DbInitializer dbInitializer = services.GetRequiredService<DbInitializer>();
                     MemeGeneratorDbContext dbContext = services.GetRequiredService<MemeGeneratorDbContext>();
 
-                    dbInitializer.Initialize(dbContext);
+                    services.GetRequiredService<IDbInitializer>().Initialize(dbContext);
                 }
                 catch (Exception ex)
                 {

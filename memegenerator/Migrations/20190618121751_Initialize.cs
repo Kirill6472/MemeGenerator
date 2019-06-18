@@ -15,7 +15,7 @@ namespace MemeGenerator.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Folder = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Desctiption = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

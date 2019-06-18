@@ -2,6 +2,6 @@
 {
     public class DbInitializerSetting
     {
-        public string Path { get; set; }
+        public string PathToMemeTemplatesConfig { get; set; }
     }
 }

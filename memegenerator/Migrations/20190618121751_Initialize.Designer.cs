@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemeGenerator.Migrations
 {
     [DbContext(typeof(MemeGeneratorDbContext))]
-    [Migration("20190617132609_Initialize")]
+    [Migration("20190618121751_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,7 @@ namespace MemeGenerator.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Desctiption");
+                    b.Property<string>("Description");
 
                     b.Property<string>("Folder");
 

@@ -1,7 +1,7 @@
 {
-  "folder": "D:\\Projects\\MemeTemplate",
+  "folder": "D:\\Projects\\MemeTemplate\\",
 
-  "memeTemplates": [
+  "ImageTemplate": [
     {
       "name": "1.png",
       "description": "lalala"
@@ -10,5 +10,5 @@
       "name": "2.png",
       "description": "blablabla"
     }
-  ] 
+  ]
 }
