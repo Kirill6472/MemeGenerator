@@ -17,8 +17,6 @@ namespace MemeGenerator
         {
             var host = CreateWebHostBuilder(args).Build();
 
-            
-
             host.Run();
         }
 

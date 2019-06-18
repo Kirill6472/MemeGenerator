@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MemeGenerator.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -13,14 +14,18 @@ namespace MemeGenerator
         {
             dbInitializerSetting = imageTemplateAccessor.CurrentValue;
         }
-        
-        public void Initialize()
+
+        public void Initialize(MemeGeneratorDbContext context)
         {
             string dataText = System.IO.File.ReadAllText(dbInitializerSetting.Path);
 
             List<ImageTemplate> imageTemplates = JsonConvert.DeserializeObject<List<ImageTemplate>>(dataText);
 
-            // TODO: finish tomorrow
+            context.Database.EnsureCreated();
+
+            context.ImageTemplates.Add(new ImageTemplate {Name = "s", Desctiption = "sw", Folder = "ASd"});
+
+            context.SaveChanges();
         }
     }
 }

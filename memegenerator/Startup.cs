@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace MemeGenerator
 {
@@ -69,6 +71,24 @@ namespace MemeGenerator
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var services = serviceScope.ServiceProvider;
+
+                try
+                {
+                    DbInitializer dbInitializer = services.GetRequiredService<DbInitializer>();
+                    MemeGeneratorDbContext dbContext = services.GetRequiredService<MemeGeneratorDbContext>();
+
+                    dbInitializer.Initialize(dbContext);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred.");
+                }
+            }
         }
     }
 }
