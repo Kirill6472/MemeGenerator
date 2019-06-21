@@ -8,8 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using MemeGenerator.Services;
-using MemeGenerator.Services.FileManager;
+using MemeGenerator.Services.InitialMemesProvider;
+
 
 namespace MemeGenerator
 {
@@ -29,7 +29,7 @@ namespace MemeGenerator
 
             services.Configure<ImageTemplateConfig>(Configuration);
 
-            services.AddTransient<IFileManager, FileManager>();
+            services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
             services.AddTransient<IDbInitializer, DbInitializer>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -79,13 +79,7 @@ namespace MemeGenerator
 
                 try
                 {
-                    MemeGeneratorDbContext dbContext = services.GetRequiredService<MemeGeneratorDbContext>();
-
-                    if (services.GetRequiredService<IDbInitializer>().AllMigrationsApplied(dbContext))
-                    {
-                        ImageTemplateList data = services.GetRequiredService<IFileManager>().GetDataFromJson();
-                        services.GetRequiredService<IDbInitializer>().Initialize(dbContext, data);
-                    }
+                    services.GetRequiredService<IDbInitializer>().Initialize();
                 }
                 catch (Exception ex)
                 {

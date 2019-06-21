@@ -1,12 +1,7 @@
-﻿using MemeGenerator.Models;
-using MemeGenerator.Services;
-
-namespace MemeGenerator
+﻿namespace MemeGenerator
 {
-    interface IDbInitializer
+    public interface IDbInitializer
     {
-        bool AllMigrationsApplied(MemeGeneratorDbContext context);
-
-        void Initialize(MemeGeneratorDbContext context, ImageTemplateList imageTemplates);
+        void Initialize();
     }
 }

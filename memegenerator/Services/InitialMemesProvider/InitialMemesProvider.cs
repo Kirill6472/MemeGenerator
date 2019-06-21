@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 using System.IO;
 
-namespace MemeGenerator.Services.FileManager
+namespace MemeGenerator.Services.InitialMemesProvider
 {
-    public class FileManager : IFileManager
+    public class InitialMemesProvider : IInitialMemesProvider
     {
         private readonly ImageTemplateConfig _imageTemplateConfig;
 
-        public FileManager(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor)
+        public InitialMemesProvider(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor)
         {
             _imageTemplateConfig = imageTemplateAccessor.CurrentValue;
         }
