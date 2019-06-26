@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Autofac.Extras.Moq;
 using MemeGenerator;
+using MemeGenerator.Models;
 using MemeGenerator.Services;
 using MemeGenerator.Services.InitialMemesProvider;
 using NUnit.Framework;
@@ -9,20 +11,40 @@ namespace Tests
     [TestFixture]
     public class DbInitializerTests
     {
-        [Test]
-        public void Initialize_ObtainedDataAndDbContext_filledDb()
+        private DbInitializer dbInitializer = null;
+
+        [SetUp]
+        public void SetUp()
         {
-            ImageTemplateList fakeimageTemplates = new ImageTemplateList();
+            ImageTemplateList fakeImageTemplates = new ImageTemplateList
+            {
+                Folder = "folder",
+                ImageTemplate = new List<ImageTemplate>
+                {
+                    new ImageTemplate()
+                    {
+                        Name = "name",
+                        Folder = "folder",
+                        Description = "description",
+                    }
+                }
+            };
 
             using (var mock = AutoMock.GetLoose())
             {
-                mock.Mock<IInitialMemesProvider>().Setup(x => x.GetDataFromJson()).Returns(fakeimageTemplates);
-                DbInitializer dbInitializerStub = mock.Create<DbInitializer>();
+                mock.Mock<IInitialMemesProvider>().Setup(x => x.GetDataFromJson()).Returns(fakeImageTemplates);
+                var mockInitialMemeProvider = mock.Create<InitialMemesProvider>();
 
-                dbInitializerStub.Initialize();
+                FakeDbContext fakeDbContext = new FakeDbContext();
 
-                
+                dbInitializer = new DbInitializer(mockInitialMemeProvider, fakeDbContext.MemeGeneratorDbContext);
             }
+        }
+
+        [Test]
+        public void Initialize_ObtainedDataAndDbContext_filledDb()
+        {
+            dbInitializer.Initialize();
         }
     }
 }
