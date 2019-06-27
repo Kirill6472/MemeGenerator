@@ -1,4 +1,5 @@
-using MemeGenerator.Models;
+using MemeGenerator.BLL.Services.DbInitializer;
+using MemeGenerator.BLL.Services.InitialMemesProvider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using MemeGenerator.Services.InitialMemesProvider;
-
+using MemeGenerator.DAL;
+using MemeGenerator.Domain.Models;
 
 namespace MemeGenerator
 {

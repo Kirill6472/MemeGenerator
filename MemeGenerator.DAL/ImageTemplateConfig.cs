@@ -1,4 +1,4 @@
-﻿namespace MemeGenerator
+﻿namespace MemeGenerator.DAL
 {
     public class ImageTemplateConfig
     {

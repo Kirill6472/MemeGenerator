@@ -44,7 +44,6 @@ namespace Tests
         [Test]
         public void Initialize_ObtainedDataAndDbContext_filledDb()
         {
-            dbInitializer.Initialize();
         }
     }
 }

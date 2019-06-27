@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace MemeGenerator.Models
+namespace MemeGenerator.Domain.Models
 {
     public class FakeDbContext
     {
@@ -10,7 +10,7 @@ namespace MemeGenerator.Models
         public FakeDbContext()
         {
             var builder = new DbContextOptionsBuilder<MemeGeneratorDbContext>();
-            builder.UseInMemoryDatabase();
+            //builder.UseInMemoryDatabase();
             var options = builder.Options;
 
             var MemeGeneratorDbContext = new MemeGeneratorDbContext(options);

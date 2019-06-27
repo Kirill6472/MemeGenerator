@@ -1,7 +1,7 @@
-﻿using MemeGenerator.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MemeGenerator.Domain.Models;
 
-namespace MemeGenerator.Services
+namespace MemeGenerator.DAL
 {
     public class ImageTemplateList
     {

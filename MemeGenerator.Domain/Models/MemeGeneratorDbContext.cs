@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace MemeGenerator.Models
+namespace MemeGenerator.Domain.Models
 {
     public class MemeGeneratorDbContext : DbContext
     {

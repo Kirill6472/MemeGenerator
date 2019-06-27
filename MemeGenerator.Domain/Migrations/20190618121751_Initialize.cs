@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MemeGenerator.Migrations
+namespace MemeGenerator.Domain.Migrations
 {
     public partial class Initialize : Migration
     {

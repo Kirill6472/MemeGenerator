@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.IO;
+using MemeGenerator.DAL;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.IO;
 
-namespace MemeGenerator.Services.InitialMemesProvider
+namespace MemeGenerator.BLL.Services.InitialMemesProvider
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {

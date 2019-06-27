@@ -43,6 +43,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MemeGenerator.BLL\MemeGenerator.BLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\color-palette\color-palette-mock.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\edit-image\edit-image-mock.component.ts" />
