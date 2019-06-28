@@ -1,5 +1,3 @@
-using MemeGenerator.BLL.Services.DbInitializer;
-using MemeGenerator.BLL.Services.InitialMemesProvider;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using MemeGenerator.BLL.Services.InitialMemesPopulator;
+using MemeGenerator.BLL.Services.InitialMemesProvider;
 using MemeGenerator.DAL;
+using MemeGenerator.DAL.ImageTemplateRepository;
 using MemeGenerator.Domain.Models;
 
 namespace MemeGenerator
@@ -31,7 +32,8 @@ namespace MemeGenerator
             services.Configure<ImageTemplateConfig>(Configuration);
 
             services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
-            services.AddTransient<IDbInitializer, DbInitializer>();
+            services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
+            services.AddTransient<IImageTemplateRepository, ImageTemplateRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -80,7 +82,7 @@ namespace MemeGenerator
 
                 try
                 {
-                    services.GetRequiredService<IDbInitializer>().Initialize();
+                    services.GetRequiredService<IInitialMemesPopulator>().Initialize();
                 }
                 catch (Exception ex)
                 {

@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using Autofac.Extras.Moq;
-using MemeGenerator;
-using MemeGenerator.Models;
-using MemeGenerator.Services;
-using MemeGenerator.Services.InitialMemesProvider;
 using NUnit.Framework;
 
-namespace Tests
+namespace MemeGenerator.Tests
 {
     [TestFixture]
     public class DbInitializerTests
