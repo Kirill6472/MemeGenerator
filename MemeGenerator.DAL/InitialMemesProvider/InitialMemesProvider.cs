@@ -1,9 +1,8 @@
 ﻿using System.IO;
-using MemeGenerator.DAL;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace MemeGenerator.BLL.Services.InitialMemesProvider
+namespace MemeGenerator.DAL.InitialMemesProvider
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {

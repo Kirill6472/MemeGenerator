@@ -1,5 +1,7 @@
-﻿using MemeGenerator.BLL.Services.InitialMemesProvider;
+﻿using System.Linq;
 using MemeGenerator.DAL.ImageTemplateRepository;
+using MemeGenerator.DAL.InitialMemesProvider;
+using MemeGenerator.DAL.MigrationsChecker;
 
 namespace MemeGenerator.BLL.Services.InitialMemesPopulator
 {
@@ -7,31 +9,35 @@ namespace MemeGenerator.BLL.Services.InitialMemesPopulator
     {
         private readonly IInitialMemesProvider _initialMemesProvider;
         private readonly IImageTemplateRepository _imageTemplateRepository;
+        private readonly IMigrationsChecker _checker;
 
-        public InitialMemesPopulator(IInitialMemesProvider provider, IImageTemplateRepository imageTemplateRepository)
+        public InitialMemesPopulator(IInitialMemesProvider provider, IImageTemplateRepository imageTemplateRepository,
+            IMigrationsChecker checker)
         {
             _initialMemesProvider = provider;
             _imageTemplateRepository = imageTemplateRepository;
+            _checker = checker;
         }
 
         public void Initialize()
         {
-            if (!_imageTemplateRepository.AllMigrationsApplied() || IsImageTableEmpty()) return;
-
-            var imageTemplates = _initialMemesProvider.GetDataFromJson();
-
-            foreach (var image in imageTemplates.ImageTemplate)
+            if (_checker.DoAllMigrationsApply() && IsImageTableEmpty())
             {
-                image.Folder = imageTemplates.Folder;
-                _imageTemplateRepository.InsertImageTemplate(image);
-            }
+                var imageTemplates = _initialMemesProvider.GetDataFromJson();
 
-            _imageTemplateRepository.Save();
+                foreach (var image in imageTemplates.ImageTemplate)
+                {
+                    image.Folder = imageTemplates.Folder;
+                    _imageTemplateRepository.Insert(image);
+                }
+
+                _imageTemplateRepository.Save();
+            }
         }
 
         private bool IsImageTableEmpty()
         {
-            return _imageTemplateRepository.GetImageTemplates() == null;
+            return !_imageTemplateRepository.GetAll().Any();
         }
     }
 }

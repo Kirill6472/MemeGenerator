@@ -1,6 +1,4 @@
-﻿using MemeGenerator.DAL;
-
-namespace MemeGenerator.BLL.Services.InitialMemesProvider
+﻿namespace MemeGenerator.DAL.InitialMemesProvider
 {
     public interface IInitialMemesProvider
     {

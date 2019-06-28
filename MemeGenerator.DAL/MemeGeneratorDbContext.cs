@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MemeGenerator.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace MemeGenerator.Domain.Models
+namespace MemeGenerator.DAL
 {
     public class MemeGeneratorDbContext : DbContext
     {

@@ -1,14 +1,18 @@
 using System.Collections.Generic;
 using Autofac.Extras.Moq;
+using MemeGenerator.BLL.Services.InitialMemesPopulator;
+using MemeGenerator.DAL;
+using MemeGenerator.DAL.InitialMemesProvider;
+using MemeGenerator.Domain.Models;
 using NUnit.Framework;
 
 namespace MemeGenerator.Tests
 {
     [TestFixture]
-    public class DbInitializerTests
+    public class InitialMemesPopulatorTests
     {
-        private DbInitializer dbInitializer = null;
-
+        private InitialMemesPopulatorTests initialMemesPopulatorTests = null;
+        
         [SetUp]
         public void SetUp()
         {
@@ -33,7 +37,7 @@ namespace MemeGenerator.Tests
 
                 FakeDbContext fakeDbContext = new FakeDbContext();
 
-                dbInitializer = new DbInitializer(mockInitialMemeProvider, fakeDbContext.MemeGeneratorDbContext);
+                //InitialMemesPopulator = new InitialMemesPopulator(mockInitialMemeProvider, fakeDbContext.MemeGeneratorDbContext);
             }
         }
 

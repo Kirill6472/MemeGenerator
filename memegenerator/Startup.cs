@@ -8,10 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using MemeGenerator.BLL.Services.InitialMemesPopulator;
-using MemeGenerator.BLL.Services.InitialMemesProvider;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.ImageTemplateRepository;
-using MemeGenerator.Domain.Models;
+using MemeGenerator.DAL.InitialMemesProvider;
+using MemeGenerator.DAL.MigrationsChecker;
 
 namespace MemeGenerator
 {
@@ -34,6 +34,7 @@ namespace MemeGenerator
             services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
             services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
             services.AddTransient<IImageTemplateRepository, ImageTemplateRepository>();
+            services.AddTransient<IMigrationsChecker, MigrationsChecker>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

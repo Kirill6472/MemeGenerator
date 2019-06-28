@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using MemeGenerator.DAL;
+using MemeGenerator.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MemeGenerator.Domain.Models
+namespace MemeGenerator.Tests
 {
     public class FakeDbContext
     {
