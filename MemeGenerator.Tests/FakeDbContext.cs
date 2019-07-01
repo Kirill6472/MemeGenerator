@@ -12,7 +12,7 @@ namespace MemeGenerator.Tests
         public FakeDbContext()
         {
             var builder = new DbContextOptionsBuilder<MemeGeneratorDbContext>();
-            //builder.UseInMemoryDatabase();
+            builder.UseInMemoryDatabase();
             var options = builder.Options;
 
             var MemeGeneratorDbContext = new MemeGeneratorDbContext(options);
