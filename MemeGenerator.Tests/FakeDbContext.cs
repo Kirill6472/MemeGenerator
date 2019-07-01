@@ -15,21 +15,7 @@ namespace MemeGenerator.Tests
             builder.UseInMemoryDatabase();
             var options = builder.Options;
 
-            var MemeGeneratorDbContext = new MemeGeneratorDbContext(options);
-
-            var imageTemplates = new List<ImageTemplate>
-            {
-                new ImageTemplate()
-                {
-                    ImageTemplateId = 1,
-                    Name = "name",
-                    Folder = "folder",
-                    Description = "description"
-                }
-            };
-
-            MemeGeneratorDbContext.AddRange(imageTemplates);
-            MemeGeneratorDbContext.SaveChanges();
+            MemeGeneratorDbContext = new MemeGeneratorDbContext(options);
         }
     }
 }
