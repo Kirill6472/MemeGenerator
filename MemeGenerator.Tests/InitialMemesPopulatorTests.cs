@@ -1,17 +1,19 @@
-using Autofac.Extras.Moq;
 using MemeGenerator.BLL.Services.InitialMemesPopulator;
-using MemeGenerator.DAL.ImageTemplateRepository;
 using NUnit.Framework;
+using FluentAssertions;
+using MemeGenerator.DAL;
+using MemeGenerator.DAL.ImageTemplateRepository;
+using Moq;
+using Microsoft.EntityFrameworkCore;
+using MemeGenerator.Domain.Models;
 
 namespace MemeGenerator.Tests
 {
     [TestFixture]
     public class InitialMemesPopulatorTests
     {
-        private InitialMemesPopulatorTests initialMemesPopulatorTests = null;
-
         [Test]
-        public void Initialize_ObtainedDataAndDbContext_filledDb()
+        public void Initialize_DataProviderAndRepository_filledDb()
         {
             StubInitialMemesProvider stubInitialMemesProvider = new StubInitialMemesProvider();
             StubMigrationsChecker stubMigrationsChecker = new StubMigrationsChecker
@@ -19,13 +21,17 @@ namespace MemeGenerator.Tests
                 ShouldAllMigrationsBeApplied = true
             };
 
-            using (var mock = AutoMock.GetLoose())
-            {
-                var mockRepository = mock.Create<ImageTemplateRepository>();
+            var mockSet = new Mock<DbSet<ImageTemplate>>();
 
-                InitialMemesPopulator initialMemesPopulator =
-                    new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
-            }
+            var mockContext = new Mock<MemeGeneratorDbContext>();
+            mockContext.Setup(m => m.ImageTemplates).Returns(mockSet.Object);
+
+            var mockRepository = new ImageTemplateRepository(mockContext.Object);
+
+            InitialMemesPopulator initialMemesPopulator =
+                new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
+
+            initialMemesPopulator.Initialize();
         }
     }
 }
