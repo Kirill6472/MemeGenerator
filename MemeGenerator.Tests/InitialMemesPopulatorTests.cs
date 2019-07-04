@@ -1,11 +1,9 @@
+using System.Linq;
 using MemeGenerator.BLL.Services.InitialMemesPopulator;
 using NUnit.Framework;
-using FluentAssertions;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.ImageTemplateRepository;
-using Moq;
 using Microsoft.EntityFrameworkCore;
-using MemeGenerator.Domain.Models;
 
 namespace MemeGenerator.Tests
 {
@@ -21,17 +19,23 @@ namespace MemeGenerator.Tests
                 ShouldAllMigrationsBeApplied = true
             };
 
-            var mockSet = new Mock<DbSet<ImageTemplate>>();
+            var options = new DbContextOptionsBuilder<MemeGeneratorDbContext>()
+                .UseInMemoryDatabase(databaseName: "initializeDb")
+                .Options;
 
-            var mockContext = new Mock<MemeGeneratorDbContext>();
-            mockContext.Setup(m => m.ImageTemplates).Returns(mockSet.Object);
+            using (var context = new MemeGeneratorDbContext(options))
+            {
+                var mockRepository = new ImageTemplateRepository(context);
 
-            var mockRepository = new ImageTemplateRepository(mockContext.Object);
+                InitialMemesPopulator initialMemesPopulator =
+                    new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
 
-            InitialMemesPopulator initialMemesPopulator =
-                new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
+                Assert.AreEqual(0, context.ImageTemplates.Count());
 
-            initialMemesPopulator.Initialize();
+                initialMemesPopulator.Initialize();
+
+                Assert.AreEqual(1, context.ImageTemplates.Count());
+            }
         }
     }
 }
