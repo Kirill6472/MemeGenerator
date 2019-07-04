@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using MemeGenerator.BLL.Services.InitialMemesPopulator;
 using MemeGenerator.DAL;
+using MemeGenerator.DAL.ImageTemplateConfig;
 using MemeGenerator.DAL.ImageTemplateRepository;
 using MemeGenerator.DAL.InitialMemesProvider;
 using MemeGenerator.DAL.MigrationsChecker;
