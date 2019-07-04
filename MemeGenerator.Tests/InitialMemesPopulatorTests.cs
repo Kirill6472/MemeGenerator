@@ -3,6 +3,7 @@ using MemeGenerator.BLL.Services.InitialMemesPopulator;
 using NUnit.Framework;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.ImageTemplateRepository;
+using MemeGenerator.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MemeGenerator.Tests
@@ -10,10 +11,17 @@ namespace MemeGenerator.Tests
     [TestFixture]
     public class InitialMemesPopulatorTests
     {
-        [Test]
-        public void Initialize_DataProviderAndRepository_filledDb()
+        private StubInitialMemesProvider stubInitialMemesProvider;
+
+        [SetUp]
+        public void Setup()
         {
-            StubInitialMemesProvider stubInitialMemesProvider = new StubInitialMemesProvider();
+            stubInitialMemesProvider = new StubInitialMemesProvider();
+        }
+
+        [Test]
+        public void Initialize_AllMigrationsApplyAndImageTableEmpty_filledDb()
+        {
             StubMigrationsChecker stubMigrationsChecker = new StubMigrationsChecker
             {
                 ShouldAllMigrationsBeApplied = true
@@ -30,7 +38,60 @@ namespace MemeGenerator.Tests
                 InitialMemesPopulator initialMemesPopulator =
                     new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
 
+                initialMemesPopulator.Initialize();
+
+                Assert.AreEqual(1, context.ImageTemplates.Count());
+            }
+        }
+
+        [Test]
+        public void Initialize_NotAllMigrationsAreApplied_DbNotFilled()
+        {
+            StubMigrationsChecker stubMigrationsChecker = new StubMigrationsChecker
+            {
+                ShouldAllMigrationsBeApplied = false
+            };
+
+            var options = new DbContextOptionsBuilder<MemeGeneratorDbContext>()
+                .UseInMemoryDatabase(databaseName: "DbNotFilled")
+                .Options;
+
+            using (var context = new MemeGeneratorDbContext(options))
+            {
+                var mockRepository = new ImageTemplateRepository(context);
+
+                InitialMemesPopulator initialMemesPopulator =
+                    new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
+
+                initialMemesPopulator.Initialize();
+
                 Assert.AreEqual(0, context.ImageTemplates.Count());
+            }
+        }
+
+        [Test]
+        public void Initialize_ImageTableNotEmpty_DbNotChanged()
+        {
+            StubMigrationsChecker stubMigrationsChecker = new StubMigrationsChecker
+            {
+                ShouldAllMigrationsBeApplied = true
+            };
+
+            var options = new DbContextOptionsBuilder<MemeGeneratorDbContext>()
+                .UseInMemoryDatabase(databaseName: "imageTableNotEmpty")
+                .Options;
+
+            using (var context = new MemeGeneratorDbContext(options))
+            {
+                var mockRepository = new ImageTemplateRepository(context);
+
+                mockRepository.Insert(new ImageTemplate());
+                mockRepository.Save();
+
+                InitialMemesPopulator initialMemesPopulator =
+                    new InitialMemesPopulator(stubInitialMemesProvider, mockRepository, stubMigrationsChecker);
+
+                Assert.AreEqual(1, context.ImageTemplates.Count());
 
                 initialMemesPopulator.Initialize();
 
