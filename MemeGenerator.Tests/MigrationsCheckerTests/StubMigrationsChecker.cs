@@ -1,6 +1,6 @@
 ﻿using MemeGenerator.DAL.MigrationsChecker;
 
-namespace MemeGenerator.Tests
+namespace MemeGenerator.Tests.MigrationsCheckerTests
 {
     class StubMigrationsChecker : IMigrationsChecker
     {

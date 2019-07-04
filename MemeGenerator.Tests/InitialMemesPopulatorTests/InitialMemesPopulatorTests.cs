@@ -1,12 +1,14 @@
 using System.Linq;
 using MemeGenerator.BLL.Services.InitialMemesPopulator;
-using NUnit.Framework;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.ImageTemplateRepository;
 using MemeGenerator.Domain.Models;
+using MemeGenerator.Tests.InitialMemesProviderTests;
+using MemeGenerator.Tests.MigrationsCheckerTests;
 using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 
-namespace MemeGenerator.Tests
+namespace MemeGenerator.Tests.InitialMemesPopulatorTests
 {
     [TestFixture]
     public class InitialMemesPopulatorTests

@@ -1,9 +1,9 @@
-﻿using MemeGenerator.DAL;
+﻿using System.Collections.Generic;
+using MemeGenerator.DAL;
 using MemeGenerator.DAL.InitialMemesProvider;
 using MemeGenerator.Domain.Models;
-using System.Collections.Generic;
 
-namespace MemeGenerator.Tests
+namespace MemeGenerator.Tests.InitialMemesProviderTests
 {
     public class StubInitialMemesProvider : IInitialMemesProvider
     {
