@@ -2,7 +2,7 @@
 using System.Linq;
 using MemeGenerator.Domain.Models;
 
-namespace MemeGenerator.DAL.ImageTemplateRepository
+namespace MemeGenerator.DAL.Repositories
 {
     public class ImageTemplateRepository : IImageTemplateRepository
     {

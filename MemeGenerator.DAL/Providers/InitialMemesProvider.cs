@@ -1,15 +1,15 @@
 ﻿using System.IO;
-using MemeGenerator.DAL.ImageTemplateConfig;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using MemeGenerator.DAL.Configs;
 
-namespace MemeGenerator.DAL.InitialMemesProvider
+namespace MemeGenerator.DAL.Providers
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {
-        private readonly IImageTemplateConfig _imageTemplateConfig;
+        private readonly ImageTemplateConfig _imageTemplateConfig;
 
-        public InitialMemesProvider(IOptionsMonitor<IImageTemplateConfig> imageTemplateAccessor)
+        public InitialMemesProvider(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor)
         {
             _imageTemplateConfig = imageTemplateAccessor.CurrentValue;
         }

@@ -1,4 +1,4 @@
-﻿namespace MemeGenerator.DAL.InitialMemesProvider
+﻿namespace MemeGenerator.DAL.Providers
 {
     public interface IInitialMemesProvider
     {

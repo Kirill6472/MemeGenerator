@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MemeGenerator.Domain.Models;
 
-namespace MemeGenerator.DAL.ImageTemplateRepository
+namespace MemeGenerator.DAL.Repositories
 {
     public interface IImageTemplateRepository
     {

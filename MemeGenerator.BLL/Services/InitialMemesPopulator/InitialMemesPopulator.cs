@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using MemeGenerator.DAL.ImageTemplateRepository;
-using MemeGenerator.DAL.InitialMemesProvider;
 using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.DAL.Providers;
+using MemeGenerator.DAL.Repositories;
 
 namespace MemeGenerator.BLL.Services.InitialMemesPopulator
 {
