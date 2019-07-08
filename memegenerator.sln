@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator", "MemeGenerator\MemeGenerator.csproj", "{D52B2A72-CE87-4405-BCAA-CA79E4A5D719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.UI", "MemeGenerator\MemeGenerator.UI.csproj", "{D52B2A72-CE87-4405-BCAA-CA79E4A5D719}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.Tests", "MemeGenerator.Tests\MemeGenerator.Tests.csproj", "{3D2EBB24-C26F-4D3F-8F93-C2599B5D1903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.Domain", "MemeGenerator.Domain\MemeGenerator.Domain.csproj", "{C4627B14-C5D0-4FE3-BE72-1DFD9789C83C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.Domain", "MemeGenerator.Domain\MemeGenerator.Domain.csproj", "{C4627B14-C5D0-4FE3-BE72-1DFD9789C83C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.DAL", "MemeGenerator.DAL\MemeGenerator.DAL.csproj", "{83D38D10-F6D2-4608-9E42-FF6754E620F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.DAL", "MemeGenerator.DAL\MemeGenerator.DAL.csproj", "{83D38D10-F6D2-4608-9E42-FF6754E620F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.BLL", "MemeGenerator.BLL\MemeGenerator.BLL.csproj", "{1A143EC9-CBE0-46BD-9E97-7164796AB197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.BLL", "MemeGenerator.BLL\MemeGenerator.BLL.csproj", "{1A143EC9-CBE0-46BD-9E97-7164796AB197}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

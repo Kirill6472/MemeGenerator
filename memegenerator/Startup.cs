@@ -13,6 +13,7 @@ using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace MemeGenerator
 {
@@ -27,8 +28,10 @@ namespace MemeGenerator
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MemeGeneratorDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<MemeGeneratorDbContext>(
+                options => options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("MemeGenerator.DAL")));
 
             services.Configure<ImageTemplateConfig>(Configuration);
 
