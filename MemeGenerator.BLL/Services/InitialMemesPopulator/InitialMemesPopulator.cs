@@ -11,7 +11,9 @@ namespace MemeGenerator.BLL.Services.InitialMemesPopulator
         private readonly IImageTemplateRepository _imageTemplateRepository;
         private readonly IMigrationsChecker _checker;
 
-        public InitialMemesPopulator(IInitialMemesProvider provider, IImageTemplateRepository imageTemplateRepository,
+        public InitialMemesPopulator(
+            IInitialMemesProvider provider, 
+            IImageTemplateRepository imageTemplateRepository,
             IMigrationsChecker checker)
         {
             _initialMemesProvider = provider;
@@ -21,21 +23,22 @@ namespace MemeGenerator.BLL.Services.InitialMemesPopulator
 
         public void Initialize()
         {
-            if (_checker.DoAllMigrationsApply() && IsImageTableEmpty())
+            if (!_checker.AreAllMigrationsApplied() || !IsImageTemplateExists()) return;
+
+            var imageTemplates = _initialMemesProvider.GetData();
+
+            for (var i = 0; i < imageTemplates.Result.ImageTemplate.Count; i++)
             {
-                var imageTemplates = _initialMemesProvider.GetDataFromJson();
+                var image = imageTemplates.Result.ImageTemplate[i];
+                image.Data = _initialMemesProvider.GetImageData(i);
 
-                foreach (var image in imageTemplates.ImageTemplate)
-                {
-                    image.Folder = imageTemplates.Folder;
-                    _imageTemplateRepository.Insert(image);
-                }
-
-                _imageTemplateRepository.Save();
+                _imageTemplateRepository.Insert(image);
             }
+
+            _imageTemplateRepository.Save();
         }
 
-        private bool IsImageTableEmpty()
+        private bool IsImageTemplateExists()
         {
             return !_imageTemplateRepository.GetAll().Any();
         }

@@ -1,7 +1,10 @@
-﻿namespace MemeGenerator.DAL.Providers
+﻿using System.Threading.Tasks;
+
+namespace MemeGenerator.DAL.Providers
 {
     public interface IInitialMemesProvider
     {
-        ImageTemplateList GetDataFromJson();
+        Task<ImageTemplateList> GetData();
+        byte[] GetImageData(int i);
     }
 }

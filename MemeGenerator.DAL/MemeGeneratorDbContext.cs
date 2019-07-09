@@ -1,4 +1,4 @@
-﻿using MemeGenerator.Domain.Models;
+﻿using MemeGenerator.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MemeGenerator.DAL

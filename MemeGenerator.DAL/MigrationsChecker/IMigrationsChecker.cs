@@ -2,6 +2,6 @@
 {
     public interface IMigrationsChecker
     {
-        bool DoAllMigrationsApply();
+        bool AreAllMigrationsApplied();
     }
 }

@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MemeGenerator.Domain.Migrations
+namespace MemeGenerator.DAL.Migrations
 {
     public partial class Initialize : Migration
     {
@@ -11,15 +12,15 @@ namespace MemeGenerator.Domain.Migrations
                 name: "ImageTemplates",
                 columns: table => new
                 {
-                    ImageTemplateId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Folder = table.Column<string>(nullable: true),
+                    Data = table.Column<byte[]>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ImageTemplates", x => x.ImageTemplateId);
+                    table.PrimaryKey("PK_ImageTemplates", x => x.Id);
                 });
         }
 

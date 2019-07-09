@@ -13,13 +13,13 @@ namespace MemeGenerator.DAL.MigrationsChecker
             _context = context;
         }
 
-        public bool DoAllMigrationsApply()
+        public bool AreAllMigrationsApplied()
         {
             var applied = _context.GetService<IHistoryRepository>().GetAppliedMigrations().Select(m => m.MigrationId);
 
-            var total = _context.GetService<IMigrationsAssembly>().Migrations.Select(m => m.Key);
+            var allMigrationsKeys = _context.GetService<IMigrationsAssembly>().Migrations.Select(m => m.Key);
 
-            return !total.Except(applied).Any();
+            return !allMigrationsKeys.Except(applied).Any();
         }
     }
 }

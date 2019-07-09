@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MemeGenerator.Domain.Models;
+using MemeGenerator.Domain.Entities;
 
 namespace MemeGenerator.DAL
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MemeGenerator.Domain.Models;
+using MemeGenerator.Domain.Entities;
 
 namespace MemeGenerator.DAL.Repositories
 {
