@@ -2,14 +2,14 @@
 using FluentAssertions;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.Repositories;
-using MemeGenerator.Domain.Models;
+using MemeGenerator.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace MemeGenerator.Tests.RepositoriesTests
+namespace MemeGenerator.Tests.Repositories
 {
     [TestFixture]
-    class ImageTemplateRepositoryTests
+    public class ImageTemplateRepositoryTests
     {
         private DbContextOptions<MemeGeneratorDbContext> options;
 
