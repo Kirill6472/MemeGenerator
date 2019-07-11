@@ -1,3 +1,11 @@
+using System;
+using MemeGenerator.BLL.Services.InitialMemesPopulator;
+using MemeGenerator.DAL;
+using MemeGenerator.DAL.Configs;
+using MemeGenerator.DAL.FileReader;
+using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.DAL.Providers;
+using MemeGenerator.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,16 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
-using MemeGenerator.BLL.Services.InitialMemesPopulator;
-using MemeGenerator.DAL;
-using MemeGenerator.DAL.Configs;
-using MemeGenerator.DAL.MigrationsChecker;
-using MemeGenerator.DAL.Providers;
-using MemeGenerator.DAL.Repositories;
 
-namespace MemeGenerator
+namespace MemeGenerator.UI
 {
     public class Startup
     {
@@ -39,6 +39,7 @@ namespace MemeGenerator
             services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
             services.AddTransient<IImageTemplateRepository, ImageTemplateRepository>();
             services.AddTransient<IMigrationsChecker, MigrationsChecker>();
+            services.AddTransient<IFileReader, FileReader>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -87,7 +88,7 @@ namespace MemeGenerator
 
                 try
                 {
-                    services.GetRequiredService<IInitialMemesPopulator>().InitializeAsync();
+                    services.GetRequiredService<IInitialMemesPopulator>().InitializeAsync().Wait();
                 }
                 catch (Exception ex)
                 {

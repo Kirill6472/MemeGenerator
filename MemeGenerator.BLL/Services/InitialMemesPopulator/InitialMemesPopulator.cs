@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
@@ -21,19 +22,24 @@ namespace MemeGenerator.BLL.Services.InitialMemesPopulator
             _checker = checker;
         }
 
-        public async void InitializeAsync()
+        public async Task InitializeAsync()
         {
             if (!_checker.AreAllMigrationsApplied() || !IsImageTemplateExists()) return;
 
             var imageTemplates = await _initialMemesProvider.GetData();
 
-            for (var i = 0; i < imageTemplates.ImageTemplate.Count; i++)
+            foreach (var image in imageTemplates.ImageTemplate)
             {
-                var image = imageTemplates.ImageTemplate[i];
-                image.Data = _initialMemesProvider.GetImageData(i);
-
                 _imageTemplateRepository.Insert(image);
             }
+
+            //for (var i = 0; i < imageTemplates.ImageTemplate.Count; i++)
+            //{
+            //    var image = imageTemplates.ImageTemplate[i];
+            //    image.Data = _initialMemesProvider.GetImageData(i);
+
+            //    _imageTemplateRepository.Insert(image);
+            //}
 
             _imageTemplateRepository.Save();
         }

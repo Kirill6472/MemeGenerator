@@ -1,7 +1,9 @@
-﻿namespace MemeGenerator.BLL.Services.InitialMemesPopulator
+﻿using System.Threading.Tasks;
+
+namespace MemeGenerator.BLL.Services.InitialMemesPopulator
 {
     public interface IInitialMemesPopulator
     {
-        void InitializeAsync();
+        Task InitializeAsync();
     }
 }

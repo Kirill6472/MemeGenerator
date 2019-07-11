@@ -3,39 +3,33 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using MemeGenerator.DAL.Configs;
 using System.Threading.Tasks;
+using MemeGenerator.DAL.FileReader;
 
 namespace MemeGenerator.DAL.Providers
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {
         private readonly ImageTemplateConfig _imageTemplateConfig;
+        private readonly IFileReader _fileReader;
 
-        public InitialMemesProvider(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor)
+        public InitialMemesProvider(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor, IFileReader fileReader)
         {
             _imageTemplateConfig = imageTemplateAccessor.CurrentValue;
+            _fileReader = fileReader;
         }
-
+        
         public async Task<ImageTemplateList> GetData()
         {
-            return JsonConvert.DeserializeObject<ImageTemplateList>(
+            var imageTemplates = JsonConvert.DeserializeObject<ImageTemplateList>(
                 await File.ReadAllTextAsync(_imageTemplateConfig.PathToImageTemplatesConfig));
-        }
 
-        public byte[] GetImageData(int i)
-        {
-            byte[] imageData;
-
-            var files = Directory.GetFiles(GetData().Result.Folder);
-            var fileInfo = new FileInfo(files[i]);
-            var imageBytes = fileInfo.Length;
-
-            using (var fileStream = new FileStream(files[i], FileMode.Open, FileAccess.Read))
+            foreach (var image in imageTemplates.ImageTemplate)
             {
-                var binaryReader = new BinaryReader(fileStream);
-                imageData = binaryReader.ReadBytes((int)imageBytes);
+                var filePath = imageTemplates.Folder + image.Name;
+                image.Data = _fileReader.GetImageData(filePath);
             }
 
-            return imageData;
+            return imageTemplates;
         }
     }
 }
