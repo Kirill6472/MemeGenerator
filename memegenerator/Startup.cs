@@ -7,13 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading.Tasks;
 using MemeGenerator.BLL.Services.InitialMemesPopulator;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace MemeGenerator
 {
@@ -87,7 +87,7 @@ namespace MemeGenerator
 
                 try
                 {
-                    services.GetRequiredService<IInitialMemesPopulator>().Initialize();
+                    services.GetRequiredService<IInitialMemesPopulator>().InitializeAsync();
                 }
                 catch (Exception ex)
                 {

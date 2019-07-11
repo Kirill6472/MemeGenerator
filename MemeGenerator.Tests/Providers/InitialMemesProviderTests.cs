@@ -16,12 +16,10 @@ namespace MemeGenerator.Tests.Providers
         {
             var config = new ImageTemplateConfig
             {
-                PathToImageTemplatesConfig = "D:\\Projects\\MemeGenerator\\MemeGenerator.BLL\\Seed\\memeTemplates.json"
+                PathToImageTemplatesConfig = "D:\\Projects\\MemeGenerator\\MemeGenerator.DAL\\Seed\\memeTemplates.json"
             };
-
             var monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
             monitor.Setup(m => m.CurrentValue).Returns(config);
-
             var initialMemesProvider = new InitialMemesProvider(monitor.Object);
 
             var imageTemplateList = initialMemesProvider.GetData();

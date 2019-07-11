@@ -23,7 +23,7 @@ namespace MemeGenerator.DAL.Providers
 
         public byte[] GetImageData(int i)
         {
-            byte[] imageData = null;
+            byte[] imageData;
 
             var files = Directory.GetFiles(GetData().Result.Folder);
             var fileInfo = new FileInfo(files[i]);

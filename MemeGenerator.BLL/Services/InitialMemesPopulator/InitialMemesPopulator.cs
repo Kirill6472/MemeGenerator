@@ -21,15 +21,15 @@ namespace MemeGenerator.BLL.Services.InitialMemesPopulator
             _checker = checker;
         }
 
-        public void Initialize()
+        public async void InitializeAsync()
         {
             if (!_checker.AreAllMigrationsApplied() || !IsImageTemplateExists()) return;
 
-            var imageTemplates = _initialMemesProvider.GetData();
+            var imageTemplates = await _initialMemesProvider.GetData();
 
-            for (var i = 0; i < imageTemplates.Result.ImageTemplate.Count; i++)
+            for (var i = 0; i < imageTemplates.ImageTemplate.Count; i++)
             {
-                var image = imageTemplates.Result.ImageTemplate[i];
+                var image = imageTemplates.ImageTemplate[i];
                 image.Data = _initialMemesProvider.GetImageData(i);
 
                 _imageTemplateRepository.Insert(image);

@@ -27,7 +27,6 @@ namespace MemeGenerator.Tests.Repositories
             using (var context = new MemeGeneratorDbContext(options))
             {
                 var repository = new ImageTemplateRepository(context);
-
                 context.ImageTemplates.Add(new ImageTemplate());
                 context.SaveChanges();
 
@@ -57,7 +56,6 @@ namespace MemeGenerator.Tests.Repositories
             using (var context = new MemeGeneratorDbContext(options))
             {
                 var repository = new ImageTemplateRepository(context);
-
                 context.ImageTemplates.Add(new ImageTemplate());
 
                 repository.Save();

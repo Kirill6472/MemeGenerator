@@ -2,6 +2,6 @@
 {
     public interface IInitialMemesPopulator
     {
-        void Initialize();
+        void InitializeAsync();
     }
 }
