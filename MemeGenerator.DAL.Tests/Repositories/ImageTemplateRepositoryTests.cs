@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using MemeGenerator.DAL;
 using MemeGenerator.DAL.Repositories;
 using MemeGenerator.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace MemeGenerator.Tests.Repositories
+namespace MemeGenerator.DAL.Tests.Repositories
 {
     [TestFixture]
     public class ImageTemplateRepositoryTests
@@ -43,7 +42,7 @@ namespace MemeGenerator.Tests.Repositories
             {
                 var repository = new ImageTemplateRepository(context);
 
-                repository.Insert(new ImageTemplate {Name = "insertImage"});
+                repository.Insert(new ImageTemplate { Name = "insertImage" });
                 context.SaveChanges();
 
                 context.ImageTemplates.Single().Name.Should().Be("insertImage");

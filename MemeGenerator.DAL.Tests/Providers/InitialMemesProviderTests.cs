@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using FluentAssertions;
-using MemeGenerator.DAL.Configs;
+﻿using MemeGenerator.DAL.Configs;
+using MemeGenerator.DAL.FileReader;
 using MemeGenerator.DAL.Providers;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -11,20 +10,25 @@ namespace MemeGenerator.DAL.Tests.Providers
     [TestFixture]
     public class InitialMemesProviderTests
     {
+        private Mock<IOptionsMonitor<ImageTemplateConfig>> _monitor;
+        private Mock<IFileReader> _mockFileReader;
+
+        [SetUp]
+        public void Setup()
+        {
+            _monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
+            _mockFileReader = new Mock<IFileReader>();
+        }
+
         [Test]
         public void GetData_PathToImageTemplateConfig_ImageTemplateListFromJson()
         {
-            var config = new ImageTemplateConfig
-            {
-                PathToImageTemplatesConfig = "D:\\Projects\\MemeGenerator\\MemeGenerator.DAL\\Seed\\memeTemplates.json"
-            };
-            var monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
-            monitor.Setup(m => m.CurrentValue).Returns(config);
-            var initialMemesProvider = new InitialMemesProvider(monitor.Object);
+            const string filePath = "filePath";
+            var initialMemesProvider = new InitialMemesProvider(_monitor.Object, _mockFileReader.Object);
 
-            var imageTemplateList = initialMemesProvider.GetData();
+            initialMemesProvider.GetData();
 
-            imageTemplateList.Result.ImageTemplate.Count().Should().Be(2);
+            _mockFileReader.Verify(mock => mock.GetImageData(filePath), Times.AtMostOnce);
         }
     }
 }
