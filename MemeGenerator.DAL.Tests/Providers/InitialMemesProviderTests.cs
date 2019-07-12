@@ -1,7 +1,8 @@
-﻿using MemeGenerator.DAL.Configs;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MemeGenerator.DAL.FileReader;
 using MemeGenerator.DAL.Providers;
-using Microsoft.Extensions.Options;
+using MemeGenerator.Domain.Entities;
 using Moq;
 using NUnit.Framework;
 
@@ -10,25 +11,40 @@ namespace MemeGenerator.DAL.Tests.Providers
     [TestFixture]
     public class InitialMemesProviderTests
     {
-        private Mock<IOptionsMonitor<ImageTemplateConfig>> _monitor;
         private Mock<IFileReader> _mockFileReader;
+        private ImageTemplateList _imageTemplateList;
 
         [SetUp]
         public void Setup()
         {
-            _monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
+            _imageTemplateList = new ImageTemplateList
+            {
+                Folder = "folder",
+                ImageTemplate = new List<ImageTemplate>
+                {
+                    new ImageTemplate
+                    {
+                        Name = "name",
+                        Data = new byte[0],
+                        Description = "description"
+                    }
+                }
+            };
+
             _mockFileReader = new Mock<IFileReader>();
         }
 
         [Test]
-        public void GetData_PathToImageTemplateConfig_ImageTemplateListFromJson()
+        public async Task GetData_FileReader_ImageTemplateList()
         {
-            const string filePath = "filePath";
-            var initialMemesProvider = new InitialMemesProvider(_monitor.Object, _mockFileReader.Object);
+            _mockFileReader.Setup(mock => mock.GetImageTemplateList()).ReturnsAsync(_imageTemplateList);
+            var fakeFilePath = _imageTemplateList.Folder + _imageTemplateList.ImageTemplate[0].Name;
+            var initialMemesProvider = new InitialMemesProvider(_mockFileReader.Object);
 
-            initialMemesProvider.GetData();
+            await initialMemesProvider.GetData();
 
-            _mockFileReader.Verify(mock => mock.GetImageData(filePath), Times.AtMostOnce);
+            _mockFileReader.Verify(mock => mock.GetImageTemplateList(), Times.Once);
+            _mockFileReader.Verify(mock => mock.GetImageData(fakeFilePath), Times.AtLeastOnce);
         }
     }
 }
