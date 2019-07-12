@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 
 namespace MemeGenerator.DAL.FileReader
 {
@@ -9,14 +8,10 @@ namespace MemeGenerator.DAL.FileReader
         {
             byte[] imageData;
 
-            var files = Directory.GetFiles(filePath);
-            var fileInfo = new FileInfo(files.First());
-            var imageBytes = fileInfo.Length;
-
-            using (var fileStream = new FileStream(files.First(), FileMode.Open, FileAccess.Read))
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 var binaryReader = new BinaryReader(fileStream);
-                imageData = binaryReader.ReadBytes((int)imageBytes);
+                imageData = binaryReader.ReadBytes((int)binaryReader.BaseStream.Length);
             }
 
             return imageData;

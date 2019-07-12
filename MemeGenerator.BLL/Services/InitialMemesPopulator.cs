@@ -4,7 +4,7 @@ using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
 
-namespace MemeGenerator.BLL.Services.InitialMemesPopulator
+namespace MemeGenerator.BLL.Services
 {
     public class InitialMemesPopulator : IInitialMemesPopulator
     {
@@ -32,14 +32,6 @@ namespace MemeGenerator.BLL.Services.InitialMemesPopulator
             {
                 _imageTemplateRepository.Insert(image);
             }
-
-            //for (var i = 0; i < imageTemplates.ImageTemplate.Count; i++)
-            //{
-            //    var image = imageTemplates.ImageTemplate[i];
-            //    image.Data = _initialMemesProvider.GetImageData(i);
-
-            //    _imageTemplateRepository.Insert(image);
-            //}
 
             _imageTemplateRepository.Save();
         }

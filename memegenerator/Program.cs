@@ -1,8 +1,7 @@
-using MemeGenerator.UI;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace MemeGenerator
+namespace MemeGenerator.UI
 {
     public class Program
     {

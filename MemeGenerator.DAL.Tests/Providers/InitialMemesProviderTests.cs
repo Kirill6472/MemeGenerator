@@ -6,13 +6,13 @@ using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
 
-namespace MemeGenerator.Tests.Providers
+namespace MemeGenerator.DAL.Tests.Providers
 {
     [TestFixture]
     public class InitialMemesProviderTests
     {
         [Test]
-        public void GetDataFromJson_PathToImageTemplateConfig_ImageTemplateListFromJson()
+        public void GetData_PathToImageTemplateConfig_ImageTemplateListFromJson()
         {
             var config = new ImageTemplateConfig
             {

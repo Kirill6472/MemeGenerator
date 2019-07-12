@@ -1,5 +1,5 @@
 using System;
-using MemeGenerator.BLL.Services.InitialMemesPopulator;
+using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.FileReader;

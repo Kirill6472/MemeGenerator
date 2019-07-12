@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MemeGenerator.BLL.Services.InitialMemesPopulator;
+using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
@@ -8,7 +8,7 @@ using MemeGenerator.Domain.Entities;
 using Moq;
 using NUnit.Framework;
 
-namespace MemeGenerator.Tests.Services
+namespace MemeGenerator.BLL.Tests.Services
 {
     [TestFixture]
     public class InitialMemesPopulatorTests
@@ -61,7 +61,6 @@ namespace MemeGenerator.Tests.Services
             initialMemesPopulator.InitializeAsync();
 
             _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Once);
-            _mockInitialMemesProvider.Verify(mock => mock.GetImageData(0), Times.Once);
             _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.AtLeastOnce);
             _mockRepository.Verify(mock => mock.Save(), Times.Once);
         }
@@ -79,7 +78,6 @@ namespace MemeGenerator.Tests.Services
             initialMemesPopulator.InitializeAsync();
 
             _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Never);
-            _mockInitialMemesProvider.Verify(mock => mock.GetImageData(0), Times.Never);
             _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.Never);
             _mockRepository.Verify(mock => mock.Save(), Times.Never);
         }
@@ -98,7 +96,6 @@ namespace MemeGenerator.Tests.Services
             initialMemesPopulator.InitializeAsync();
 
             _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Never);
-            _mockInitialMemesProvider.Verify(mock => mock.GetImageData(0), Times.Never);
             _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.Never);
             _mockRepository.Verify(mock => mock.Save(), Times.Never);
         }
