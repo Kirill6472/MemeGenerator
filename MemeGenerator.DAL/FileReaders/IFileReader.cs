@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MemeGenerator.DAL.FileReader
+namespace MemeGenerator.DAL.FileReaders
 {
     public interface IFileReader
     {

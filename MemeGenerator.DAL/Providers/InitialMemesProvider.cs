@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MemeGenerator.DAL.FileReader;
+using MemeGenerator.DAL.FileReaders;
 
 namespace MemeGenerator.DAL.Providers
 {

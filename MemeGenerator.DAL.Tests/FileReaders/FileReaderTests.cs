@@ -4,12 +4,12 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MemeGenerator.DAL.Configs;
-using MemeGenerator.DAL.FileReader;
+using MemeGenerator.DAL.FileReaders;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
 
-namespace MemeGenerator.DAL.Tests.FileReader
+namespace MemeGenerator.DAL.Tests.FileReaders
 {
     [TestFixture]
     public class FileReaderTests
@@ -43,7 +43,7 @@ namespace MemeGenerator.DAL.Tests.FileReader
             _monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
             _monitor.Setup(mock => mock.CurrentValue).Returns(config);
 
-            _fileReader = new DAL.FileReader.FileReader(_monitor.Object);
+            _fileReader = new FileReader(_monitor.Object);
         }
 
         [Test]

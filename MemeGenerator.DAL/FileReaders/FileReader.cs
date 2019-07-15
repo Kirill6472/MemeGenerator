@@ -4,7 +4,7 @@ using MemeGenerator.DAL.Configs;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace MemeGenerator.DAL.FileReader
+namespace MemeGenerator.DAL.FileReaders
 {
     public class FileReader : IFileReader
     {

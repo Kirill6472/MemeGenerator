@@ -2,7 +2,7 @@ using System;
 using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.Configs;
-using MemeGenerator.DAL.FileReader;
+using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;

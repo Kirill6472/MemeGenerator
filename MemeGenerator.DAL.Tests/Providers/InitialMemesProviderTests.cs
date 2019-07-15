@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MemeGenerator.DAL.FileReader;
+using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.Domain.Entities;
 using Moq;
