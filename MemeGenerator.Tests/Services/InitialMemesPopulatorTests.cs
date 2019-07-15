@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.MigrationsChecker;
@@ -49,7 +50,7 @@ namespace MemeGenerator.BLL.Tests.Services
         }
 
         [Test]
-        public void Initialize_AllMigrationsApplyAndImageTableEmpty_filledDb()
+        public async Task Initialize_AllMigrationsApplyAndImageTableEmpty_filledDbAsync()
         {
             _mockMigrationsChecker.Setup(m => m.AreAllMigrationsApplied()).Returns(true);
             _mockRepository.Setup(m => m.GetAll()).Returns(_emptyImageList);
@@ -58,7 +59,7 @@ namespace MemeGenerator.BLL.Tests.Services
                 _mockRepository.Object,
                 _mockMigrationsChecker.Object);
 
-            initialMemesPopulator.InitializeAsync();
+            await initialMemesPopulator.InitializeAsync();
 
             _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Once);
             _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.AtLeastOnce);
@@ -66,7 +67,7 @@ namespace MemeGenerator.BLL.Tests.Services
         }
 
         [Test]
-        public void Initialize_NotAllMigrationsAreApplied_DbNotFilled()
+        public async Task Initialize_NotAllMigrationsAreApplied_DbNotFilledAsync()
         {
             _mockMigrationsChecker.Setup(mock => mock.AreAllMigrationsApplied()).Returns(false);
             _mockRepository.Setup(m => m.GetAll()).Returns(_emptyImageList);
@@ -75,7 +76,7 @@ namespace MemeGenerator.BLL.Tests.Services
                 _mockRepository.Object,
                 _mockMigrationsChecker.Object);
 
-            initialMemesPopulator.InitializeAsync();
+            await initialMemesPopulator.InitializeAsync();
 
             _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Never);
             _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.Never);
@@ -83,17 +84,16 @@ namespace MemeGenerator.BLL.Tests.Services
         }
 
         [Test]
-        public void Initialize_ImageTableNotEmpty_DbNotChanged()
+        public async Task Initialize_ImageTableNotEmpty_DbNotChangedAsync()
         {
             _mockMigrationsChecker.Setup(m => m.AreAllMigrationsApplied()).Returns(true);
             _mockRepository.Setup(m => m.GetAll()).Returns(_notEmptyImageList);
-
             var initialMemesPopulator = new InitialMemesPopulator(
                 _mockInitialMemesProvider.Object,
                 _mockRepository.Object,
                 _mockMigrationsChecker.Object);
 
-            initialMemesPopulator.InitializeAsync();
+            await initialMemesPopulator.InitializeAsync();
 
             _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Never);
             _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.Never);
