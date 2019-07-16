@@ -3,7 +3,7 @@ using MemeGenerator.Domain.Entities;
 
 namespace MemeGenerator.DAL
 {
-    public class ImageTemplateList
+    public class InitialMemesStorageStructure
     {
         public string Folder { get; set; }
         public List<ImageTemplate> ImageTemplate { get; set; }

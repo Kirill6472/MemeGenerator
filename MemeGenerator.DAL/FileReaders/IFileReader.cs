@@ -4,7 +4,7 @@ namespace MemeGenerator.DAL.FileReaders
 {
     public interface IFileReader
     {
-        Task<ImageTemplateList> GetImageTemplateList();
-        byte[] GetImageData(string filePath);
+        Task<byte[]> ReadBytes(string path);
+        Task<string> ReadString(string path);
     }
 }

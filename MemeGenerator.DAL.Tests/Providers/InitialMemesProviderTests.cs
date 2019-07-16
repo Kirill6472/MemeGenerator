@@ -12,12 +12,12 @@ namespace MemeGenerator.DAL.Tests.Providers
     public class InitialMemesProviderTests
     {
         private Mock<IFileReader> _mockFileReader;
-        private ImageTemplateList _imageTemplateList;
+        private InitialMemesStorageStructure _imageTemplateList;
 
         [SetUp]
         public void Setup()
         {
-            _imageTemplateList = new ImageTemplateList
+            _imageTemplateList = new InitialMemesStorageStructure
             {
                 Folder = "folder",
                 ImageTemplate = new List<ImageTemplate>

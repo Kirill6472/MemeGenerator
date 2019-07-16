@@ -4,6 +4,6 @@ namespace MemeGenerator.DAL.Providers
 {
     public interface IInitialMemesProvider
     {
-        Task<ImageTemplateList> GetData();
+        Task<InitialMemesStorageStructure> GetData();
     }
 }

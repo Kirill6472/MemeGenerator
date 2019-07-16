@@ -1,37 +1,22 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using MemeGenerator.DAL.Configs;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace MemeGenerator.DAL.FileReaders
 {
     public class FileReader : IFileReader
     {
-        private readonly ImageTemplateConfig _imageTemplateConfig;
-
-        public FileReader(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor)
+        public Task<byte[]> ReadBytes(string path)
         {
-            _imageTemplateConfig = imageTemplateAccessor.CurrentValue;
+            var data = File.ReadAllBytesAsync(path);
+
+            return data;
         }
 
-        public async Task<ImageTemplateList> GetImageTemplateList()
+        public Task<string> ReadString(string path)
         {
-            return JsonConvert.DeserializeObject<ImageTemplateList>(
-                await File.ReadAllTextAsync(_imageTemplateConfig.PathToImageTemplatesConfig));
-        }
+            var data = File.ReadAllTextAsync(path);
 
-        public byte[] GetImageData(string filePath)
-        {
-            byte[] imageData;
-
-            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                var binaryReader = new BinaryReader(fileStream);
-                imageData = binaryReader.ReadBytes((int)binaryReader.BaseStream.Length);
-            }
-
-            return imageData;
+            return data;
         }
     }
 }

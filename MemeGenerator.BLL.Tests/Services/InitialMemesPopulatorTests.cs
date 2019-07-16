@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
@@ -18,7 +18,7 @@ namespace MemeGenerator.BLL.Tests.Services
         private Mock<IImageTemplateRepository> _mockRepository;
         private Mock<IMigrationsChecker> _mockMigrationsChecker;
         private ImageTemplate _imageTemplate;
-        private ImageTemplateList _imageTemplateList;
+        private InitialMemesStorageStructure _imageTemplateList;
         private IEnumerable<ImageTemplate> _emptyImageList;
         private IEnumerable<ImageTemplate> _notEmptyImageList;
 
@@ -32,7 +32,7 @@ namespace MemeGenerator.BLL.Tests.Services
                 Description = "description"
             };
 
-            _imageTemplateList = new ImageTemplateList
+            _imageTemplateList = new InitialMemesStorageStructure
             {
                 Folder = "folder",
                 ImageTemplate = new List<ImageTemplate> { _imageTemplate }

@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.UI", "MemeGenerator\MemeGenerator.UI.csproj", "{D52B2A72-CE87-4405-BCAA-CA79E4A5D719}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.BLL.Tests", "MemeGenerator.Tests\MemeGenerator.BLL.Tests.csproj", "{3D2EBB24-C26F-4D3F-8F93-C2599B5D1903}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.Domain", "MemeGenerator.Domain\MemeGenerator.Domain.csproj", "{C4627B14-C5D0-4FE3-BE72-1DFD9789C83C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.DAL", "MemeGenerator.DAL\MemeGenerator.DAL.csproj", "{83D38D10-F6D2-4608-9E42-FF6754E620F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.BLL", "MemeGenerator.BLL\MemeGenerator.BLL.csproj", "{1A143EC9-CBE0-46BD-9E97-7164796AB197}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.DAL.Tests", "MemeGenerator.DAL.Tests\MemeGenerator.DAL.Tests.csproj", "{45A81B37-7C43-4FF3-9D4C-365118B722A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.DAL.Tests", "MemeGenerator.DAL.Tests\MemeGenerator.DAL.Tests.csproj", "{45A81B37-7C43-4FF3-9D4C-365118B722A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.BLL.Tests", "MemeGenerator.BLL.Tests\MemeGenerator.BLL.Tests.csproj", "{3509E252-7233-42EA-B3C2-B6639C21845D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +25,6 @@ Global
 		{D52B2A72-CE87-4405-BCAA-CA79E4A5D719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52B2A72-CE87-4405-BCAA-CA79E4A5D719}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D52B2A72-CE87-4405-BCAA-CA79E4A5D719}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3D2EBB24-C26F-4D3F-8F93-C2599B5D1903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D2EBB24-C26F-4D3F-8F93-C2599B5D1903}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D2EBB24-C26F-4D3F-8F93-C2599B5D1903}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D2EBB24-C26F-4D3F-8F93-C2599B5D1903}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4627B14-C5D0-4FE3-BE72-1DFD9789C83C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C4627B14-C5D0-4FE3-BE72-1DFD9789C83C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4627B14-C5D0-4FE3-BE72-1DFD9789C83C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{45A81B37-7C43-4FF3-9D4C-365118B722A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45A81B37-7C43-4FF3-9D4C-365118B722A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45A81B37-7C43-4FF3-9D4C-365118B722A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3509E252-7233-42EA-B3C2-B6639C21845D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3509E252-7233-42EA-B3C2-B6639C21845D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3509E252-7233-42EA-B3C2-B6639C21845D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3509E252-7233-42EA-B3C2-B6639C21845D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
