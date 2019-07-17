@@ -42,7 +42,7 @@ namespace MemeGenerator.BLL.Tests.Services
             _mockInitialMemesProvider.Setup(m => m.GetData()).ReturnsAsync(GetInitialMemes(countImageTemplates));
             ConfigureInitializationConditions(true, true);
             
-            await _initialMemesPopulator.InitializeAsync();
+            await _initialMemesPopulator.Initialize();
 
             VerifyGetData(true);
             VerifySaveDataInDb(countImageTemplates);
@@ -53,7 +53,7 @@ namespace MemeGenerator.BLL.Tests.Services
         {
             ConfigureInitializationConditions(false, true);
 
-            await _initialMemesPopulator.InitializeAsync();
+            await _initialMemesPopulator.Initialize();
 
             VerifyGetData(false);
             VerifyDataIsNotSaved();
@@ -64,7 +64,7 @@ namespace MemeGenerator.BLL.Tests.Services
         {
             ConfigureInitializationConditions(true, false);
 
-            await _initialMemesPopulator.InitializeAsync();
+            await _initialMemesPopulator.Initialize();
 
             VerifyGetData(false);
             VerifyDataIsNotSaved();

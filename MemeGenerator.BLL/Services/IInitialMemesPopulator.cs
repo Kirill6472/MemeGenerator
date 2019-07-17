@@ -4,6 +4,6 @@ namespace MemeGenerator.BLL.Services
 {
     public interface IInitialMemesPopulator
     {
-        Task InitializeAsync();
+        Task Initialize();
     }
 }

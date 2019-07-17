@@ -88,7 +88,7 @@ namespace MemeGenerator.UI
 
                 try
                 {
-                    services.GetRequiredService<IInitialMemesPopulator>().InitializeAsync().Wait();
+                    services.GetRequiredService<IInitialMemesPopulator>().Initialize().Wait();
                 }
                 catch (Exception ex)
                 {

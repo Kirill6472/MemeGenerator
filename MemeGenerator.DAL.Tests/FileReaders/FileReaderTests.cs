@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
 using FluentAssertions;
-using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.FileReaders;
-using Microsoft.Extensions.Options;
-using Moq;
 using NUnit.Framework;
 
 namespace MemeGenerator.DAL.Tests.FileReaders
@@ -14,62 +9,40 @@ namespace MemeGenerator.DAL.Tests.FileReaders
     [TestFixture]
     public class FileReaderTests
     {
-        private const string TestFile = "TestFile.json";
-        private Mock<IOptionsMonitor<ImageTemplateConfig>> _monitor;
-        private IFileReader _fileReader;
-
-        private const string ImagesList =
-            "{\"folder\": \"MemeTemplate\",\"ImageTemplate\": [{\"name\": \"1.jpg\",\"description\": \"descr\"}]}";
+        private const string TestFilePath = "TestFile.json";
+        private FileReaderFixture _fileReaderFixture;
 
         [SetUp]
-        public void Setup()
+        public async Task Setup()
         {
-            var config = new ImageTemplateConfig
-            {
-                PathToImageTemplatesConfig = Path.Combine(Directory.GetCurrentDirectory(), TestFile)
-            };
-            
-            if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), TestFile)))
-            {
-                File.Delete(Path.Combine(Directory.GetCurrentDirectory(), TestFile));
-            }
-
-            using (FileStream fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), TestFile)))
-            {
-                Byte[] info = new UTF8Encoding(true).GetBytes(ImagesList);
-                fs.Write(info, 0, info.Length);
-            }
-
-            _monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
-            _monitor.Setup(mock => mock.CurrentValue).Returns(config);
-
-            _fileReader = new FileReader(_monitor.Object);
+            _fileReaderFixture = new FileReaderFixture();
+            await _fileReaderFixture.CreateFile(TestFilePath);
         }
 
         [Test]
-        public async Task GetImageTemplateList_JsonFile_ImageTemplateListAsync()
+        public void ReadBytes_JsonFileExist_DataInBytes()
         {
-            var imageTemplateList = await _fileReader.GetImageTemplateList();
+            var fileReader = new FileReader();
 
-            imageTemplateList.ImageTemplate.Count.Should().Be(1);
-            imageTemplateList.Folder.Should().BeEquivalentTo("MemeTemplate");
+            var data = fileReader.ReadBytes(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
+
+            data.Should().NotBeNull();
         }
 
         [Test]
-        public void GetImageData_FilePath_ImageData()
+        public void ReadString_JsonFileExist_DataInString()
         {
-            var imageData = _fileReader.GetImageData(Path.Combine(Directory.GetCurrentDirectory(), TestFile));
+            var fileReader = new FileReader();
 
-            imageData.Should().NotBeNull();
+            var data = fileReader.ReadString(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
+
+            data.Result.Should().Be("\"testData\"");
         }
 
         [TearDown]
         public void TearDown()
         {
-            if (File.Exists(TestFile))
-            {
-                File.Delete(TestFile);
-            }
+            _fileReaderFixture.DeleteFile(TestFilePath);
         }
     }
 }

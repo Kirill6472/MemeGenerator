@@ -22,23 +22,24 @@ namespace MemeGenerator.BLL.Services
             _checker = checker;
         }
 
-        public async Task InitializeAsync()
+        public async Task Initialize()
         {
-            if (!_checker.AreAllMigrationsApplied() || !IsImageTemplateExists()) return;
-
-            var imageTemplates = await _initialMemesProvider.GetData();
-
-            foreach (var image in imageTemplates.ImageTemplate)
+            if (_checker.AreAllMigrationsApplied() && IsImageTemplateExists())
             {
-                _imageTemplateRepository.Insert(image);
-            }
+                var imageTemplates = await _initialMemesProvider.GetData();
 
-            _imageTemplateRepository.Save();
+                foreach (var image in imageTemplates.ImageTemplate)
+                {
+                    _imageTemplateRepository.Insert(image);
+                }
+
+                _imageTemplateRepository.Save();
+            }
         }
 
         private bool IsImageTemplateExists()
         {
-            return !_imageTemplateRepository.GetAll().Any();
+            return _imageTemplateRepository.GetAll().Count() == 0;
         }
     }
 }
