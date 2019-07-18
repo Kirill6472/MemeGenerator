@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MemeGenerator.DAL.FileReaders;
@@ -16,7 +17,7 @@ namespace MemeGenerator.DAL.Tests.FileReaders
         public async Task Setup()
         {
             _fileReaderFixture = new FileReaderFixture();
-            await _fileReaderFixture.CreateFile(TestFilePath);
+            await _fileReaderFixture.CreateFile(TestFilePath, "test data");
         }
 
         [Test]
@@ -25,8 +26,8 @@ namespace MemeGenerator.DAL.Tests.FileReaders
             var fileReader = new FileReader();
 
             var data = fileReader.ReadBytes(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
-
-            data.Should().NotBeNull();
+            
+            data.Result.Should().Contain(Encoding.ASCII.GetBytes("test data"));
         }
 
         [Test]
@@ -36,7 +37,7 @@ namespace MemeGenerator.DAL.Tests.FileReaders
 
             var data = fileReader.ReadString(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
 
-            data.Result.Should().Be("\"testData\"");
+            data.Result.Should().Be("test data");
         }
 
         [TearDown]
