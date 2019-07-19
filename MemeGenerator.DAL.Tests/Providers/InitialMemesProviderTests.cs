@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Json;
+﻿using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace MemeGenerator.DAL.Tests.Providers
@@ -16,57 +16,69 @@ namespace MemeGenerator.DAL.Tests.Providers
     [TestFixture]
     public class InitialMemesProviderTests
     {
-        private Mock<IOptionsMonitor<ImageTemplateConfig>> _monitor;
+        private Mock<IOptionsMonitor<MemesConfig>> _monitor;
         private Mock<IFileReader> _mockFileReader;
-        private ImageTemplateConfig _imageTemplateConfig;
+        private MemesConfig _memesConfig;
         private InitialMemesStorageStructure _initialMemesStorageStructure;
+        private InitialMemesProvider _initialMemesProvider;
+        private const string FakePath = "/fakePath";
 
         [SetUp]
         public void Setup()
         {
-            _imageTemplateConfig = new ImageTemplateConfig() {PathToImageTemplatesConfig = "fake path"};
+            _memesConfig = new MemesConfig() { PathToMemesConfig = FakePath };
 
-            _monitor = new Mock<IOptionsMonitor<ImageTemplateConfig>>();
-            _monitor.Setup(m => m.CurrentValue).Returns(_imageTemplateConfig);
-
-            _initialMemesStorageStructure = new InitialMemesStorageStructure()
-            {
-                ImageTemplate = new List<ImageTemplate> { new ImageTemplate() }
-            };
-            var serializeInitialMemes = Serialize();
+            _monitor = new Mock<IOptionsMonitor<MemesConfig>>();
+            _monitor.Setup(m => m.CurrentValue).Returns(_memesConfig);
 
             _mockFileReader = new Mock<IFileReader>();
-            _mockFileReader.Setup(m => m.ReadString(_imageTemplateConfig.PathToImageTemplatesConfig))
-                .ReturnsAsync(Encoding.UTF8.GetString(serializeInitialMemes, 0, serializeInitialMemes.Length));
-            _mockFileReader.Setup(m => m.ReadBytes(_imageTemplateConfig.PathToImageTemplatesConfig))
-                .ReturnsAsync(serializeInitialMemes);
+
+            _initialMemesProvider = new InitialMemesProvider(_monitor.Object, _mockFileReader.Object);
         }
 
-        [Test]
-        public async Task GetData_FileReader_InitialData()
+        [TestCase(0)]
+        [TestCase(2)]
+        [TestCase(10)]
+        public async Task GetData_FileReader_InitialData(int countMemeImages)
         {
-            var initialMemesProvider = new InitialMemesProvider(_monitor.Object, _mockFileReader.Object);
+            _initialMemesStorageStructure = GenerateInitialMemes(countMemeImages);
+            ThereIsFileReadInString();
+            ThereIsFileReadInBytes();
 
-            await initialMemesProvider.GetData();
+            var result = await _initialMemesProvider.GetData();
 
-            _mockFileReader.Verify(
-                mock => mock.ReadString(_imageTemplateConfig.PathToImageTemplatesConfig), Times.Once);
-            _mockFileReader.Verify(
-                mock => mock.ReadBytes(_imageTemplateConfig.PathToImageTemplatesConfig),
-                Times.AtMost(_initialMemesStorageStructure.ImageTemplate.Count));
+            result.Folder.Should().Be(_initialMemesStorageStructure.Folder);
+            result.MemeImages.Should().Contain(_initialMemesStorageStructure.MemeImages);
         }
 
-        private byte[] Serialize()
+        private void ThereIsFileReadInBytes()
         {
-            var memoryStream = new MemoryStream();
+            _mockFileReader.Setup(m => m.ReadBytes(_memesConfig.PathToMemesConfig))
+                .ReturnsAsync(Encoding.ASCII.GetBytes(SerializeInitialMemes(_initialMemesStorageStructure)));
+        }
 
-            var serializer = new DataContractJsonSerializer(typeof(InitialMemesStorageStructure));
-            serializer.WriteObject(memoryStream, _initialMemesStorageStructure);
+        private void ThereIsFileReadInString()
+        {
+            _mockFileReader.Setup(m => m.ReadString(_memesConfig.PathToMemesConfig))
+                .ReturnsAsync(SerializeInitialMemes(_initialMemesStorageStructure));
+        }
 
-            var json = memoryStream.ToArray();
-            memoryStream.Close();
+        private static string SerializeInitialMemes(InitialMemesStorageStructure initialMemesStorageStructure)
+        {
+            return JsonConvert.SerializeObject(initialMemesStorageStructure);
+        }
 
-            return json;
+        private static InitialMemesStorageStructure GenerateInitialMemes(int countMemeImages)
+        {
+            var initialMemes = new InitialMemesStorageStructure
+            {
+                Folder = "/folder",
+                MemeImages = Enumerable.Range(0, countMemeImages)
+                    .Select(x => new MemeImage { Name = x.ToString() })
+                    .ToList()
+            };
+
+            return initialMemes;
         }
     }
 }

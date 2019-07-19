@@ -3,10 +3,11 @@ using MemeGenerator.Domain.Entities;
 
 namespace MemeGenerator.DAL.Repositories
 {
-    public interface IImageTemplateRepository
+    public interface IMemeRepository
     {
-        IEnumerable<ImageTemplate> GetAll();
-        void Insert(ImageTemplate imageTemplate);
+        IEnumerable<MemeImage> GetAll();
+        int GetMemesCount();
+        void Insert(MemeImage meme);
         void Save();
     }
 }

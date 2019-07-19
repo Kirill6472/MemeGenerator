@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
@@ -15,19 +16,20 @@ namespace MemeGenerator.BLL.Tests.Services
     public class InitialMemesPopulatorTests
     {
         private Mock<IInitialMemesProvider> _mockInitialMemesProvider;
-        private Mock<IImageTemplateRepository> _mockRepository;
+        private Mock<IMemeRepository> _mockRepository;
         private Mock<IMigrationsChecker> _mockMigrationsChecker;
-        private ImageTemplate _imageTemplate;
+        private MemeImage _memeImage;
         private InitialMemesPopulator _initialMemesPopulator;
 
         [SetUp]
         public void Setup()
         {
-            _imageTemplate = new ImageTemplate();
+            _memeImage = new MemeImage();
 
             _mockInitialMemesProvider = new Mock<IInitialMemesProvider>();
-            _mockRepository = new Mock<IImageTemplateRepository>();
+            _mockRepository = new Mock<IMemeRepository>();
             _mockMigrationsChecker = new Mock<IMigrationsChecker>();
+
             _initialMemesPopulator = new InitialMemesPopulator(
                 _mockInitialMemesProvider.Object,
                 _mockRepository.Object,
@@ -37,83 +39,89 @@ namespace MemeGenerator.BLL.Tests.Services
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(10)]
-        public async Task Initialize_AllMigrationsApplyAndImageTableEmpty_filledDb(int countImageTemplates)
+        public async Task Initialize_InitializationDataIsCorrect_filledDb(int countMemeImages)
         {
-            _mockInitialMemesProvider.Setup(m => m.GetData()).ReturnsAsync(GetInitialMemes(countImageTemplates));
-            ConfigureInitializationConditions(true, true);
+            ThereAreInitialMemes(countMemeImages);
+            AllMigrationAreApplied();
+            ThereAreNotMemeImages();
             
             await _initialMemesPopulator.Initialize();
 
-            VerifyGetData(true);
-            VerifySaveDataInDb(countImageTemplates);
+            AssertThatDataExists();
+            AssertThatDataSaved(countMemeImages);
         }
 
         [Test]
         public async Task Initialize_NotAllMigrationsAreApplied_DbNotFilled()
         {
-            ConfigureInitializationConditions(false, true);
-
+            NotAllMigrationsAreApplied();
+            ThereAreNotMemeImages();
+            
             await _initialMemesPopulator.Initialize();
 
-            VerifyGetData(false);
-            VerifyDataIsNotSaved();
+            AssertThatDataNotSaved();
         }
 
         [Test]
-        public async Task Initialize_ImageTableNotEmpty_DbNotChanged()
+        public async Task Initialize_ThereAreMemeImages_DbNotChanged()
         {
-            ConfigureInitializationConditions(true, false);
+            AllMigrationAreApplied();
+            ThereAreMemeImages();
 
             await _initialMemesPopulator.Initialize();
 
-            VerifyGetData(false);
-            VerifyDataIsNotSaved();
+            AssertThatDataNotSaved();
         }
 
-        private void VerifyDataIsNotSaved()
+        private void AssertThatDataNotSaved()
         {
-            _mockRepository.Verify(mock => mock.Insert(_imageTemplate), Times.Never);
+            _mockRepository.Verify(mock => mock.Insert(_memeImage), Times.Never);
             _mockRepository.Verify(mock => mock.Save(), Times.Never);
         }
 
-        private void VerifySaveDataInDb(int countImageTemplates)
+        private void AssertThatDataSaved(int countMemeImages)
         {
-            _mockRepository.Verify(mock => mock.Insert(_imageTemplate),
-                Times.AtMost(GetInitialMemes(countImageTemplates).ImageTemplate.Count));
+            _mockRepository.Verify(mock => mock.Insert(_memeImage),
+                Times.AtMost(GenerateInitialMemes(countMemeImages).MemeImages.Count));
             _mockRepository.Verify(mock => mock.Save(), Times.Once);
         }
 
-        private void VerifyGetData(bool areReceivedData)
+        private void AssertThatDataExists()
         {
-            if (areReceivedData)
-            {
-                _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Once);
-            }
-            else
-            {
-                _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Never);
-            }
+            _mockInitialMemesProvider.Verify(mock => mock.GetData(), Times.Once);
         }
 
-        private void ConfigureInitializationConditions(bool areMigrationsApplied, bool tableEmpty)
+        private void ThereAreMemeImages()
         {
-            _mockMigrationsChecker.Setup(m => m.AreAllMigrationsApplied()).Returns(areMigrationsApplied);
-
-            if (tableEmpty)
-            {
-                _mockRepository.Setup(m => m.GetAll()).Returns(new List<ImageTemplate>());
-            }
-            else
-            {
-                _mockRepository.Setup(m => m.GetAll()).Returns(new List<ImageTemplate> {new ImageTemplate()});
-            }
+            var memeImages = GenerateInitialMemes(2);
+            _mockRepository.Setup(m => m.GetMemesCount()).Returns(memeImages.MemeImages.Count);
         }
 
-        private static InitialMemesStorageStructure GetInitialMemes(int countImageTemplates)
+        private void ThereAreNotMemeImages()
+        {
+            _mockRepository.Setup(m => m.GetAll()).Returns(new List<MemeImage>());
+        }
+
+        private void NotAllMigrationsAreApplied()
+        {
+            _mockMigrationsChecker.Setup(m => m.AreAllMigrationsApplied()).Returns(false);
+        }
+
+        private void AllMigrationAreApplied()
+        {
+            _mockMigrationsChecker.Setup(m => m.AreAllMigrationsApplied()).Returns(true);
+        }
+
+        private void ThereAreInitialMemes(int countMemeImages)
+        {
+            _mockInitialMemesProvider.Setup(m => m.GetData()).ReturnsAsync(GenerateInitialMemes(countMemeImages));
+        }
+
+        private static InitialMemesStorageStructure GenerateInitialMemes(int countMemeImages)
         {
             var initialMemes = new InitialMemesStorageStructure
             {
-                ImageTemplate = new List<ImageTemplate>(countImageTemplates)
+                MemeImages = Enumerable.Range(0, countMemeImages).Select(image => new MemeImage()).ToList()
             };
 
             return initialMemes;

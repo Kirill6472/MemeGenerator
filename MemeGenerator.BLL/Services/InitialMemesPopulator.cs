@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
@@ -9,16 +8,16 @@ namespace MemeGenerator.BLL.Services
     public class InitialMemesPopulator : IInitialMemesPopulator
     {
         private readonly IInitialMemesProvider _initialMemesProvider;
-        private readonly IImageTemplateRepository _imageTemplateRepository;
+        private readonly IMemeRepository _memeRepository;
         private readonly IMigrationsChecker _checker;
 
         public InitialMemesPopulator(
             IInitialMemesProvider provider, 
-            IImageTemplateRepository imageTemplateRepository,
+            IMemeRepository imageTemplateRepository,
             IMigrationsChecker checker)
         {
             _initialMemesProvider = provider;
-            _imageTemplateRepository = imageTemplateRepository;
+            _memeRepository = imageTemplateRepository;
             _checker = checker;
         }
 
@@ -28,18 +27,18 @@ namespace MemeGenerator.BLL.Services
             {
                 var imageTemplates = await _initialMemesProvider.GetData();
 
-                foreach (var image in imageTemplates.ImageTemplate)
+                foreach (var image in imageTemplates.MemeImages)
                 {
-                    _imageTemplateRepository.Insert(image);
+                    _memeRepository.Insert(image);
                 }
 
-                _imageTemplateRepository.Save();
+                _memeRepository.Save();
             }
         }
 
         private bool IsImageTemplateExists()
         {
-            return _imageTemplateRepository.GetAll().Count() == 0;
+            return _memeRepository.GetMemesCount() == 0;
         }
     }
 }

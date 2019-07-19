@@ -33,11 +33,11 @@ namespace MemeGenerator.UI
                     Configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("MemeGenerator.DAL")));
 
-            services.Configure<ImageTemplateConfig>(Configuration);
+            services.Configure<MemesConfig>(Configuration);
 
             services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
             services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
-            services.AddTransient<IImageTemplateRepository, ImageTemplateRepository>();
+            services.AddTransient<IMemeRepository, MemeRepository>();
             services.AddTransient<IMigrationsChecker, MigrationsChecker>();
             services.AddTransient<IFileReader, FileReader>();
 

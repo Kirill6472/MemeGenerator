@@ -9,6 +9,6 @@ namespace MemeGenerator.DAL
             : base(options)
         { }
 
-        public DbSet<ImageTemplate> ImageTemplates { get; set; }
+        public DbSet<MemeImage> MemeImages { get; set; }
     }
 }

@@ -21,17 +21,32 @@ namespace MemeGenerator.DAL.Tests.Repositories
         }
 
         [Test]
-        public void GetAll_ImageTemplates_GetListOfImageTemplates()
+        public void GetAll_MemeImages_ReturnAllMemeImages()
         {
             using (var context = new MemeGeneratorDbContext(options))
             {
-                var repository = new ImageTemplateRepository(context);
-                context.ImageTemplates.Add(new ImageTemplate());
+                var repository = new MemeRepository(context);
+                context.MemeImages.Add(new MemeImage());
                 context.SaveChanges();
 
-                var imageTemplatesList = repository.GetAll();
+                var memeImages = repository.GetAll();
 
-                imageTemplatesList.Count().Should().Be(context.ImageTemplates.Count());
+                memeImages.Count().Should().Be(context.MemeImages.Count());
+            }
+        }
+
+        [Test]
+        public void GetMemesCount_MemeImages_ReturnCountMemeImages()
+        {
+            using (var context = new MemeGeneratorDbContext(options))
+            {
+                var repository = new MemeRepository(context);
+                context.MemeImages.Add(new MemeImage());
+                context.SaveChanges();
+
+                var countMemeImages = repository.GetMemesCount();
+
+                countMemeImages.Should().Be(context.MemeImages.Count());
             }
         }
 
@@ -40,12 +55,12 @@ namespace MemeGenerator.DAL.Tests.Repositories
         {
             using (var context = new MemeGeneratorDbContext(options))
             {
-                var repository = new ImageTemplateRepository(context);
+                var repository = new MemeRepository(context);
 
-                repository.Insert(new ImageTemplate { Name = "insertImage" });
+                repository.Insert(new MemeImage { Name = "insertImage" });
                 context.SaveChanges();
 
-                context.ImageTemplates.Single().Name.Should().Be("insertImage");
+                context.MemeImages.Single().Name.Should().Be("insertImage");
             }
         }
 
@@ -54,12 +69,12 @@ namespace MemeGenerator.DAL.Tests.Repositories
         {
             using (var context = new MemeGeneratorDbContext(options))
             {
-                var repository = new ImageTemplateRepository(context);
-                context.ImageTemplates.Add(new ImageTemplate());
+                var repository = new MemeRepository(context);
+                context.MemeImages.Add(new MemeImage());
 
                 repository.Save();
 
-                context.ImageTemplates.Count().Should().Be(1);
+                context.MemeImages.Count().Should().Be(1);
             }
         }
 
@@ -68,7 +83,7 @@ namespace MemeGenerator.DAL.Tests.Repositories
         {
             using (var context = new MemeGeneratorDbContext(options))
             {
-                context.ImageTemplates.RemoveRange(context.ImageTemplates);
+                context.MemeImages.RemoveRange(context.MemeImages);
                 context.SaveChanges();
             }
         }

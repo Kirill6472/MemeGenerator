@@ -2,7 +2,7 @@
 
 namespace MemeGenerator.Domain.Entities
 {
-    public class ImageTemplate
+    public class MemeImage
     {
         [Required]
         public int Id { get; set; }

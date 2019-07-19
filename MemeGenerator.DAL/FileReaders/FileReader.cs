@@ -7,16 +7,12 @@ namespace MemeGenerator.DAL.FileReaders
     {
         public Task<byte[]> ReadBytes(string path)
         {
-            var data = File.ReadAllBytesAsync(path);
-
-            return data;
+            return File.ReadAllBytesAsync(path);
         }
 
         public Task<string> ReadString(string path)
         {
-            var data = File.ReadAllTextAsync(path);
-
-            return data;
+            return File.ReadAllTextAsync(path);
         }
     }
 }

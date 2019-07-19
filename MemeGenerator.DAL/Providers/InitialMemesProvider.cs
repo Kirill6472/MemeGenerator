@@ -8,25 +8,25 @@ namespace MemeGenerator.DAL.Providers
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {
-        private readonly ImageTemplateConfig _imageTemplateConfig;
+        private readonly MemesConfig _memesConfig;
         private readonly IFileReader _fileReader;
 
-        public InitialMemesProvider(IOptionsMonitor<ImageTemplateConfig> imageTemplateAccessor, IFileReader fileReader)
+        public InitialMemesProvider(IOptionsMonitor<MemesConfig> imageTemplateAccessor, IFileReader fileReader)
         {
-            _imageTemplateConfig = imageTemplateAccessor.CurrentValue;
+            _memesConfig = imageTemplateAccessor.CurrentValue;
             _fileReader = fileReader;
         }
 
         public async Task<InitialMemesStorageStructure> GetData()
         {
             var imagesMetadata = JsonConvert.DeserializeObject<InitialMemesStorageStructure>(
-                await _fileReader.ReadString(_imageTemplateConfig.PathToImageTemplatesConfig));
+                await _fileReader.ReadString(_memesConfig.PathToMemesConfig));
 
-            foreach (var image in imagesMetadata.ImageTemplate)
+            foreach (var image in imagesMetadata.MemeImages)
             {
                 var filePath = imagesMetadata.Folder + image.Name;
                 var imageBytes = await _fileReader.ReadBytes(filePath);
-                image.Data = new byte[imageBytes.Length];
+                image.Data = imageBytes;
             }
 
             return imagesMetadata;

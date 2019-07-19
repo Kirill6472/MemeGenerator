@@ -1,7 +1,7 @@
 ﻿namespace MemeGenerator.DAL.Configs
 {
-    public class ImageTemplateConfig
+    public class MemesConfig
     {
-        public string PathToImageTemplatesConfig { get; set; }
+        public string PathToMemesConfig { get; set; }
     }
 }
