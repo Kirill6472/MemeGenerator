@@ -44,11 +44,12 @@ namespace MemeGenerator.BLL.Tests.Services
             ThereAreInitialMemes(countMemeImages);
             AllMigrationAreApplied();
             ThereAreNotMemeImages();
-            
+            var memes = GenerateInitialMemes(countMemeImages);
+
             await _initialMemesPopulator.Initialize();
 
             AssertThatDataExists();
-            AssertThatDataSaved(countMemeImages);
+            AssertThatDataSaved(countMemeImages, memes);
         }
 
         [Test]
@@ -79,10 +80,13 @@ namespace MemeGenerator.BLL.Tests.Services
             _mockRepository.Verify(mock => mock.Save(), Times.Never);
         }
 
-        private void AssertThatDataSaved(int countMemeImages)
+        private void AssertThatDataSaved(int countMemeImages, InitialMemesStorageStructure initialMemesStorageStructure)
         {
-            _mockRepository.Verify(mock => mock.Insert(_memeImage),
-                Times.AtMost(GenerateInitialMemes(countMemeImages).MemeImages.Count));
+            foreach (var image in initialMemesStorageStructure.MemeImages)
+            {
+                _mockRepository.Verify(mock => mock.Insert(image),
+                    Times.Exactly(1));
+            }
             _mockRepository.Verify(mock => mock.Save(), Times.Once);
         }
 
