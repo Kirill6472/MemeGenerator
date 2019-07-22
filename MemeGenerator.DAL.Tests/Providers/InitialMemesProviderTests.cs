@@ -19,7 +19,6 @@ namespace MemeGenerator.DAL.Tests.Providers
         private Mock<IOptionsMonitor<MemesConfig>> _monitor;
         private Mock<IFileReader> _mockFileReader;
         private MemesConfig _memesConfig;
-        private InitialMemesStorageStructure _initialMemesStorageStructure;
         private InitialMemesProvider _initialMemesProvider;
         private const string FakePath = "/fakePath";
 
@@ -41,29 +40,37 @@ namespace MemeGenerator.DAL.Tests.Providers
         [TestCase(10)]
         public async Task GetData_FileReader_InitialData(int countMemeImages)
         {
-            _initialMemesStorageStructure = GenerateInitialMemes(countMemeImages);
-            ThereIsFileReadInString();
-            ThereIsFileReadInBytes();
+            var initialMemesStorageStructure = GenerateInitialMemes(countMemeImages);
+            ThereIsInitialMemesStorageStructure(initialMemesStorageStructure);
+            ThereAreMemeImages(initialMemesStorageStructure);
 
             var result = await _initialMemesProvider.GetData();
 
-            result.Folder.Should().Be(_initialMemesStorageStructure.Folder);
-            result.MemeImages.Should().Contain(_initialMemesStorageStructure.MemeImages);
+            result.Should().BeEquivalentTo(initialMemesStorageStructure);
         }
 
-        private void ThereIsFileReadInBytes()
+        private void ThereAreMemeImages(InitialMemesStorageStructure initialMemesStorageStructure)
         {
-            _mockFileReader.Setup(m => m.ReadBytes(_memesConfig.PathToMemesConfig))
-                .ReturnsAsync(Encoding.ASCII.GetBytes(SerializeInitialMemes(_initialMemesStorageStructure)));
+            foreach (var meme in initialMemesStorageStructure.MemeImages)
+            {
+                _mockFileReader.Setup(m => m.ReadBytes(initialMemesStorageStructure.Folder + meme.Name))
+                    .ReturnsAsync(GetBytes(initialMemesStorageStructure));
+                meme.Data = GetBytes(initialMemesStorageStructure);
+            }
         }
 
-        private void ThereIsFileReadInString()
+        private static byte[] GetBytes(InitialMemesStorageStructure initialMemesStorageStructure)
+        {
+            return Encoding.UTF8.GetBytes(Serialize(initialMemesStorageStructure));
+        }
+
+        private void ThereIsInitialMemesStorageStructure(InitialMemesStorageStructure initialMemesStorageStructure)
         {
             _mockFileReader.Setup(m => m.ReadString(_memesConfig.PathToMemesConfig))
-                .ReturnsAsync(SerializeInitialMemes(_initialMemesStorageStructure));
+                .ReturnsAsync(Serialize(initialMemesStorageStructure));
         }
 
-        private static string SerializeInitialMemes(InitialMemesStorageStructure initialMemesStorageStructure)
+        private static string Serialize(object initialMemesStorageStructure)
         {
             return JsonConvert.SerializeObject(initialMemesStorageStructure);
         }

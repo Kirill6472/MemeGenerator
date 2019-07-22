@@ -11,13 +11,14 @@ namespace MemeGenerator.DAL.Tests.FileReaders
     public class FileReaderTests
     {
         private const string TestFilePath = "TestFile.json";
+        private const string TestData = "testData";
         private FileReaderFixture _fileReaderFixture;
 
         [SetUp]
         public async Task Setup()
         {
             _fileReaderFixture = new FileReaderFixture();
-            await _fileReaderFixture.CreateFile(TestFilePath, "test data");
+            await _fileReaderFixture.CreateFile(TestFilePath, TestData);
         }
 
         [Test]
@@ -27,7 +28,7 @@ namespace MemeGenerator.DAL.Tests.FileReaders
 
             var data = fileReader.ReadBytes(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
             
-            data.Result.Should().Contain(Encoding.ASCII.GetBytes("test data"));
+            data.Result.Should().Contain(Encoding.UTF8.GetBytes(TestData));
         }
 
         [Test]
@@ -37,7 +38,7 @@ namespace MemeGenerator.DAL.Tests.FileReaders
 
             var data = fileReader.ReadString(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
 
-            data.Result.Should().Be("test data");
+            data.Result.Should().Be(TestData);
         }
 
         [TearDown]
