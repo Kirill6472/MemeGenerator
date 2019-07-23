@@ -39,7 +39,7 @@ namespace MemeGenerator.BLL.Tests.Services
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(10)]
-        public async Task Initialize_InitializationDataIsCorrect_filledDb(int countMemeImages)
+        public async Task Initialize_InitializationDataIsCorrect_SaveData(int countMemeImages)
         {
             var memes = ThereAreInitialMemes(countMemeImages);
             AllMigrationAreApplied();
@@ -52,7 +52,7 @@ namespace MemeGenerator.BLL.Tests.Services
         }
 
         [Test]
-        public async Task Initialize_NotAllMigrationsAreApplied_DbNotFilled()
+        public async Task Initialize_NotAllMigrationsAreApplied_DataNotSaved()
         {
             NotAllMigrationsAreApplied();
             ThereAreNotMemeImages();
@@ -63,7 +63,7 @@ namespace MemeGenerator.BLL.Tests.Services
         }
 
         [Test]
-        public async Task Initialize_ThereAreMemeImages_DbNotChanged()
+        public async Task Initialize_ThereAreMemeImages_DataNotSaved()
         {
             AllMigrationAreApplied();
             ThereAreMemeImages();
