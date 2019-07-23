@@ -18,14 +18,11 @@ namespace MemeGenerator.BLL.Tests.Services
         private Mock<IInitialMemesProvider> _mockInitialMemesProvider;
         private Mock<IMemeRepository> _mockRepository;
         private Mock<IMigrationsChecker> _mockMigrationsChecker;
-        private MemeImage _memeImage;
         private InitialMemesPopulator _initialMemesPopulator;
 
         [SetUp]
         public void Setup()
         {
-            _memeImage = new MemeImage();
-
             _mockInitialMemesProvider = new Mock<IInitialMemesProvider>();
             _mockRepository = new Mock<IMemeRepository>();
             _mockMigrationsChecker = new Mock<IMigrationsChecker>();
@@ -43,7 +40,7 @@ namespace MemeGenerator.BLL.Tests.Services
         {
             var memes = ThereAreInitialMemes(countMemeImages);
             AllMigrationAreApplied();
-            ThereAreNotMemeImages();
+            ThereAreNoSavedMemes();
 
             await _initialMemesPopulator.Initialize();
 
@@ -55,7 +52,7 @@ namespace MemeGenerator.BLL.Tests.Services
         public async Task Initialize_NotAllMigrationsAreApplied_DataNotSaved()
         {
             NotAllMigrationsAreApplied();
-            ThereAreNotMemeImages();
+            ThereAreNoSavedMemes();
             
             await _initialMemesPopulator.Initialize();
 
@@ -75,7 +72,6 @@ namespace MemeGenerator.BLL.Tests.Services
 
         private void AssertThatDataNotSaved()
         {
-            _mockRepository.Verify(mock => mock.Insert(_memeImage), Times.Never);
             _mockRepository.Verify(mock => mock.Save(), Times.Never);
         }
 
@@ -99,7 +95,7 @@ namespace MemeGenerator.BLL.Tests.Services
             _mockRepository.Setup(m => m.Count()).Returns(memeImages.MemeImages.Count);
         }
 
-        private void ThereAreNotMemeImages()
+        private void ThereAreNoSavedMemes()
         {
             _mockRepository.Setup(m => m.GetAll()).Returns(new List<MemeImage>());
         }
