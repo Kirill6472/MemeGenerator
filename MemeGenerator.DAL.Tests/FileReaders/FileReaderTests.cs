@@ -13,32 +13,31 @@ namespace MemeGenerator.DAL.Tests.FileReaders
         private const string TestFilePath = "TestFile.json";
         private const string TestData = "testData";
         private FileReaderFixture _fileReaderFixture;
+        private FileReader _fileReader;
 
         [SetUp]
         public async Task Setup()
         {
             _fileReaderFixture = new FileReaderFixture();
             await _fileReaderFixture.CreateFile(TestFilePath, TestData);
+
+            _fileReader = new FileReader();
         }
 
         [Test]
-        public void ReadBytes_JsonFileExist_DataInBytes()
+        public async Task ReadBytes_JsonFileExist_DataInBytes()
         {
-            var fileReader = new FileReader();
-
-            var data = fileReader.ReadBytes(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
+            var data = await _fileReader.ReadBytes(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
             
-            data.Result.Should().Contain(Encoding.UTF8.GetBytes(TestData));
+            data.Should().Contain(Encoding.UTF8.GetBytes(TestData));
         }
 
         [Test]
-        public void ReadString_JsonFileExist_DataInString()
+        public async Task ReadString_JsonFileExist_DataInString()
         {
-            var fileReader = new FileReader();
+            var data = await _fileReader.ReadString(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
 
-            var data = fileReader.ReadString(Path.Combine(Directory.GetCurrentDirectory(), TestFilePath));
-
-            data.Result.Should().Be(TestData);
+            data.Should().Be(TestData);
         }
 
         [TearDown]

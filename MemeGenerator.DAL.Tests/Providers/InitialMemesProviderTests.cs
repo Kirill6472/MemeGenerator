@@ -70,9 +70,9 @@ namespace MemeGenerator.DAL.Tests.Providers
                 .ReturnsAsync(Serialize(initialMemesStorageStructure));
         }
 
-        private static string Serialize(object initialMemesStorageStructure)
+        private static string Serialize(object data)
         {
-            return JsonConvert.SerializeObject(initialMemesStorageStructure);
+            return JsonConvert.SerializeObject(data);
         }
 
         private static InitialMemesStorageStructure GenerateInitialMemes(int countMemeImages)

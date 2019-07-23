@@ -38,7 +38,7 @@ namespace MemeGenerator.BLL.Services
 
         private bool IsImageTemplateExists()
         {
-            return _memeRepository.GetMemesCount() == 0;
+            return _memeRepository.Count() == 0;
         }
     }
 }

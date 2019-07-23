@@ -41,15 +41,14 @@ namespace MemeGenerator.BLL.Tests.Services
         [TestCase(10)]
         public async Task Initialize_InitializationDataIsCorrect_filledDb(int countMemeImages)
         {
-            ThereAreInitialMemes(countMemeImages);
+            var memes = ThereAreInitialMemes(countMemeImages);
             AllMigrationAreApplied();
             ThereAreNotMemeImages();
-            var memes = GenerateInitialMemes(countMemeImages);
 
             await _initialMemesPopulator.Initialize();
 
             AssertThatDataExists();
-            AssertThatDataSaved(countMemeImages, memes);
+            AssertThatDataSaved(memes);
         }
 
         [Test]
@@ -80,12 +79,11 @@ namespace MemeGenerator.BLL.Tests.Services
             _mockRepository.Verify(mock => mock.Save(), Times.Never);
         }
 
-        private void AssertThatDataSaved(int countMemeImages, InitialMemesStorageStructure initialMemesStorageStructure)
+        private void AssertThatDataSaved(InitialMemesStorageStructure initialMemesStorageStructure)
         {
             foreach (var image in initialMemesStorageStructure.MemeImages)
             {
-                _mockRepository.Verify(mock => mock.Insert(image),
-                    Times.Exactly(1));
+                _mockRepository.Verify(mock => mock.Insert(image), Times.Once);
             }
             _mockRepository.Verify(mock => mock.Save(), Times.Once);
         }
@@ -98,7 +96,7 @@ namespace MemeGenerator.BLL.Tests.Services
         private void ThereAreMemeImages()
         {
             var memeImages = GenerateInitialMemes(2);
-            _mockRepository.Setup(m => m.GetMemesCount()).Returns(memeImages.MemeImages.Count);
+            _mockRepository.Setup(m => m.Count()).Returns(memeImages.MemeImages.Count);
         }
 
         private void ThereAreNotMemeImages()
@@ -116,9 +114,12 @@ namespace MemeGenerator.BLL.Tests.Services
             _mockMigrationsChecker.Setup(m => m.AreAllMigrationsApplied()).Returns(true);
         }
 
-        private void ThereAreInitialMemes(int countMemeImages)
+        private InitialMemesStorageStructure ThereAreInitialMemes(int countMemeImages)
         {
-            _mockInitialMemesProvider.Setup(m => m.GetData()).ReturnsAsync(GenerateInitialMemes(countMemeImages));
+            var initialMemes = GenerateInitialMemes(countMemeImages);
+            _mockInitialMemesProvider.Setup(m => m.GetData()).ReturnsAsync(initialMemes);
+
+            return initialMemes;
         }
 
         private static InitialMemesStorageStructure GenerateInitialMemes(int countMemeImages)

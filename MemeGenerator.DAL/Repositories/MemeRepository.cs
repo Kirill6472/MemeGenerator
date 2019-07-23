@@ -18,7 +18,7 @@ namespace MemeGenerator.DAL.Repositories
             return _context.MemeImages.ToList();
         }
 
-        public int GetMemesCount()
+        public int Count()
         {
             return _context.MemeImages.Count();
         }
