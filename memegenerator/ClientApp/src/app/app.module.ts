@@ -11,6 +11,7 @@ import { EditImageComponent } from './edit-image/edit-image.component';
 import { ColorPaletteComponent } from './color-palette/color-palette.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { MemeViewerComponent } from './meme-viewer/meme-viewer.component';
+import { TemplateLibraryComponent } from './template-library/template-library.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MemeViewerComponent } from './meme-viewer/meme-viewer.component';
     EditImageComponent,
     ColorPaletteComponent,
     TextEditorComponent,
-    MemeViewerComponent
+    MemeViewerComponent,
+    TemplateLibraryComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
