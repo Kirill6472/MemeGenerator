@@ -9,7 +9,7 @@ import { EditImageComponent } from './edit-image/edit-image.component';
 export class AppComponent {
   public title = 'Meme Generator';
   public generatedMemeUrl = "";
-  public isImageInputVisible = true;
+  public isImageSelectorVisible = true;
   public isMemeViewerVisible = false;
   public isImageEditorVisible = false;
 
@@ -19,7 +19,7 @@ export class AppComponent {
   public updateImage(uploadedImageUrl: string) {
     if (uploadedImageUrl !== "") {
       this.editImageComponent.setImage(uploadedImageUrl);
-      this.isImageInputVisible = false;
+      this.isImageSelectorVisible = false;
       this.isImageEditorVisible = true;
     }
   }
@@ -30,7 +30,7 @@ export class AppComponent {
 
   public createNewMeme() {
     this.isMemeViewerVisible = false;
-    this.isImageInputVisible = true;
+    this.isImageSelectorVisible = true;
   }
 
   public generateMeme() {

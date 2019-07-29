@@ -42,7 +42,7 @@ describe('AppComponent', () => {
     component.updateImage(uploadedImageUrl);
 
     expect(component.editImageComponent.setImage).toHaveBeenCalledWith(uploadedImageUrl);
-    expect(component.isImageInputVisible).toBe(false);
+    expect(component.isImageSelectorVisible).toBe(false);
     expect(component.isImageEditorVisible).toBe(true);
   });
 
@@ -59,7 +59,7 @@ describe('AppComponent', () => {
     component.createNewMeme();
 
     expect(component.isMemeViewerVisible).toBe(false);
-    expect(component.isImageInputVisible).toBe(true);
+    expect(component.isImageSelectorVisible).toBe(true);
   });
 
   it('should generate meme and hide image editor', () => {

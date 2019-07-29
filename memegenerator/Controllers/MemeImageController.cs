@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MemeGenerator.DAL;
 using MemeGenerator.UI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,12 @@ namespace MemeGenerator.UI.Controllers
         [HttpGet]
         public IEnumerable<MemePreview> Get()
         {
-            var memes = _context.MemeImages;
-            List<MemePreview> memePreviews = null;
+            var memes = _context.MemeImages.ToList();
+            List<MemePreview> memePreviews = new List<MemePreview>(memes.Count);
 
             foreach (var meme in memes)
             {
-                memePreviews = new List<MemePreview> { new MemePreview(meme) };
+                memePreviews.Add(new MemePreview(meme));
             }
 
             return memePreviews;

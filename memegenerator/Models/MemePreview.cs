@@ -8,7 +8,7 @@ namespace MemeGenerator.UI.Models
         public MemePreview(MemeImage meme)
         {
             Id = meme.Id;
-            Image = Convert.ToBase64String(meme.Data);
+            Image = "data:image/jpeg;base64," + Convert.ToBase64String(meme.Data);
             Name = meme.Name;
             Description = meme.Description;
         }

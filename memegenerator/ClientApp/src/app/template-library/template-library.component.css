@@ -1,9 +1,14 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: auto;
-  gap: 20px;
+  gap: 30px;
   justify-items: center;
   align-items: center;
-  justify-items: center;
+}
+
+.memes {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
 }

@@ -26,6 +26,7 @@ export class EditImageComponent implements OnInit {
     return new Promise((resolve) => {
       image.onload = () => {
         this.setBackgroundImage(image);
+
         resolve();
       };
       image.src = uploadedImageUrl;
@@ -33,6 +34,8 @@ export class EditImageComponent implements OnInit {
   }
 
   private setBackgroundImage(image: HTMLImageElement) {
+    this.setCanvasSize(image);
+
     let imageInstance: any = this.fabricFactory.createImage(image);
     this.canvas.setBackgroundImage(imageInstance, this.canvas.renderAll.bind(this.canvas), {
       scaleY: this.canvas.getHeight() / imageInstance.height,
@@ -47,5 +50,10 @@ export class EditImageComponent implements OnInit {
 
   private clearCanvas() {
     this.canvas.clear();
+  }
+
+  private setCanvasSize(image: HTMLImageElement) {
+    this.canvas.setHeight(image.height);
+    this.canvas.setWidth(image.width);
   }
 }

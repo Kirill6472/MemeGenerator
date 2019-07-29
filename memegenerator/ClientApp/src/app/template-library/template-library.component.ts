@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MemeImageService } from '../services/meme-image.service';
 import { MemeImage } from '../models/meme-image';
 
@@ -10,8 +10,9 @@ import { MemeImage } from '../models/meme-image';
 })
 export class TemplateLibraryComponent implements OnInit {
 
-  memeImage = new MemeImage();
-  memes: MemeImage[];
+  public memes: MemeImage[];
+
+  @Output() templateIsSelected = new EventEmitter<string>();
   
   constructor(private memeImageService: MemeImageService) { }
 
@@ -19,7 +20,11 @@ export class TemplateLibraryComponent implements OnInit {
     this.loadMemes();
   }
 
-  loadMemes() {
+  private loadMemes() {
     this.memeImageService.getMemes().subscribe((data: MemeImage[]) => this.memes = data);
+  }
+
+  public onTemplateIsSelected(event: any) {
+    this.templateIsSelected.emit(event.target.src);
   }
 }
