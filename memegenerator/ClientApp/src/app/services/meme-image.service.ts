@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MemeImageService {
 
+  private memesUrl = '/api/memes';
+
   constructor(private http: HttpClient) { }
 
-  private memesUrl = '/MemeImage/Get';
-
-  getMemes() {
-    return this.http.get(this.memesUrl);
+  getMeme(id: number) {
+    return this.http.get(this.memesUrl + '/' + id);
   }
 }

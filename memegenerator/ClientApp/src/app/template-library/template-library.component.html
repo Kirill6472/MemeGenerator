@@ -1,29 +1,6 @@
-<div class="grid">
-  <img *ngFor="let meme of memes" class="memes" [src]="meme.image" [alt]="meme.name" (click)="onTemplateIsSelected($event)" />
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
-  <img src="https://picsum.photos/400" class="memes"/>
+<div class="grid"
+     infinite-scroll
+     (scrolled)="onScroll()">
+
+  <img *ngFor="let meme of memes" class="memes" [src]="meme.image" [alt]="meme.name" (click)="onTemplateIsSelected($event)"/>
 </div>

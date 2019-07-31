@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MemeGenerator.UI.Controllers
 {
+    [Route("api/memes")]
     public class MemeImageController : Controller
     {
         private readonly MemeGeneratorDbContext _context;
@@ -16,7 +17,7 @@ namespace MemeGenerator.UI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<MemePreview> Get()
+        public IEnumerable<MemePreview> GetMemes()
         {
             var memes = _context.MemeImages.ToList();
             List<MemePreview> memePreviews = new List<MemePreview>(memes.Count);
@@ -27,6 +28,15 @@ namespace MemeGenerator.UI.Controllers
             }
 
             return memePreviews;
+        }
+
+        [HttpGet("{id}")]
+        public MemePreview Get(int id)
+        {
+            var meme = _context.MemeImages.FirstOrDefault(x => x.Id == id);
+            var memePreview = new MemePreview(meme);
+
+            return memePreview;
         }
     }
 }

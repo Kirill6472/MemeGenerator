@@ -11,20 +11,26 @@ import { MemeImage } from '../models/meme-image';
 export class TemplateLibraryComponent implements OnInit {
 
   public memes: MemeImage[];
+  public memeNum = 8;
 
   @Output() templateIsSelected = new EventEmitter<string>();
   
   constructor(private memeImageService: MemeImageService) { }
 
   ngOnInit() {
-    this.loadMemes();
+    this.loadMemes(this.memeNum);
   }
 
-  private loadMemes() {
-    this.memeImageService.getMemes().subscribe((data: MemeImage[]) => this.memes = data);
+  private loadMemes(memeNum) {
+    this.memeImageService.getMeme(memeNum).subscribe((data: MemeImage) => this.memes = this.memes.concat(data));
   }
 
   public onTemplateIsSelected(event: any) {
     this.templateIsSelected.emit(event.target.src);
+  }
+
+  onScroll() {
+    this.memeNum++;
+    this.loadMemes(this.memeNum);
   }
 }

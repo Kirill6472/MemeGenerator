@@ -1,6 +1,6 @@
 export class MemeImage {
   id: number;
-  image: any;
+  image: string;
   name: string;
   description: string;
 }
