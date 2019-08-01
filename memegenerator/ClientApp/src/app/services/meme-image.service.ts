@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MemeImage } from '../models/meme-image';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class MemeImageService {
 
   constructor(private http: HttpClient) { }
 
-  getMeme(id: number) {
-    return this.http.get(this.memesUrl + '/' + id);
+  getMemes(page: number, pageSize: number) {
+    return this.http.get<MemeImage[]>(this.memesUrl + "/" + page + "/" + pageSize);
   }
 }

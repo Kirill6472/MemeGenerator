@@ -1,6 +1,3 @@
-<div class="grid"
-     infinite-scroll
-     (scrolled)="onScroll()">
-
+<div class="grid" infinite-scroll (scrolled)="onScroll()">
   <img *ngFor="let meme of memes" class="memes" [src]="meme.image" [alt]="meme.name" (click)="onTemplateIsSelected($event)"/>
 </div>

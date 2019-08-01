@@ -16,27 +16,13 @@ namespace MemeGenerator.UI.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IEnumerable<MemePreview> GetMemes()
+        [HttpGet("{pageNumber}/{pageSize}")]
+        public IEnumerable<MemePreview> Get(int pageNumber, int pageSize)
         {
-            var memes = _context.MemeImages.ToList();
-            List<MemePreview> memePreviews = new List<MemePreview>(memes.Count);
+            var skip = (pageNumber - 1) * pageSize;
+            var memes = _context.MemeImages.AsQueryable().OrderBy(x => x.Id).Skip(skip).Take(pageSize);
 
-            foreach (var meme in memes)
-            {
-                memePreviews.Add(new MemePreview(meme));
-            }
-
-            return memePreviews;
-        }
-
-        [HttpGet("{id}")]
-        public MemePreview Get(int id)
-        {
-            var meme = _context.MemeImages.FirstOrDefault(x => x.Id == id);
-            var memePreview = new MemePreview(meme);
-
-            return memePreview;
+            return memes.Select(meme => new MemePreview(meme)).ToList();
         }
     }
 }
