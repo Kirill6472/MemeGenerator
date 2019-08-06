@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+
 import { EditImageComponent } from './edit-image/edit-image.component';
 
 @Component({

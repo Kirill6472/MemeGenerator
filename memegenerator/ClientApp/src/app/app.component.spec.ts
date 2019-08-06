@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { AppComponent } from './app.component';
-import { MockNavMenuComponent } from "./nav-menu/nav-menu-mock.component";
-import { MockLoadingImageComponent } from "./loading-image/loading-image-mock.component";
-import { MockEditImageComponent } from "./edit-image/edit-image-mock.component";
+import { MockNavMenuComponent } from './nav-menu/nav-menu-mock.component';
+import { MockLoadingImageComponent } from './loading-image/loading-image-mock.component';
+import { MockEditImageComponent } from './edit-image/edit-image-mock.component';
 import { MockMemeViewerComponent } from './meme-viewer/meme-viewer-mock.component';
+import { MockTemplateLibraryComponent } from './template-library/template-library-mock.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -16,7 +18,8 @@ describe('AppComponent', () => {
         MockNavMenuComponent,
         MockLoadingImageComponent,
         MockEditImageComponent,
-        MockMemeViewerComponent
+        MockMemeViewerComponent,
+        MockTemplateLibraryComponent
       ],
     }).compileComponents();
 

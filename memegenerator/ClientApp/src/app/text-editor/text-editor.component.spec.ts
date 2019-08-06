@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { TextEditorComponent } from './text-editor.component';
 import { ColorPaletteMockComponent } from '../color-palette/color-palette-mock.component';
 import { FabricFactory } from "../fabric-factory/fabric-factory";
@@ -20,7 +21,7 @@ describe('TextEditorComponent', () => {
       "remove",
       "renderAll",
       "getActiveObject",
-      "setActiveObject",
+      "setActiveObject"
     ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);

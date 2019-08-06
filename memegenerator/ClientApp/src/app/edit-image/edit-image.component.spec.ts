@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+
 import { EditImageComponent } from "./edit-image.component";
 import { fabric } from "fabric";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
@@ -19,11 +20,13 @@ describe("EditImageComponent", () => {
       "getActiveObject",
       "toDataURL",
       "clear",
+      "setHeight",
+      "setWidth"
     ]);
 
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [
       "createCanvas",
-      "createImage",
+      "createImage"
     ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);
@@ -51,16 +54,14 @@ describe("EditImageComponent", () => {
     const uploadedImageUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFhAJ/wlseKgAAAABJRU5ErkJggg==";
     const imageWidth = 400;
     const imageHeight = 500;
-    const canvasWidth = 500;
-    const canvasHeight = 600;
     const mockImage = <fabric.Image>(({ width: imageWidth, height: imageHeight }) as any);
 
     fabricFactoryMock.createImage.and.returnValue(mockImage);
-    mockCanvas.getWidth.and.returnValue(canvasWidth);
-    mockCanvas.getHeight.and.returnValue(canvasHeight);
 
     const promise = component.setImage(uploadedImageUrl);
     promise.then(() => {
+      expect(mockCanvas.setHeight).toHaveBeenCalled();
+      expect(mockCanvas.setWidth).toHaveBeenCalled();
       expect(mockCanvas.setBackgroundImage).toHaveBeenCalled();
       done();
     });

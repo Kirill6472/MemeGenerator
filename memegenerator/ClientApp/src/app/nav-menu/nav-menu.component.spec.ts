@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+
 import { NavMenuComponent } from './nav-menu.component';
 
 describe('NavMenuComponent', () => {

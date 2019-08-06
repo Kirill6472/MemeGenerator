@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { FabricFactory } from '../fabric-factory/fabric-factory';
 import { PrimaryColors } from '../edit-image/primary-colors';
 import { fabric } from "fabric";

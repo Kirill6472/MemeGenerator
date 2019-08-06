@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+
 import { FabricFactory } from "../fabric-factory/fabric-factory";
 import { fabric } from "fabric";
 

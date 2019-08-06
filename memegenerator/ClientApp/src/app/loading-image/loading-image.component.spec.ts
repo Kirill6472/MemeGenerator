@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+
 import { LoadingImageComponent } from "./loading-image.component";
 import { FileReaderFactory } from "../file-reader-factory/file-reader-factory";
 import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
