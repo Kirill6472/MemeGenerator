@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { LoadingImageComponent } from "./loading-image.component";
 import { FileReaderFactory } from "../file-reader-factory/file-reader-factory";
-import { MockEditImageComponent } from "../edit-image/edit-image-mock.component";
 
 describe("LoadingImageComponent", () => {
   let component: LoadingImageComponent;
@@ -27,20 +26,14 @@ describe("LoadingImageComponent", () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        LoadingImageComponent,
-        MockEditImageComponent
+        LoadingImageComponent
       ],
       providers: [
         { provide: FileReaderFactory, useValue: fileReaderFactoryMock }
       ]
     }).compileComponents();
 
-    fixture = TestBed.overrideComponent(LoadingImageComponent, {
-      set: {
-        selector: 'app-loading-image',
-        template: '<input #fileInput />'
-      }
-    }).createComponent(LoadingImageComponent);
+    fixture = TestBed.createComponent(LoadingImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { EditImageComponent } from "./edit-image.component";
 import { fabric } from "fabric";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
-import { TextEditorMockComponent } from "../text-editor/text-editor-mock.component";
+import { TextEditorComponent } from "../text-editor/text-editor.component";
 
 describe("EditImageComponent", () => {
   let component: EditImageComponent;
@@ -34,19 +34,21 @@ describe("EditImageComponent", () => {
     TestBed.configureTestingModule({
       declarations: [
         EditImageComponent,
-        TextEditorMockComponent
+        TextEditorComponent
       ],
       providers: [
         { provide: FabricFactory, useValue: fabricFactoryMock }
       ]
-    }).compileComponents();
-
-    fixture = TestBed.overrideComponent(EditImageComponent, {
+    })
+    .overrideComponent(TextEditorComponent, {
       set: {
-        selector: 'app-edit-image',
+        selector: 'app-text-editor',
         template: '<div></div>'
       }
-    }).createComponent(EditImageComponent);
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(EditImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
