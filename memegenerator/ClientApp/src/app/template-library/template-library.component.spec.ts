@@ -4,22 +4,25 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TemplateLibraryComponent } from './template-library.component';
 import { MemeImage } from '../models/meme-image';
 import { MemeImageService } from '../services/meme-image.service';
+import { Observable } from 'rxjs';
 
 describe('TemplateLibraryComponent', () => {
   let component: TemplateLibraryComponent;
   let fixture: ComponentFixture<TemplateLibraryComponent>;
   let memeImageServiceMock: jasmine.SpyObj<MemeImageService>;
-  const response: MemeImage[] = [];
-  let fakeEvent;
+  const response = new Observable();
+  let fakePage = 1;
+  const fakePageSize = 9;
+  const fakeMeme: MemeImage = {
+    id: 1,
+    name: 'fakeName',
+    image: 'fakeImage',
+  };
 
   beforeEach(async(() => {
     memeImageServiceMock = jasmine.createSpyObj('memeImageServiceMock', ['getMemes']);
 
-    fakeEvent = {
-      target: {
-        src: {}
-      }
-    };
+    memeImageServiceMock.getMemes.and.returnValue(response);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -29,7 +32,12 @@ describe('TemplateLibraryComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TemplateLibraryComponent);
+    fixture = TestBed.overrideComponent(TemplateLibraryComponent, {
+      set: {
+        selector: 'app-template-library',
+        template: '<div></div>'
+      }
+    }).createComponent(TemplateLibraryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -39,26 +47,23 @@ describe('TemplateLibraryComponent', () => {
   });
 
   it('should load memes', () => {
-    memeImageServiceMock.getMemes.and.returnValue(response);
-
     component.ngOnInit();
 
-    expect(component.memes).toEqual(response);
+    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(fakePage, fakePageSize);
   });
 
   it('should selected template', () => {
     spyOn(component.templateIsSelected, 'emit');
 
-    component.onTemplateIsSelected(fakeEvent);
+    component.onTemplateIsSelected(fakeMeme);
 
-    expect(component.templateIsSelected.emit).toHaveBeenCalledWith(fakeEvent.target.src);
+    expect(component.templateIsSelected.emit).toHaveBeenCalledWith(fakeMeme.image);
   });
 
   it('should load memes while scrolling', () => {
-    memeImageServiceMock.getMemes.and.returnValue(response);
-
+    fakePage++;
     component.onScroll();
 
-    expect(component.memes).toEqual(response);
+    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(fakePage, fakePageSize);
   });
 });

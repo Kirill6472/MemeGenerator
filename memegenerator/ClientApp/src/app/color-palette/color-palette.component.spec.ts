@@ -9,26 +9,28 @@ describe('ColorPaletteComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ColorPaletteComponent ]
-    })
-    .compileComponents();
-  }));
+    }).compileComponents();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ColorPaletteComponent);
+    fixture = TestBed.overrideComponent(ColorPaletteComponent, {
+      set: {
+        selector: 'app-color-palette',
+        template: '<div></div>'
+      }
+    }).createComponent(ColorPaletteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should set selected color', () => {
-    let fakeEvent = {
+    const fakeEvent = {
       target: {
         value: "#000000"
       }
-    }
+    };
     spyOn(component.selectedColorChange, "emit");
 
     component.setColor(fakeEvent);

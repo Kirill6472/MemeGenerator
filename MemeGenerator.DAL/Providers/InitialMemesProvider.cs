@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.FileReaders;
 using Microsoft.Extensions.Options;
@@ -24,9 +26,9 @@ namespace MemeGenerator.DAL.Providers
 
             foreach (var image in imagesMetadata.MemeImages)
             {
-                var filePath = imagesMetadata.Folder + image.Name;
+                var filePath = Path.Combine(imagesMetadata.Folder, image.Name);
                 var imageBytes = await _fileReader.ReadBytes(filePath);
-                image.Data = imageBytes;
+                image.Data = $"data:image/jpeg;base64,{Convert.ToBase64String(imageBytes)}";
             }
 
             return imagesMetadata;

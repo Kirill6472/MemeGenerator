@@ -13,6 +13,6 @@ export class MemeImageService {
   constructor(private http: HttpClient) { }
 
   public getMemes(page: number, pageSize: number) {
-    return this.http.get<MemeImage[]>(this.memesUrl + "/" + page + "/" + pageSize);
+    return this.http.get<MemeImage[]>(`${this.memesUrl}/${page}/${pageSize}`);
   }
 }

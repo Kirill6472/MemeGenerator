@@ -36,7 +36,12 @@ describe('TextEditorComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TextEditorComponent);
+    fixture = TestBed.overrideComponent(TextEditorComponent, {
+      set: {
+        selector: 'app-text-editor',
+        template: '<div></div>'
+      }
+    }).createComponent(TextEditorComponent);
     component = fixture.componentInstance;
 
     component.canvas = mockCanvas;

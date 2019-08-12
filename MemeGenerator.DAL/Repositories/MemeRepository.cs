@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MemeGenerator.Domain.Entities;
+using MemeGenerator.Domain.Models;
 
 namespace MemeGenerator.DAL.Repositories
 {
@@ -31,6 +32,13 @@ namespace MemeGenerator.DAL.Repositories
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        public MemePage GetPage(PageRequest request)
+        {
+            var memes = _context.MemeImages.OrderBy(request.OrderBy).Skip(request.Skip).Take(request.PageSize);
+
+            return new MemePage(memes);
         }
     }
 }

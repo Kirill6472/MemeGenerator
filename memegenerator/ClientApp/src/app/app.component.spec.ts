@@ -23,7 +23,12 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.overrideComponent(AppComponent, {
+      set: {
+        selector: 'app-root',
+        template: '<app-edit-image></app-edit-image>'
+      }
+    }).createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

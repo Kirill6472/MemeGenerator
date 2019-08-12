@@ -8,17 +8,14 @@ namespace MemeGenerator.UI.Models
         public MemePreview(MemeImage meme)
         {
             Id = meme.Id;
-            Image = "data:image/jpeg;base64," + Convert.ToBase64String(meme.Data);
+            Image = meme.Data;
             Name = meme.Name;
-            Description = meme.Description;
         }
 
         public int Id { get; set; }
         
         public string Image { get; set; }
         
-        public string Name { get; set; }
-        
-        public string Description { get; set; }
+        public string Name { get; set; }        
     }
 }

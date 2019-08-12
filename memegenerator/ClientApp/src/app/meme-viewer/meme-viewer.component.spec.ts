@@ -9,15 +9,17 @@ describe('MemeViewerComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MemeViewerComponent ]
-    })
-    .compileComponents();
-  }));
+    }).compileComponents();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MemeViewerComponent);
+    fixture = TestBed.overrideComponent(MemeViewerComponent, {
+      set: {
+        selector: 'app-meme-viewer',
+        template: '<div></div>'
+      }
+    }).createComponent(MemeViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MemeGenerator.Domain.Entities;
+using MemeGenerator.Domain.Models;
 
 namespace MemeGenerator.DAL.Repositories
 {
@@ -9,5 +10,6 @@ namespace MemeGenerator.DAL.Repositories
         int Count();
         void Insert(MemeImage meme);
         void Save();
+        MemePage GetPage(PageRequest request);
     }
 }

@@ -35,7 +35,12 @@ describe("LoadingImageComponent", () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoadingImageComponent);
+    fixture = TestBed.overrideComponent(LoadingImageComponent, {
+      set: {
+        selector: 'app-loading-image',
+        template: '<input #fileInput />'
+      }
+    }).createComponent(LoadingImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

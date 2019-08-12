@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -53,9 +55,9 @@ namespace MemeGenerator.DAL.Tests.Providers
         {
             foreach (var meme in initialMemesStorageStructure.MemeImages)
             {
-                _mockFileReader.Setup(m => m.ReadBytes(initialMemesStorageStructure.Folder + meme.Name))
+                _mockFileReader.Setup(m => m.ReadBytes(Path.Combine(initialMemesStorageStructure.Folder, meme.Name)))
                     .ReturnsAsync(GetBytes(initialMemesStorageStructure));
-                meme.Data = GetBytes(initialMemesStorageStructure);
+                meme.Data = $"data:image/jpeg;base64,{Convert.ToBase64String(GetBytes(initialMemesStorageStructure))}";
             }
         }
 

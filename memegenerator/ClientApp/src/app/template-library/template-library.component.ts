@@ -7,7 +7,6 @@ import { MemeImage } from '../models/meme-image';
   selector: 'app-template-library',
   templateUrl: './template-library.component.html',
   styleUrls: ['./template-library.component.css'],
-  providers: [MemeImageService]
 })
 export class TemplateLibraryComponent implements OnInit {
 
@@ -24,11 +23,12 @@ export class TemplateLibraryComponent implements OnInit {
   }
 
   private loadMemes(page: number, pageSize: number) {
-    this.memeImageService.getMemes(page, pageSize).subscribe((data: MemeImage[]) => this.memes = this.memes.concat(data));
+    this.memeImageService.getMemes(page, pageSize)
+      .subscribe((data: MemeImage[]) => this.memes = this.memes.concat(data));
   }
 
-  public onTemplateIsSelected(event: any) {
-    this.templateIsSelected.emit(event.target.src);
+  public onTemplateIsSelected(meme) {
+    this.templateIsSelected.emit(meme.image);
   }
 
   public onScroll() {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MemeGenerator.DAL;
+using MemeGenerator.DAL.Repositories;
+using MemeGenerator.Domain.Models;
 using MemeGenerator.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +10,19 @@ namespace MemeGenerator.UI.Controllers
     [Route("api/memes")]
     public class MemeImageController : Controller
     {
-        private readonly MemeGeneratorDbContext _context;
+        private readonly IMemeRepository _memeRepository;
 
-        public MemeImageController(MemeGeneratorDbContext context)
+        public MemeImageController(IMemeRepository memeRepository)
         {
-            _context = context;
+            _memeRepository = memeRepository;
         }
 
         [HttpGet("{pageNumber}/{pageSize}")]
         public IEnumerable<MemePreview> Get(int pageNumber, int pageSize)
         {
-            var skip = (pageNumber - 1) * pageSize;
-            var memes = _context.MemeImages.AsQueryable().OrderBy(x => x.Id).Skip(skip).Take(pageSize);
+            var request = new PageRequest(pageNumber, pageSize, x => x.Id);
 
-            return memes.Select(meme => new MemePreview(meme)).ToList();
+            return _memeRepository.GetPage(request).Memes.Select(meme => new MemePreview(meme)).ToList();
         }
     }
 }
