@@ -10,6 +10,6 @@ namespace MemeGenerator.DAL.Repositories
         int Count();
         void Insert(MemeImage meme);
         void Save();
-        IEnumerable<MemeImage> GetPage(PageRequest request);
+        IEnumerable<MemeImage> GetPage(PageRequest<MemeImage> request);
     }
 }

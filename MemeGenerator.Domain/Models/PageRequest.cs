@@ -1,11 +1,10 @@
 ﻿using System;
-using MemeGenerator.Domain.Entities;
 
 namespace MemeGenerator.Domain.Models
 {
-    public class PageRequest
+    public class PageRequest<T>
     {
-        public PageRequest(int pageNumber, int pageSize, Func<MemeImage, object> orderBy)
+        public PageRequest(int pageNumber, int pageSize, Func<T, object> orderBy)
         {
             PageNumber = pageNumber;
             PageSize = pageSize;
@@ -15,7 +14,7 @@ namespace MemeGenerator.Domain.Models
 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public Func<MemeImage, object> OrderBy { get; set; }
+        public Func<T, object> OrderBy { get; set; }
         public int Skip { get; set; }
     }
 }

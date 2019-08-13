@@ -34,7 +34,7 @@ namespace MemeGenerator.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<MemeImage> GetPage(PageRequest request)
+        public IEnumerable<MemeImage> GetPage(PageRequest<MemeImage> request)
         {
             var memes = _context.MemeImages.OrderBy(request.OrderBy).Skip(request.Skip).Take(request.PageSize);
 
