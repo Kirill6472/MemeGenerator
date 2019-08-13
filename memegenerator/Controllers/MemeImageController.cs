@@ -22,7 +22,7 @@ namespace MemeGenerator.UI.Controllers
         {
             var request = new PageRequest(pageNumber, pageSize, x => x.Id);
 
-            return _memeRepository.GetPage(request).Memes.Select(meme => new MemePreview(meme)).ToList();
+            return _memeRepository.GetPage(request).Select(meme => new MemePreview(meme)).ToList();
         }
     }
 }

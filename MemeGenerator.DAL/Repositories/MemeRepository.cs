@@ -34,11 +34,11 @@ namespace MemeGenerator.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public MemePage GetPage(PageRequest request)
+        public IEnumerable<MemeImage> GetPage(PageRequest request)
         {
             var memes = _context.MemeImages.OrderBy(request.OrderBy).Skip(request.Skip).Take(request.PageSize);
 
-            return new MemePage(memes);
+            return memes;
         }
     }
 }
