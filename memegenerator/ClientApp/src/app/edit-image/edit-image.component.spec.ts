@@ -19,9 +19,7 @@ describe("EditImageComponent", () => {
       "getHeight",
       "getActiveObject",
       "toDataURL",
-      "clear",
-      "setHeight",
-      "setWidth"
+      "clear"
     ]);
 
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [

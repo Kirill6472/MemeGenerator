@@ -13,12 +13,7 @@ describe('NavMenuComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.overrideComponent(NavMenuComponent, {
-      set: {
-        selector: 'app-nav-menu',
-        template: '<div></div>'
-      }
-    }).createComponent(NavMenuComponent);
+    fixture = TestBed.createComponent(NavMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

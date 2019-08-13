@@ -11,12 +11,7 @@ describe('ColorPaletteComponent', () => {
       declarations: [ColorPaletteComponent ]
     }).compileComponents();
 
-    fixture = TestBed.overrideComponent(ColorPaletteComponent, {
-      set: {
-        selector: 'app-color-palette',
-        template: '<div></div>'
-      }
-    }).createComponent(ColorPaletteComponent);
+    fixture = TestBed.createComponent(ColorPaletteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

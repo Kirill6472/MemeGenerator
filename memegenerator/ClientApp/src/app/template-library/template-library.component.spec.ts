@@ -32,12 +32,7 @@ describe('TemplateLibraryComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.overrideComponent(TemplateLibraryComponent, {
-      set: {
-        selector: 'app-template-library',
-        template: '<div></div>'
-      }
-    }).createComponent(TemplateLibraryComponent);
+    fixture = TestBed.createComponent(TemplateLibraryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

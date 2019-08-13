@@ -11,12 +11,7 @@ describe('MemeViewerComponent', () => {
       declarations: [ MemeViewerComponent ]
     }).compileComponents();
 
-    fixture = TestBed.overrideComponent(MemeViewerComponent, {
-      set: {
-        selector: 'app-meme-viewer',
-        template: '<div></div>'
-      }
-    }).createComponent(MemeViewerComponent);
+    fixture = TestBed.createComponent(MemeViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
