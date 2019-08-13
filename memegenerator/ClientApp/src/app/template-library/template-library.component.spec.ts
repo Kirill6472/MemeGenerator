@@ -11,7 +11,8 @@ describe('TemplateLibraryComponent', () => {
   let fixture: ComponentFixture<TemplateLibraryComponent>;
   let memeImageServiceMock: jasmine.SpyObj<MemeImageService>;
   const response = new Observable();
-  let fakePage = 1;
+  const fakePage = 1;
+  const fakeNextPage = fakePage + 1;
   const fakePageSize = 9;
   const fakeMeme: MemeImage = {
     id: 1,
@@ -56,9 +57,8 @@ describe('TemplateLibraryComponent', () => {
   });
 
   it('should load memes while scrolling', () => {
-    fakePage++;
     component.onScroll();
 
-    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(fakePage, fakePageSize);
+    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(fakeNextPage, fakePageSize);
   });
 });
