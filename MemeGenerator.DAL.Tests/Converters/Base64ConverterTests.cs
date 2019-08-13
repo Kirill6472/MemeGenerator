@@ -19,7 +19,7 @@ namespace MemeGenerator.DAL.Tests.Converters
         }
 
         [Test]
-        public void ConvertToBase64_ReturnDataInBase64Format_DataInByte()
+        public void ConvertToBase64_DataInByte_ReturnsDataInBase64Format()
         {
             var result = _base64Converter.ConvertToBase64(_fakeImageBytes);
 
