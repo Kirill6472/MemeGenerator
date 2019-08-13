@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MemeGenerator.DAL.Configs;
+using MemeGenerator.DAL.Converters;
 using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.Domain.Entities;
@@ -20,9 +20,11 @@ namespace MemeGenerator.DAL.Tests.Providers
     {
         private Mock<IOptionsMonitor<MemesConfig>> _monitor;
         private Mock<IFileReader> _mockFileReader;
+        private Mock<IBase64Converter> _mockConverter;
         private MemesConfig _memesConfig;
         private InitialMemesProvider _initialMemesProvider;
         private const string FakePath = "/fakePath";
+        private const string FakeBase64 = "data:image/jpeg;base64,R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs=";
 
         [SetUp]
         public void Setup()
@@ -34,7 +36,10 @@ namespace MemeGenerator.DAL.Tests.Providers
 
             _mockFileReader = new Mock<IFileReader>();
 
-            _initialMemesProvider = new InitialMemesProvider(_monitor.Object, _mockFileReader.Object);
+            _mockConverter = new Mock<IBase64Converter>();
+
+            _initialMemesProvider =
+                new InitialMemesProvider(_monitor.Object, _mockFileReader.Object, _mockConverter.Object);
         }
 
         [TestCase(0)]
@@ -55,9 +60,14 @@ namespace MemeGenerator.DAL.Tests.Providers
         {
             foreach (var meme in initialMemesStorageStructure.MemeImages)
             {
+                var imageBytes = GetBytes(initialMemesStorageStructure);
+
                 _mockFileReader.Setup(m => m.ReadBytes(Path.Combine(initialMemesStorageStructure.Folder, meme.Name)))
-                    .ReturnsAsync(GetBytes(initialMemesStorageStructure));
-                meme.Data = $"data:image/jpeg;base64,{Convert.ToBase64String(GetBytes(initialMemesStorageStructure))}";
+                    .ReturnsAsync(imageBytes);
+                _mockConverter.Setup(m => m.ConvertToBase64(imageBytes))
+                    .Returns(FakeBase64);
+
+                meme.Data = FakeBase64;
             }
         }
 

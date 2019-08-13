@@ -1,5 +1,4 @@
-﻿using System;
-using MemeGenerator.Domain.Entities;
+﻿using MemeGenerator.Domain.Entities;
 
 namespace MemeGenerator.UI.Models
 {

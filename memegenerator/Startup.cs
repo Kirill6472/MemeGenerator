@@ -2,6 +2,7 @@ using System;
 using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
 using MemeGenerator.DAL.Configs;
+using MemeGenerator.DAL.Converters;
 using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
@@ -40,6 +41,7 @@ namespace MemeGenerator.UI
             services.AddTransient<IMemeRepository, MemeRepository>();
             services.AddTransient<IMigrationsChecker, MigrationsChecker>();
             services.AddTransient<IFileReader, FileReader>();
+            services.AddTransient<IBase64Converter, Base64Converter>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
