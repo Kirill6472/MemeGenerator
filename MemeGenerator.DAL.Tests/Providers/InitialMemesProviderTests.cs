@@ -60,11 +60,12 @@ namespace MemeGenerator.DAL.Tests.Providers
         {
             foreach (var meme in initialMemesStorageStructure.MemeImages)
             {
+                var filePath = Path.Combine(initialMemesStorageStructure.Folder, meme.Name);
                 var imageBytes = GetBytes(initialMemesStorageStructure);
 
-                _mockFileReader.Setup(m => m.ReadBytes(Path.Combine(initialMemesStorageStructure.Folder, meme.Name)))
+                _mockFileReader.Setup(m => m.ReadBytes(filePath))
                     .ReturnsAsync(imageBytes);
-                _mockConverter.Setup(m => m.ConvertToBase64(imageBytes))
+                _mockConverter.Setup(m => m.ConvertToBase64(imageBytes, Path.GetExtension(filePath).Substring(1)))
                     .Returns(FakeBase64);
 
                 meme.Data = FakeBase64;
@@ -93,7 +94,7 @@ namespace MemeGenerator.DAL.Tests.Providers
             {
                 Folder = "/folder",
                 MemeImages = Enumerable.Range(0, countMemeImages)
-                    .Select(x => new MemeImage { Name = x.ToString() })
+                    .Select(x => new MemeImage { Name = $"{x.ToString()}.jpg" })
                     .ToList()
             };
 

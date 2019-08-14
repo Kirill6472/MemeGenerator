@@ -10,7 +10,8 @@ namespace MemeGenerator.DAL.Tests.Converters
     {
         private Base64Converter _base64Converter;
         private readonly byte[] _fakeImageBytes = { 0x20, 0x20, 0x20, 0x20 };
-        private const string JpegBase64Prefix = "data:image/jpeg;base64";
+        private const string ImageExtension = "jpg";
+        private readonly string _base64Prefix = $"data:image/{ImageExtension};base64";
 
         [SetUp]
         public void Setup()
@@ -21,9 +22,9 @@ namespace MemeGenerator.DAL.Tests.Converters
         [Test]
         public void ConvertToBase64_DataInByte_ReturnsDataInBase64Format()
         {
-            var result = _base64Converter.ConvertToBase64(_fakeImageBytes);
+            var result = _base64Converter.ConvertToBase64(_fakeImageBytes, ImageExtension);
 
-            result.Should().Be(String.Concat(JpegBase64Prefix, Convert.ToBase64String(_fakeImageBytes)));
+            result.Should().Be(String.Concat(_base64Prefix, Convert.ToBase64String(_fakeImageBytes)));
         }
     }
 }

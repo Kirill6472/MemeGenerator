@@ -4,11 +4,11 @@ namespace MemeGenerator.DAL.Converters
 {
     public class Base64Converter : IBase64Converter
     {
-        private const string JpegBase64Prefix = "data:image/jpeg;base64";
-
-        public string ConvertToBase64(byte[] imageBytes)
+        public string ConvertToBase64(byte[] imageBytes, string imageExtension)
         {
-            return String.Concat(JpegBase64Prefix, Convert.ToBase64String(imageBytes));
+            var base64Prefix = $"data:image/{imageExtension};base64";
+
+            return String.Concat(base64Prefix, Convert.ToBase64String(imageBytes));
         }
     }
 }

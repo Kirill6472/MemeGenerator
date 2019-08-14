@@ -33,7 +33,7 @@ namespace MemeGenerator.DAL.Providers
             {
                 var filePath = Path.Combine(imagesMetadata.Folder, image.Name);
                 var imageBytes = await _fileReader.ReadBytes(filePath);
-                image.Data = _base64Converter.ConvertToBase64(imageBytes);
+                image.Data = _base64Converter.ConvertToBase64(imageBytes, Path.GetExtension(filePath).Substring(1));
             }
 
             return imagesMetadata;

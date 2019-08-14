@@ -2,6 +2,6 @@
 {
     public interface IBase64Converter
     {
-        string ConvertToBase64(byte[] imageBytes);
+        string ConvertToBase64(byte[] imageBytes, string imageExtension);
     }
 }
