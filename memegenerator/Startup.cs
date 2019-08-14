@@ -96,6 +96,8 @@ namespace MemeGenerator.UI
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "Initial meme population has failed.");
+
+                    throw;
                 }
             }
         }

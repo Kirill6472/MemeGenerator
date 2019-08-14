@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.Converters;
+using MemeGenerator.DAL.Exceptions;
 using MemeGenerator.DAL.FileReaders;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -32,11 +33,21 @@ namespace MemeGenerator.DAL.Providers
             foreach (var image in imagesMetadata.MemeImages)
             {
                 var filePath = Path.Combine(imagesMetadata.Folder, image.Name);
+                AssertThatFileHasExtension(filePath);
+
                 var imageBytes = await _fileReader.ReadBytes(filePath);
                 image.Data = _base64Converter.ConvertToBase64(imageBytes, Path.GetExtension(filePath).Substring(1));
             }
 
             return imagesMetadata;
+        }
+
+        private static void AssertThatFileHasExtension(string filePath)
+        {
+            if (string.IsNullOrEmpty(Path.GetExtension(filePath)))
+            {
+                throw new InitialMemesStorageStructureException($"File has no extension: {filePath}");
+            }
         }
     }
 }

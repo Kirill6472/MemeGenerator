@@ -11,6 +11,7 @@ describe('TemplateLibraryComponent', () => {
   let fixture: ComponentFixture<TemplateLibraryComponent>;
   let memeImageServiceMock: jasmine.SpyObj<MemeImageService>;
   const response = new Observable();
+  const pageSize = 9;
   const fakeMeme: MemeImage = {
     id: 1,
     name: 'fakeName',
@@ -41,7 +42,6 @@ describe('TemplateLibraryComponent', () => {
 
   it('should load first page of memes', () => {
     const firstPage = 1;
-    const pageSize = 9;
 
     component.ngOnInit();
 
@@ -58,7 +58,6 @@ describe('TemplateLibraryComponent', () => {
 
   it('should load next page of memes while scrolling', () => {
     const nextPage = 2;
-    const pageSize = 9;
 
     component.onScroll();
 

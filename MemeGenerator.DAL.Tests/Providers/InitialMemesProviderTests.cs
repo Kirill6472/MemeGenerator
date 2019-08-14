@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.Converters;
+using MemeGenerator.DAL.Exceptions;
 using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.Domain.Entities;
@@ -45,7 +47,7 @@ namespace MemeGenerator.DAL.Tests.Providers
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(10)]
-        public async Task GetData_FileReader_InitialData(int countMemeImages)
+        public async Task GetData_ValidData_InitializationData(int countMemeImages)
         {
             var initialMemesStorageStructure = GenerateInitialMemes(countMemeImages);
             ThereIsInitialMemesStorageStructure(initialMemesStorageStructure);
@@ -54,6 +56,16 @@ namespace MemeGenerator.DAL.Tests.Providers
             var result = await _initialMemesProvider.GetData();
 
             result.Should().BeEquivalentTo(initialMemesStorageStructure);
+        }
+
+        [Test]
+        public void GetData_InvalidData_ThrowsException()
+        {
+            var initialMemesStorageStructure = GenerateInvalidInitialMemes();
+            ThereIsInitialMemesStorageStructure(initialMemesStorageStructure);
+
+            _initialMemesProvider.Invoking(y => y.GetData())
+                .Should().Throw<InitialMemesStorageStructureException>();
         }
 
         private void ThereAreMemeImages(InitialMemesStorageStructure initialMemesStorageStructure)
@@ -86,6 +98,17 @@ namespace MemeGenerator.DAL.Tests.Providers
         private static string Serialize(object data)
         {
             return JsonConvert.SerializeObject(data);
+        }
+
+        private static InitialMemesStorageStructure GenerateInvalidInitialMemes()
+        {
+            var initialMemes = new InitialMemesStorageStructure
+            {
+                Folder = "/folder",
+                MemeImages = new List<MemeImage> {new MemeImage {Name = "withoutExtension"}}
+            };
+
+            return initialMemes;
         }
 
         private static InitialMemesStorageStructure GenerateInitialMemes(int countMemeImages)
