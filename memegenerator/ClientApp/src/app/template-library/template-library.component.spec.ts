@@ -11,9 +11,6 @@ describe('TemplateLibraryComponent', () => {
   let fixture: ComponentFixture<TemplateLibraryComponent>;
   let memeImageServiceMock: jasmine.SpyObj<MemeImageService>;
   const response = new Observable();
-  const fakePage = 1;
-  const fakeNextPage = fakePage + 1;
-  const fakePageSize = 9;
   const fakeMeme: MemeImage = {
     id: 1,
     name: 'fakeName',
@@ -42,13 +39,16 @@ describe('TemplateLibraryComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load memes', () => {
+  it('should load first page of memes', () => {
+    const firstPage = 1;
+    const pageSize = 9;
+
     component.ngOnInit();
 
-    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(fakePage, fakePageSize);
+    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(firstPage, pageSize);
   });
 
-  it('should selected template', () => {
+  it('should selected meme template', () => {
     spyOn(component.templateIsSelected, 'emit');
 
     component.onTemplateIsSelected(fakeMeme);
@@ -56,9 +56,12 @@ describe('TemplateLibraryComponent', () => {
     expect(component.templateIsSelected.emit).toHaveBeenCalledWith(fakeMeme.image);
   });
 
-  it('should load memes while scrolling', () => {
+  it('should load next page of memes while scrolling', () => {
+    const nextPage = 2;
+    const pageSize = 9;
+
     component.onScroll();
 
-    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(fakeNextPage, fakePageSize);
+    expect(memeImageServiceMock.getMemes).toHaveBeenCalledWith(nextPage, pageSize);
   });
 });
