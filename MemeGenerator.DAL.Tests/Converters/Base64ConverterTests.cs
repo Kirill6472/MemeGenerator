@@ -1,7 +1,8 @@
-﻿using FluentAssertions;
-using MemeGenerator.DAL.Converters;
+﻿using System;
 using NUnit.Framework;
-using System;
+using FluentAssertions;
+using MemeGenerator.DAL.Converters;
+using MemeGenerator.DAL.Exceptions;
 
 namespace MemeGenerator.DAL.Tests.Converters
 {
@@ -10,8 +11,6 @@ namespace MemeGenerator.DAL.Tests.Converters
     {
         private Base64Converter _base64Converter;
         private readonly byte[] _fakeImageBytes = { 0x20, 0x20, 0x20, 0x20 };
-        private const string ImageExtension = "jpg";
-        private readonly string _base64Prefix = $"data:image/{ImageExtension};base64";
 
         [SetUp]
         public void Setup()
@@ -22,9 +21,21 @@ namespace MemeGenerator.DAL.Tests.Converters
         [Test]
         public void ConvertToBase64_DataInByte_ReturnsDataInBase64Format()
         {
-            var result = _base64Converter.ConvertToBase64(_fakeImageBytes, ImageExtension);
+            const string imageExtension = "jpg";
+            var base64Prefix = $"data:image/{imageExtension};base64";
 
-            result.Should().Be(String.Concat(_base64Prefix, Convert.ToBase64String(_fakeImageBytes)));
+            var result = _base64Converter.ConvertToBase64(_fakeImageBytes, imageExtension);
+
+            result.Should().Be(String.Concat(base64Prefix, Convert.ToBase64String(_fakeImageBytes)));
+        }
+
+        [Test]
+        public void ConvertToBase64_DataInByte_ThrowsException()
+        {
+            const string fileExtension = "txt";
+
+            _base64Converter.Invoking(y => y.ConvertToBase64(_fakeImageBytes, fileExtension))
+                .Should().Throw<Base64ConverterException>();
         }
     }
 }
