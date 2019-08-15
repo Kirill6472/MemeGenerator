@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+
 import { EditImageComponent } from "./edit-image.component";
 import { fabric } from "fabric";
 import { FabricFactory } from "../fabric-factory/fabric-factory";
-import { TextEditorMockComponent } from "../text-editor/text-editor-mock.component";
+import { TextEditorComponent } from "../text-editor/text-editor.component";
 
 describe("EditImageComponent", () => {
   let component: EditImageComponent;
@@ -18,12 +19,12 @@ describe("EditImageComponent", () => {
       "getHeight",
       "getActiveObject",
       "toDataURL",
-      "clear",
+      "clear"
     ]);
 
     fabricFactoryMock = jasmine.createSpyObj("fabricFactoryMock", [
       "createCanvas",
-      "createImage",
+      "createImage"
     ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);
@@ -31,12 +32,19 @@ describe("EditImageComponent", () => {
     TestBed.configureTestingModule({
       declarations: [
         EditImageComponent,
-        TextEditorMockComponent
+        TextEditorComponent
       ],
       providers: [
         { provide: FabricFactory, useValue: fabricFactoryMock }
       ]
-    }).compileComponents();
+    })
+    .overrideComponent(TextEditorComponent, {
+      set: {
+        selector: 'app-text-editor',
+        template: '<div></div>'
+      }
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(EditImageComponent);
     component = fixture.componentInstance;

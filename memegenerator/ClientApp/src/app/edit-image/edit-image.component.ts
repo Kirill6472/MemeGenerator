@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+
 import { FabricFactory } from "../fabric-factory/fabric-factory";
 import { fabric } from "fabric";
 
@@ -26,6 +27,7 @@ export class EditImageComponent implements OnInit {
     return new Promise((resolve) => {
       image.onload = () => {
         this.setBackgroundImage(image);
+
         resolve();
       };
       image.src = uploadedImageUrl;
@@ -33,12 +35,12 @@ export class EditImageComponent implements OnInit {
   }
 
   private setBackgroundImage(image: HTMLImageElement) {
-    let imageInstance: any = this.fabricFactory.createImage(image);
+    const imageInstance: any = this.fabricFactory.createImage(image);
     this.canvas.setBackgroundImage(imageInstance, this.canvas.renderAll.bind(this.canvas), {
       scaleY: this.canvas.getHeight() / imageInstance.height,
       scaleX: this.canvas.getWidth() / imageInstance.width,
       selectable: false
-    }); 
+    });
   }
 
   public generateMeme() {

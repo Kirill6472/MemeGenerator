@@ -6,13 +6,15 @@
 
 .generate-meme-button {
   margin: auto;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: block;
   width: 700px;
 }
 
 .create-new-meme-button {
   margin: auto;
+  margin-bottom: 20px;
   display: block;
   width: 700px;
 }

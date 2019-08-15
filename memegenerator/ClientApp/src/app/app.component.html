@@ -2,15 +2,18 @@
   <app-nav-menu></app-nav-menu>
 
   <div class="container">
-    <div *ngIf="!isUploadedImageShown">
-      <h3>Upload your own image</h3>
-    </div>
-
-    <div *ngIf="isUploadedImageShown">
+    <div *ngIf="!isImageSelectorVisible">
       <h3>Meme editing</h3>
     </div>
 
-    <app-loading-image (imageIsUploaded)="updateImage($event)" [hidden]="!isImageInputVisible"></app-loading-image>
+    <div [hidden]="!isImageSelectorVisible">
+      <h3>Upload your own image</h3>
+      <app-loading-image (imageIsUploaded)="updateImage($event)"></app-loading-image>
+
+      <h3>or select a template from the library</h3>
+      <app-template-library (templateIsSelected)="updateImage($event)"></app-template-library>
+    </div>
+
     <app-edit-image (generatedMemeUrl)="setMemeUrl($event)" [hidden]="!isImageEditorVisible"></app-edit-image>
 
     <div class="generate-meme-button" [hidden]="!isImageEditorVisible">

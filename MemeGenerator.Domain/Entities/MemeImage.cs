@@ -8,7 +8,7 @@ namespace MemeGenerator.Domain.Entities
         public int Id { get; set; }
 
         [Required]
-        public byte[] Data { get; set; }
+        public string Data { get; set; }
 
         [Required]
         public string Name { get; set; }

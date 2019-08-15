@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { TextEditorComponent } from './text-editor.component';
-import { ColorPaletteMockComponent } from '../color-palette/color-palette-mock.component';
-import { FabricFactory } from "../fabric-factory/fabric-factory";
-import { fabric } from "fabric";
+import { FabricFactory } from '../fabric-factory/fabric-factory';
+import { fabric } from 'fabric';
+import { ColorPaletteComponent } from '../color-palette/color-palette.component';
 
 describe('TextEditorComponent', () => {
   let component: TextEditorComponent;
@@ -20,7 +21,7 @@ describe('TextEditorComponent', () => {
       "remove",
       "renderAll",
       "getActiveObject",
-      "setActiveObject",
+      "setActiveObject"
     ]);
 
     fabricFactoryMock.createCanvas.and.returnValue(mockCanvas);
@@ -28,12 +29,19 @@ describe('TextEditorComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TextEditorComponent,
-        ColorPaletteMockComponent
+        ColorPaletteComponent
       ],
       providers: [
         { provide: FabricFactory, useValue: fabricFactoryMock }
       ]
-    }).compileComponents();
+    })
+    .overrideComponent(ColorPaletteComponent, {
+      set: {
+        selector: 'app-color-palette',
+        template: '<div></div>'
+      }
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(TextEditorComponent);
     component = fixture.componentInstance;

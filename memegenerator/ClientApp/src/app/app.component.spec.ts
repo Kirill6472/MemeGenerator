@@ -1,9 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { AppComponent } from './app.component';
-import { MockNavMenuComponent } from "./nav-menu/nav-menu-mock.component";
-import { MockLoadingImageComponent } from "./loading-image/loading-image-mock.component";
-import { MockEditImageComponent } from "./edit-image/edit-image-mock.component";
-import { MockMemeViewerComponent } from './meme-viewer/meme-viewer-mock.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { LoadingImageComponent } from './loading-image/loading-image.component';
+import { EditImageComponent } from './edit-image/edit-image.component';
+import { MemeViewerComponent } from './meme-viewer/meme-viewer.component';
+import { TemplateLibraryComponent } from './template-library/template-library.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -11,16 +14,50 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [
         AppComponent,
-        MockNavMenuComponent,
-        MockLoadingImageComponent,
-        MockEditImageComponent,
-        MockMemeViewerComponent
+        NavMenuComponent,
+        LoadingImageComponent,
+        EditImageComponent,
+        MemeViewerComponent,
+        TemplateLibraryComponent
       ],
-    }).compileComponents();
+    })
+    .overrideComponent(NavMenuComponent, {
+      set: {
+        selector: 'app-nav-menu',
+        template: '<div></div>'
+      }
+    })
+    .overrideComponent(LoadingImageComponent, {
+      set: {
+        selector: 'app-loading-image',
+        template: '<div></div>'
+      }
+    })
+    .overrideComponent(EditImageComponent, {
+      set: {
+        selector: 'app-edit-image',
+        template: '<div></div>'
+      }
+    })
+    .overrideComponent(MemeViewerComponent, {
+      set: {
+        selector: 'app-meme-viewer',
+        template: '<div></div>'
+      }
+    })
+    .overrideComponent(TemplateLibraryComponent, {
+      set: {
+        selector: 'app-template-library',
+        template: '<div></div>'
+      }
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
+
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -42,7 +79,7 @@ describe('AppComponent', () => {
     component.updateImage(uploadedImageUrl);
 
     expect(component.editImageComponent.setImage).toHaveBeenCalledWith(uploadedImageUrl);
-    expect(component.isImageInputVisible).toBe(false);
+    expect(component.isImageSelectorVisible).toBe(false);
     expect(component.isImageEditorVisible).toBe(true);
   });
 
@@ -59,7 +96,7 @@ describe('AppComponent', () => {
     component.createNewMeme();
 
     expect(component.isMemeViewerVisible).toBe(false);
-    expect(component.isImageInputVisible).toBe(true);
+    expect(component.isImageSelectorVisible).toBe(true);
   });
 
   it('should generate meme and hide image editor', () => {

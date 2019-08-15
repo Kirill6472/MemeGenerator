@@ -3,14 +3,16 @@ using MemeGenerator.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemeGenerator.DAL.Migrations
 {
     [DbContext(typeof(MemeGeneratorDbContext))]
-    partial class MemeGeneratorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190807114030_EditMemeImage")]
+    partial class EditMemeImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

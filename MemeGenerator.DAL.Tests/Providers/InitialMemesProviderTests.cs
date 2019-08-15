@@ -1,8 +1,12 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MemeGenerator.DAL.Configs;
+using MemeGenerator.DAL.Converters;
+using MemeGenerator.DAL.Exceptions;
 using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.Domain.Entities;
@@ -18,27 +22,32 @@ namespace MemeGenerator.DAL.Tests.Providers
     {
         private Mock<IOptionsMonitor<MemesConfig>> _monitor;
         private Mock<IFileReader> _mockFileReader;
+        private Mock<IBase64ImageEncoder> _mockConverter;
         private MemesConfig _memesConfig;
         private InitialMemesProvider _initialMemesProvider;
         private const string FakePath = "/fakePath";
+        private const string FakeBase64 = "data:image/jpeg;base64,R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs=";
 
         [SetUp]
         public void Setup()
         {
-            _memesConfig = new MemesConfig() { PathToMemesConfig = FakePath };
+            _memesConfig = new MemesConfig { PathToMemesConfig = FakePath };
 
             _monitor = new Mock<IOptionsMonitor<MemesConfig>>();
             _monitor.Setup(m => m.CurrentValue).Returns(_memesConfig);
 
             _mockFileReader = new Mock<IFileReader>();
 
-            _initialMemesProvider = new InitialMemesProvider(_monitor.Object, _mockFileReader.Object);
+            _mockConverter = new Mock<IBase64ImageEncoder>();
+
+            _initialMemesProvider =
+                new InitialMemesProvider(_monitor.Object, _mockFileReader.Object, _mockConverter.Object);
         }
 
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(10)]
-        public async Task GetData_FileReader_InitialData(int countMemeImages)
+        public async Task GetData_ValidData_InitializationData(int countMemeImages)
         {
             var initialMemesStorageStructure = GenerateInitialMemes(countMemeImages);
             ThereIsInitialMemesStorageStructure(initialMemesStorageStructure);
@@ -49,13 +58,31 @@ namespace MemeGenerator.DAL.Tests.Providers
             result.Should().BeEquivalentTo(initialMemesStorageStructure);
         }
 
+        [Test]
+        public void GetData_ImageWithoutExtension_ThrowsException()
+        {
+            var initialMemesStorageStructure = GenerateInitialMemesWithoutFileExtension();
+            ThereIsInitialMemesStorageStructure(initialMemesStorageStructure);
+            var filePath = Path.Combine(initialMemesStorageStructure.Folder, "withoutExtension");
+
+            _initialMemesProvider.Invoking(y => y.GetData())
+                .Should().Throw<InitialMemesStorageStructureException>()
+                .WithMessage($"File has no extension: {filePath}");
+        }
+
         private void ThereAreMemeImages(InitialMemesStorageStructure initialMemesStorageStructure)
         {
             foreach (var meme in initialMemesStorageStructure.MemeImages)
             {
-                _mockFileReader.Setup(m => m.ReadBytes(initialMemesStorageStructure.Folder + meme.Name))
-                    .ReturnsAsync(GetBytes(initialMemesStorageStructure));
-                meme.Data = GetBytes(initialMemesStorageStructure);
+                var filePath = Path.Combine(initialMemesStorageStructure.Folder, meme.Name);
+                var imageBytes = GetBytes(initialMemesStorageStructure);
+
+                _mockFileReader.Setup(m => m.ReadBytes(filePath))
+                    .ReturnsAsync(imageBytes);
+                _mockConverter.Setup(m => m.Convert(imageBytes, Path.GetExtension(filePath).Substring(1)))
+                    .Returns(FakeBase64);
+
+                meme.Data = FakeBase64;
             }
         }
 
@@ -75,13 +102,24 @@ namespace MemeGenerator.DAL.Tests.Providers
             return JsonConvert.SerializeObject(data);
         }
 
+        private static InitialMemesStorageStructure GenerateInitialMemesWithoutFileExtension()
+        {
+            var initialMemes = new InitialMemesStorageStructure
+            {
+                Folder = "/folder",
+                MemeImages = new List<MemeImage> {new MemeImage {Name = "withoutExtension"}}
+            };
+
+            return initialMemes;
+        }
+
         private static InitialMemesStorageStructure GenerateInitialMemes(int countMemeImages)
         {
             var initialMemes = new InitialMemesStorageStructure
             {
                 Folder = "/folder",
                 MemeImages = Enumerable.Range(0, countMemeImages)
-                    .Select(x => new MemeImage { Name = x.ToString() })
+                    .Select(x => new MemeImage { Name = $"{x.ToString()}.jpg" })
                     .ToList()
             };
 
