@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MemeGenerator.DAL.Exceptions;
 
@@ -18,13 +17,13 @@ namespace MemeGenerator.DAL.Converters
 
         private static void AssertFileExtensionIsAcceptable(string extension)
         {
-            if (!GetImageExtension().Contains(extension))
+            if (!GetImageExtensions().Contains(extension))
             {
                 throw new Base64ConverterException($"File has an invalid extension: {extension}");
             }
         }
 
-        private static IEnumerable<string> GetImageExtension()
+        private static IEnumerable<string> GetImageExtensions()
         {
             yield return "jpg";
             yield return "bmp";
