@@ -41,7 +41,7 @@ namespace MemeGenerator.UI
             services.AddTransient<IMemeRepository, MemeRepository>();
             services.AddTransient<IMigrationsChecker, MigrationsChecker>();
             services.AddTransient<IFileReader, FileReader>();
-            services.AddTransient<IBase64Converter, Base64Converter>();
+            services.AddTransient<IBase64ImageEncoder, Base64ImageEncoder>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
