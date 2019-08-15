@@ -22,7 +22,7 @@ namespace MemeGenerator.DAL.Tests.Providers
     {
         private Mock<IOptionsMonitor<MemesConfig>> _monitor;
         private Mock<IFileReader> _mockFileReader;
-        private Mock<IBase64Converter> _mockConverter;
+        private Mock<IBase64ImageEncoder> _mockConverter;
         private MemesConfig _memesConfig;
         private InitialMemesProvider _initialMemesProvider;
         private const string FakePath = "/fakePath";
@@ -31,14 +31,14 @@ namespace MemeGenerator.DAL.Tests.Providers
         [SetUp]
         public void Setup()
         {
-            _memesConfig = new MemesConfig() { PathToMemesConfig = FakePath };
+            _memesConfig = new MemesConfig { PathToMemesConfig = FakePath };
 
             _monitor = new Mock<IOptionsMonitor<MemesConfig>>();
             _monitor.Setup(m => m.CurrentValue).Returns(_memesConfig);
 
             _mockFileReader = new Mock<IFileReader>();
 
-            _mockConverter = new Mock<IBase64Converter>();
+            _mockConverter = new Mock<IBase64ImageEncoder>();
 
             _initialMemesProvider =
                 new InitialMemesProvider(_monitor.Object, _mockFileReader.Object, _mockConverter.Object);
@@ -59,13 +59,15 @@ namespace MemeGenerator.DAL.Tests.Providers
         }
 
         [Test]
-        public void GetData_InvalidData_ThrowsException()
+        public void GetData_ImageWithoutExtension_ThrowsException()
         {
-            var initialMemesStorageStructure = GenerateInvalidInitialMemes();
+            var initialMemesStorageStructure = GenerateInitialMemesWithoutFileExtension();
             ThereIsInitialMemesStorageStructure(initialMemesStorageStructure);
+            var filePath = Path.Combine(initialMemesStorageStructure.Folder, "withoutExtension");
 
             _initialMemesProvider.Invoking(y => y.GetData())
-                .Should().Throw<InitialMemesStorageStructureException>();
+                .Should().Throw<InitialMemesStorageStructureException>()
+                .WithMessage($"File has no extension: {filePath}");
         }
 
         private void ThereAreMemeImages(InitialMemesStorageStructure initialMemesStorageStructure)
@@ -77,7 +79,7 @@ namespace MemeGenerator.DAL.Tests.Providers
 
                 _mockFileReader.Setup(m => m.ReadBytes(filePath))
                     .ReturnsAsync(imageBytes);
-                _mockConverter.Setup(m => m.ConvertToBase64(imageBytes, Path.GetExtension(filePath).Substring(1)))
+                _mockConverter.Setup(m => m.Convert(imageBytes, Path.GetExtension(filePath).Substring(1)))
                     .Returns(FakeBase64);
 
                 meme.Data = FakeBase64;
@@ -100,7 +102,7 @@ namespace MemeGenerator.DAL.Tests.Providers
             return JsonConvert.SerializeObject(data);
         }
 
-        private static InitialMemesStorageStructure GenerateInvalidInitialMemes()
+        private static InitialMemesStorageStructure GenerateInitialMemesWithoutFileExtension()
         {
             var initialMemes = new InitialMemesStorageStructure
             {

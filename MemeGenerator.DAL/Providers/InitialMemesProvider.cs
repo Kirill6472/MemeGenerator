@@ -13,16 +13,16 @@ namespace MemeGenerator.DAL.Providers
     {
         private readonly MemesConfig _memesConfig;
         private readonly IFileReader _fileReader;
-        private readonly IBase64Converter _base64Converter;
+        private readonly IBase64ImageEncoder _base64ImageEncoder;
 
         public InitialMemesProvider(
             IOptionsMonitor<MemesConfig> imageTemplateAccessor,
             IFileReader fileReader,
-            IBase64Converter base64Converter)
+            IBase64ImageEncoder base64Converter)
         {
             _memesConfig = imageTemplateAccessor.CurrentValue;
             _fileReader = fileReader;
-            _base64Converter = base64Converter;
+            _base64ImageEncoder = base64Converter;
         }
 
         public async Task<InitialMemesStorageStructure> GetData()
@@ -36,7 +36,7 @@ namespace MemeGenerator.DAL.Providers
                 AssertThatFileHasExtension(filePath);
 
                 var imageBytes = await _fileReader.ReadBytes(filePath);
-                image.Data = _base64Converter.ConvertToBase64(imageBytes, Path.GetExtension(filePath).Substring(1));
+                image.Data = _base64ImageEncoder.Convert(imageBytes, Path.GetExtension(filePath).Substring(1));
             }
 
             return imagesMetadata;
