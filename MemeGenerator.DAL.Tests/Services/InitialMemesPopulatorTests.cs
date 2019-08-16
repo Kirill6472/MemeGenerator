@@ -5,10 +5,12 @@ using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Repositories;
 using MemeGenerator.DAL.Services;
 using MemeGenerator.Domain.Entities;
+using MemeGenerator.Infrastructure;
+using MemeGenerator.Infrastructure.Providers;
 using Moq;
 using NUnit.Framework;
 
-namespace MemeGenerator.BLL.Tests.Services
+namespace MemeGenerator.DAL.Tests.Services
 {
     [TestFixture]
     public class InitialMemesPopulatorTests

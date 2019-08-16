@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
-using MemeGenerator.DAL.Converters;
-using MemeGenerator.DAL.Exceptions;
+﻿using FluentAssertions;
+using MemeGenerator.Infrastructure.Converters;
+using MemeGenerator.Infrastructure.Exceptions;
+using NUnit.Framework;
 
-namespace MemeGenerator.DAL.Tests.Converters
+namespace MemeGenerator.Infrastructure.Tests.Converters
 {
     [TestFixture]
     public class Base64ImageEncoderTests
