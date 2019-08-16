@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.BLL", "MemeGe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.DAL.Tests", "MemeGenerator.DAL.Tests\MemeGenerator.DAL.Tests.csproj", "{45A81B37-7C43-4FF3-9D4C-365118B722A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.BLL.Tests", "MemeGenerator.BLL.Tests\MemeGenerator.BLL.Tests.csproj", "{3509E252-7233-42EA-B3C2-B6639C21845D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.BLL.Tests", "MemeGenerator.BLL.Tests\MemeGenerator.BLL.Tests.csproj", "{3509E252-7233-42EA-B3C2-B6639C21845D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.Infrastructure", "MemeGenerator.Infrastructure\MemeGenerator.Infrastructure.csproj", "{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{3509E252-7233-42EA-B3C2-B6639C21845D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3509E252-7233-42EA-B3C2-B6639C21845D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3509E252-7233-42EA-B3C2-B6639C21845D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

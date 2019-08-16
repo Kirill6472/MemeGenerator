@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MemeGenerator.DAL.Exceptions;
+using MemeGenerator.Infrastructure.Exceptions;
 
-namespace MemeGenerator.DAL.Converters
+namespace MemeGenerator.Infrastructure.Converters
 {
     public class Base64ImageEncoder : IBase64ImageEncoder
     {

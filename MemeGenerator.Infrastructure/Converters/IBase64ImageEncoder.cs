@@ -1,4 +1,4 @@
-﻿namespace MemeGenerator.DAL.Converters
+﻿namespace MemeGenerator.Infrastructure.Converters
 {
     public interface IBase64ImageEncoder
     {

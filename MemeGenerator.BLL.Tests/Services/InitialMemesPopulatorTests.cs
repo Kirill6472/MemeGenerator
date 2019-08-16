@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MemeGenerator.BLL.Services;
-using MemeGenerator.DAL;
 using MemeGenerator.DAL.MigrationsChecker;
-using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
+using MemeGenerator.DAL.Services;
 using MemeGenerator.Domain.Entities;
 using Moq;
 using NUnit.Framework;

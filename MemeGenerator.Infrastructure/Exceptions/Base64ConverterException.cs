@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MemeGenerator.DAL.Exceptions
+namespace MemeGenerator.Infrastructure.Exceptions
 {
     public class Base64ConverterException : Exception
     {

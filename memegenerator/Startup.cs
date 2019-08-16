@@ -1,12 +1,10 @@
 using System;
-using MemeGenerator.BLL.Services;
 using MemeGenerator.DAL;
-using MemeGenerator.DAL.Configs;
-using MemeGenerator.DAL.Converters;
-using MemeGenerator.DAL.FileReaders;
 using MemeGenerator.DAL.MigrationsChecker;
-using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
+using MemeGenerator.DAL.Services;
+using MemeGenerator.Infrastructure;
+using MemeGenerator.Infrastructure.Converters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -34,13 +32,11 @@ namespace MemeGenerator.UI
                     Configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("MemeGenerator.DAL")));
 
-            services.Configure<MemesConfig>(Configuration);
+            services.RegisterMemeGenerator(Configuration);
 
-            services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
             services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
             services.AddTransient<IMemeRepository, MemeRepository>();
             services.AddTransient<IMigrationsChecker, MigrationsChecker>();
-            services.AddTransient<IFileReader, FileReader>();
             services.AddTransient<IBase64ImageEncoder, Base64ImageEncoder>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

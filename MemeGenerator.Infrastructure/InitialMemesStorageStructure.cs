@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MemeGenerator.Domain.Entities;
 
-namespace MemeGenerator.DAL
+namespace MemeGenerator.Infrastructure
 {
     public class InitialMemesStorageStructure
     {

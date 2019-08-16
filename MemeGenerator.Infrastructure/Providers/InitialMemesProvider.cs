@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using MemeGenerator.DAL.Configs;
-using MemeGenerator.DAL.Converters;
-using MemeGenerator.DAL.Exceptions;
-using MemeGenerator.DAL.FileReaders;
+using MemeGenerator.Infrastructure.Configs;
+using MemeGenerator.Infrastructure.Converters;
+using MemeGenerator.Infrastructure.Exceptions;
+using MemeGenerator.Infrastructure.FileReaders;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace MemeGenerator.DAL.Providers
+namespace MemeGenerator.Infrastructure.Providers
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {
