@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MemeGenerator.Infrastructure.Exceptions
+namespace MemeGenerator.DAL.Exceptions
 {
     public class InitialMemesStorageStructureException : Exception
     {

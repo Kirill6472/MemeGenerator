@@ -1,4 +1,4 @@
-﻿namespace MemeGenerator.Infrastructure.Configs
+﻿namespace MemeGenerator.DAL.Configs
 {
     public class MemesConfig
     {
