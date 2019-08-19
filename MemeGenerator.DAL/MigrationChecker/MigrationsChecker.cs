@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using MemeGenerator.Infrastructure;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MemeGenerator.DAL.MigrationsChecker
+namespace MemeGenerator.DAL.MigrationChecker
 {
     public class MigrationsChecker : IMigrationsChecker
     {

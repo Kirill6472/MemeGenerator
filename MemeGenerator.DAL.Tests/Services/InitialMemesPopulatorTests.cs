@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MemeGenerator.Core;
 using MemeGenerator.Core.Entities;
-using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.DAL.MigrationChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Services;
 using MemeGenerator.Infrastructure;

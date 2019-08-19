@@ -1,17 +1,11 @@
 using System;
-using MemeGenerator.Core;
 using MemeGenerator.DAL;
-using MemeGenerator.DAL.MigrationsChecker;
-using MemeGenerator.DAL.Providers;
-using MemeGenerator.DAL.Repositories;
 using MemeGenerator.DAL.Services;
 using MemeGenerator.Infrastructure;
-using MemeGenerator.Infrastructure.Converters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,18 +23,8 @@ namespace MemeGenerator.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MemeGeneratorDbContext>(
-                options => options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("MemeGenerator.DAL")));
-
-            services.RegisterMemeGenerator(Configuration);
-
-            services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
-            services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
-            services.AddTransient<IMemeRepository, MemeRepository>();
-            services.AddTransient<IMigrationsChecker, MigrationsChecker>();
-            services.AddTransient<IBase64ImageEncoder, Base64ImageEncoder>();
+            services.RegisterDAL(Configuration);
+            services.RegisterInfrastructure(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
