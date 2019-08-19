@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using MemeGenerator.DAL.Repositories;
 using MemeGenerator.Domain.Entities;
+using MemeGenerator.Infrastructure;
+using MemeGenerator.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 

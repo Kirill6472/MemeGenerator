@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.BLL", "MemeGe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.DAL.Tests", "MemeGenerator.DAL.Tests\MemeGenerator.DAL.Tests.csproj", "{45A81B37-7C43-4FF3-9D4C-365118B722A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.Infrastructure", "MemeGenerator.Infrastructure\MemeGenerator.Infrastructure.csproj", "{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.Infrastructure", "MemeGenerator.Infrastructure\MemeGenerator.Infrastructure.csproj", "{D3515ED5-0C95-4C1A-ADF1-26ADC431AC9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.Infrastructure.Tests", "MemeGenerator.Infrastructure.Tests\MemeGenerator.Infrastructure.Tests.csproj", "{505C0FE1-00C8-43FA-8F16-D6276214690E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemeGenerator.Infrastructure.Tests", "MemeGenerator.Infrastructure.Tests\MemeGenerator.Infrastructure.Tests.csproj", "{505C0FE1-00C8-43FA-8F16-D6276214690E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemeGenerator.DomainServices", "MemeGenerator.DomainServices\MemeGenerator.DomainServices.csproj", "{E52AF311-4438-45C9-98F6-10FC0A243C73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{505C0FE1-00C8-43FA-8F16-D6276214690E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{505C0FE1-00C8-43FA-8F16-D6276214690E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{505C0FE1-00C8-43FA-8F16-D6276214690E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52AF311-4438-45C9-98F6-10FC0A243C73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52AF311-4438-45C9-98F6-10FC0A243C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52AF311-4438-45C9-98F6-10FC0A243C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52AF311-4438-45C9-98F6-10FC0A243C73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MemeGenerator.BLL\MemeGenerator.BLL.csproj" />
-    <ProjectReference Include="..\MemeGenerator.Infrastructure\MemeGenerator.Infrastructure.csproj" />
+    <ProjectReference Include="..\MemeGenerator.DomainServices\MemeGenerator.DomainServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

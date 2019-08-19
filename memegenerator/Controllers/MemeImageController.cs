@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MemeGenerator.DAL.Repositories;
 using MemeGenerator.Domain.Entities;
 using MemeGenerator.Domain.Models;
+using MemeGenerator.DomainServices.Interfaces;
 using MemeGenerator.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
