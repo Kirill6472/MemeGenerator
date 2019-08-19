@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MemeGenerator.DAL.Configs;
 using MemeGenerator.DAL.Exceptions;
-using MemeGenerator.Infrastructure;
 using MemeGenerator.Infrastructure.Converters;
 using MemeGenerator.Infrastructure.FileReaders;
 using Microsoft.Extensions.Options;

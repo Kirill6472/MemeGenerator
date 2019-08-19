@@ -24,7 +24,7 @@ namespace MemeGenerator.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterDAL(Configuration);
-            services.RegisterInfrastructure(Configuration);
+            services.RegisterInfrastructure();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
