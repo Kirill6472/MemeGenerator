@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using MemeGenerator.Domain.Entities;
+using MemeGenerator.Core.Entities;
 
 namespace MemeGenerator.Infrastructure
 {

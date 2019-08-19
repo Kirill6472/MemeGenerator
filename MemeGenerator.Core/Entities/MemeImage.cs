@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MemeGenerator.Domain.Entities
+namespace MemeGenerator.Core.Entities
 {
     public class MemeImage
     {

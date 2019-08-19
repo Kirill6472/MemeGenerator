@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MemeGenerator.DomainServices\MemeGenerator.DomainServices.csproj" />
+    <ProjectReference Include="..\MemeGenerator.Core\MemeGenerator.Core.csproj" />
     <ProjectReference Include="..\MemeGenerator.Infrastructure\MemeGenerator.Infrastructure.csproj" />
   </ItemGroup>    
 

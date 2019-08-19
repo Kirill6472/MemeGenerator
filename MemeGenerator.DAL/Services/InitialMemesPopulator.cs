@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using MemeGenerator.Core;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
-using MemeGenerator.DomainServices;
 
 namespace MemeGenerator.DAL.Services
 {

@@ -1,9 +1,10 @@
 using System;
+using MemeGenerator.Core;
+using MemeGenerator.DAL;
 using MemeGenerator.DAL.MigrationsChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
 using MemeGenerator.DAL.Services;
-using MemeGenerator.DomainServices;
 using MemeGenerator.Infrastructure;
 using MemeGenerator.Infrastructure.Converters;
 using Microsoft.AspNetCore.Builder;
