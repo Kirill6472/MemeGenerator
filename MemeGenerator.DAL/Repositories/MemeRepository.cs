@@ -2,9 +2,10 @@
 using System.Linq;
 using MemeGenerator.Domain.Entities;
 using MemeGenerator.Domain.Models;
-using MemeGenerator.DomainServices.Interfaces;
+using MemeGenerator.DomainServices;
+using MemeGenerator.Infrastructure;
 
-namespace MemeGenerator.Infrastructure.Repositories
+namespace MemeGenerator.DAL.Repositories
 {
     public class MemeRepository : IMemeRepository
     {

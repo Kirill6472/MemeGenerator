@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
+using MemeGenerator.DAL.Providers;
 using MemeGenerator.Domain.Entities;
+using MemeGenerator.Infrastructure;
 using MemeGenerator.Infrastructure.Configs;
 using MemeGenerator.Infrastructure.Converters;
 using MemeGenerator.Infrastructure.Exceptions;
 using MemeGenerator.Infrastructure.FileReaders;
-using MemeGenerator.Infrastructure.Providers;
 using Microsoft.Extensions.Options;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace MemeGenerator.Infrastructure.Tests.Providers
+namespace MemeGenerator.DAL.Tests.Providers
 {
     [TestFixture]
     public class InitialMemesProviderTests

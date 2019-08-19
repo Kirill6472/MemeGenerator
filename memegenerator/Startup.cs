@@ -1,10 +1,11 @@
 using System;
+using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.DAL.Providers;
+using MemeGenerator.DAL.Repositories;
 using MemeGenerator.DAL.Services;
-using MemeGenerator.DomainServices.Interfaces;
+using MemeGenerator.DomainServices;
 using MemeGenerator.Infrastructure;
 using MemeGenerator.Infrastructure.Converters;
-using MemeGenerator.Infrastructure.MigrationsChecker;
-using MemeGenerator.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,7 @@ namespace MemeGenerator.UI
 
             services.RegisterMemeGenerator(Configuration);
 
+            services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
             services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
             services.AddTransient<IMemeRepository, MemeRepository>();
             services.AddTransient<IMigrationsChecker, MigrationsChecker>();

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Services;
 using MemeGenerator.Domain.Entities;
+using MemeGenerator.DomainServices;
 using MemeGenerator.Infrastructure;
-using MemeGenerator.Infrastructure.Providers;
 using Moq;
 using NUnit.Framework;
 

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using MemeGenerator.Infrastructure;
 
-namespace MemeGenerator.Infrastructure.Providers
+namespace MemeGenerator.DAL.Providers
 {
     public interface IInitialMemesProvider
     {

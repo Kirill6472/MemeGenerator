@@ -2,7 +2,7 @@
 using MemeGenerator.Domain.Entities;
 using MemeGenerator.Domain.Models;
 
-namespace MemeGenerator.DomainServices.Interfaces
+namespace MemeGenerator.DomainServices
 {
     public interface IMemeRepository
     {

@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MemeGenerator.DAL\MemeGenerator.DAL.csproj" />
+    <Folder Include="PublicInterfaces\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PublicInterfaces\" />
+    <ProjectReference Include="..\MemeGenerator.DomainServices\MemeGenerator.DomainServices.csproj" />
   </ItemGroup>
 
 </Project>

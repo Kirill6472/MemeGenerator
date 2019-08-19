@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using MemeGenerator.Infrastructure;
 using MemeGenerator.Infrastructure.Configs;
 using MemeGenerator.Infrastructure.Converters;
 using MemeGenerator.Infrastructure.Exceptions;
@@ -7,7 +8,7 @@ using MemeGenerator.Infrastructure.FileReaders;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace MemeGenerator.Infrastructure.Providers
+namespace MemeGenerator.DAL.Providers
 {
     public class InitialMemesProvider : IInitialMemesProvider
     {

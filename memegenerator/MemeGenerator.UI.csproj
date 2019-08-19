@@ -35,8 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MemeGenerator.BLL\MemeGenerator.BLL.csproj" />
+    <ProjectReference Include="..\MemeGenerator.DAL\MemeGenerator.DAL.csproj" />
     <ProjectReference Include="..\MemeGenerator.DomainServices\MemeGenerator.DomainServices.csproj" />
+    <ProjectReference Include="..\MemeGenerator.Infrastructure\MemeGenerator.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
