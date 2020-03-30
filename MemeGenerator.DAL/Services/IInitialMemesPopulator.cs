@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace MemeGenerator.BLL.Services
+namespace MemeGenerator.DAL.Services
 {
     public interface IInitialMemesPopulator
     {

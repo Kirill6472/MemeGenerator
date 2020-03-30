@@ -2,10 +2,10 @@
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
-using MemeGenerator.DAL.FileReaders;
+using MemeGenerator.Infrastructure.FileReaders;
 using NUnit.Framework;
 
-namespace MemeGenerator.DAL.Tests.FileReaders
+namespace MemeGenerator.Infrastructure.Tests.FileReaders
 {
     [TestFixture]
     public class FileReaderTests

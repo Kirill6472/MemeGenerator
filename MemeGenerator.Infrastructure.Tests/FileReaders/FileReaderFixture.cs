@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace MemeGenerator.DAL.Tests.FileReaders
+namespace MemeGenerator.Infrastructure.Tests.FileReaders
 {
     public class FileReaderFixture
     {

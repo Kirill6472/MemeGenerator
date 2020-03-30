@@ -1,4 +1,4 @@
-﻿namespace MemeGenerator.DAL.MigrationsChecker
+﻿namespace MemeGenerator.DAL.MigrationChecker
 {
     public interface IMigrationsChecker
     {

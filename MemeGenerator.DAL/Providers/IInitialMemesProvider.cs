@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using MemeGenerator.Infrastructure;
 
 namespace MemeGenerator.DAL.Providers
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MemeGenerator.Domain.Models
+namespace MemeGenerator.Core.Models
 {
     public class PageRequest<T>
     {

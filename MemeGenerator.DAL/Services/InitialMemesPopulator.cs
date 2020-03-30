@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.Core;
+using MemeGenerator.DAL.MigrationChecker;
 using MemeGenerator.DAL.Providers;
-using MemeGenerator.DAL.Repositories;
 
-namespace MemeGenerator.BLL.Services
+namespace MemeGenerator.DAL.Services
 {
     public class InitialMemesPopulator : IInitialMemesPopulator
     {

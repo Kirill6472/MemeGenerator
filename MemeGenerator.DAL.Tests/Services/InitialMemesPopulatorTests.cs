@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MemeGenerator.BLL.Services;
-using MemeGenerator.DAL;
-using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.Core;
+using MemeGenerator.Core.Entities;
+using MemeGenerator.DAL.MigrationChecker;
 using MemeGenerator.DAL.Providers;
-using MemeGenerator.DAL.Repositories;
-using MemeGenerator.Domain.Entities;
+using MemeGenerator.DAL.Services;
+using MemeGenerator.Infrastructure;
 using Moq;
 using NUnit.Framework;
 
-namespace MemeGenerator.BLL.Tests.Services
+namespace MemeGenerator.DAL.Tests.Services
 {
     [TestFixture]
     public class InitialMemesPopulatorTests

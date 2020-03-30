@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MemeGenerator.Domain.Entities;
-using MemeGenerator.Domain.Models;
+using MemeGenerator.Core;
+using MemeGenerator.Core.Entities;
+using MemeGenerator.Core.Models;
+using MemeGenerator.Infrastructure;
 
 namespace MemeGenerator.DAL.Repositories
 {

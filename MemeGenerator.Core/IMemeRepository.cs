@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using MemeGenerator.Domain.Entities;
-using MemeGenerator.Domain.Models;
+using MemeGenerator.Core.Entities;
+using MemeGenerator.Core.Models;
 
-namespace MemeGenerator.DAL.Repositories
+namespace MemeGenerator.Core
 {
     public interface IMemeRepository
     {

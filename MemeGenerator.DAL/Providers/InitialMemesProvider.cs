@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using MemeGenerator.DAL.Configs;
-using MemeGenerator.DAL.Converters;
 using MemeGenerator.DAL.Exceptions;
-using MemeGenerator.DAL.FileReaders;
+using MemeGenerator.Infrastructure.Converters;
+using MemeGenerator.Infrastructure.FileReaders;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
