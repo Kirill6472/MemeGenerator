@@ -4,6 +4,7 @@ using MemeGenerator.DAL.MigrationChecker;
 using MemeGenerator.DAL.Providers;
 using MemeGenerator.DAL.Repositories;
 using MemeGenerator.DAL.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,10 @@ namespace MemeGenerator.DAL
                 options => options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("MemeGenerator.DAL")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<MemeGeneratorDbContext>()
+                .AddDefaultTokenProviders();
 
             services.Configure<MemesConfig>(configuration);
 
