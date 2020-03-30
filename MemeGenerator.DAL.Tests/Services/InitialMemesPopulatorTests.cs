@@ -36,7 +36,7 @@ namespace MemeGenerator.DAL.Tests.Services
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(10)]
-        public async Task Initialize_InitializationDataIsCorrect_SaveData(int countMemeImages)
+        public async Task Initialize_InitializationDataAreCorrect_SaveData(int countMemeImages)
         {
             var memes = ThereAreInitialMemes(countMemeImages);
             AllMigrationAreApplied();
