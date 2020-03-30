@@ -1,25 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter, ElementRef } from "@angular/core";
+import { FileReaderFactory } from "../file-reader-factory/file-reader-factory";
 
 @Component({
-  selector: 'app-loading-image',
-  templateUrl: './loading-image.component.html',
-  styleUrls: ['./loading-image.component.css']
+  selector: "app-loading-image",
+  templateUrl: "./loading-image.component.html",
+  styleUrls: ["./loading-image.component.css"]
 })
-export class LoadingImageComponent implements OnInit {
+export class LoadingImageComponent {
 
-  constructor() { }
+  @ViewChild('fileInput') fileInputVariable: ElementRef;
 
-  uploadedImageUrl = '';
+  @Output() imageIsUploaded = new EventEmitter<string>();
 
-  onImageIsLoaded(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+  constructor(private loadingImageFactory: FileReaderFactory) { }
 
-      reader.readAsDataURL(event.target.files[0]);
+  public onImageIsLoaded(event: any) {
+    if (event.target.files.length && event.target.files[0]) {
+      const reader = this.loadingImageFactory.createFileReader();
 
       reader.onload = (event: any) => {
-        this.uploadedImageUrl = event.target.result;
+        this.imageIsUploaded.emit(event.target.result);
       }
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.resetSelectedFile();
     }
+  }
+
+  private resetSelectedFile() {
+    this.fileInputVariable.nativeElement.value = "";
   }
 }

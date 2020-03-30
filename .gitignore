@@ -8,6 +8,8 @@
 *.sln.docstates
 *.spec.js
 *.spec.js.map
+*.js
+*.js.map
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

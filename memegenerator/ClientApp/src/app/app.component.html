@@ -1,6 +1,31 @@
 <body>
   <app-nav-menu></app-nav-menu>
+
   <div class="container">
-    <app-loading-image></app-loading-image>
+    <div *ngIf="!isImageSelectorVisible">
+      <h3>Meme editing</h3>
+    </div>
+
+    <div [hidden]="!isImageSelectorVisible">
+      <h3>Upload your own image</h3>
+      <app-loading-image (imageIsUploaded)="updateImage($event)"></app-loading-image>
+
+      <h3>or select a template from the library</h3>
+      <app-template-library (templateIsSelected)="updateImage($event)"></app-template-library>
+    </div>
+
+    <app-edit-image (generatedMemeUrl)="setMemeUrl($event)" [hidden]="!isImageEditorVisible"></app-edit-image>
+
+    <div class="generate-meme-button" [hidden]="!isImageEditorVisible">
+      <button type="button" class="btn btn-outline-primary generate-meme-button" (click)="generateMeme()">Generate Meme</button>
+    </div>
+
+    <div class="create-new-meme-button btn-toolbar" role="toolbar" [hidden]="!isMemeViewerVisible">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-outline-primary" (click)="createNewMeme()">Create a new Meme</button>
+      </div>
+    </div>
+
+    <app-meme-viewer [memeUrl]="generatedMemeUrl" [hidden]="!isMemeViewerVisible"></app-meme-viewer>
   </div>
 </body>

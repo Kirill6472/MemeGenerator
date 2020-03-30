@@ -1,12 +1,22 @@
+using System;
+using MemeGenerator.BLL.Services;
+using MemeGenerator.DAL;
+using MemeGenerator.DAL.Configs;
+using MemeGenerator.DAL.Converters;
+using MemeGenerator.DAL.FileReaders;
+using MemeGenerator.DAL.MigrationsChecker;
+using MemeGenerator.DAL.Providers;
+using MemeGenerator.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace MemeGenerator
+namespace MemeGenerator.UI
 {
     public class Startup
     {
@@ -17,19 +27,30 @@ namespace MemeGenerator
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MemeGeneratorDbContext>(
+                options => options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("MemeGenerator.DAL")));
+
+            services.Configure<MemesConfig>(Configuration);
+
+            services.AddTransient<IInitialMemesProvider, InitialMemesProvider>();
+            services.AddTransient<IInitialMemesPopulator, InitialMemesPopulator>();
+            services.AddTransient<IMemeRepository, MemeRepository>();
+            services.AddTransient<IMigrationsChecker, MigrationsChecker>();
+            services.AddTransient<IFileReader, FileReader>();
+            services.AddTransient<IBase64ImageEncoder, Base64ImageEncoder>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -39,7 +60,6 @@ namespace MemeGenerator
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -56,9 +76,6 @@ namespace MemeGenerator
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
@@ -66,6 +83,23 @@ namespace MemeGenerator
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var services = serviceScope.ServiceProvider;
+
+                try
+                {
+                    services.GetRequiredService<IInitialMemesPopulator>().Initialize().Wait();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Initial meme population has failed.");
+
+                    throw;
+                }
+            }
         }
     }
 }
